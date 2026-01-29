@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natalie Spiva | AcreetionOS & ArttulOS Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="profile-pic-container">
+            <img src="Business.png" alt="Natalie Spiva (Business)" class="profile-pic" id="profile-business">
+            <img src="Average.jpg" alt="Natalie Spiva (Average)" class="profile-pic" id="profile-average" style="display:none;">
+            <div class="arrow-toggle" id="arrow-toggle" title="See the casual me!">
+                <span>&#8594;</span>
+            </div>
+        </div>
+        <h1>Natalie Spiva</h1>
+        <p>Co-Developer of AcreetionOS | Creator of ArttulOS</p>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="resume.html">Resume</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="social-links">
+            <a href="https://github.com/spivanatalie64" target="_blank" title="Personal GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://github.com/acreetionos-linux/" target="_blank" title="AcreetionOS GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://github.com/arttulos-linux/" target="_blank" title="ArttulOS GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/natalie-s-278501388/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://x.com/spiva4spiva" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
+            <a rel="me" href="https://mastodon.acreetionos.org target="_blank" title="Mastodon"><i class="fab fa-mastodon"></i></a>
+        </div>
+        <button id="theme-toggle"><i class="fas fa-sun"></i></button>
+    </header>
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Hi! I'm Natalie Spiva, a passionate developer focused on building innovative operating systems and tools for the future. As a co-developer of AcreetionOS and the creator of ArttulOS, I strive to push the boundaries of what open-source platforms can achieve.</p>
+            <p>I am a proud trans woman who has worked hard to become myself and to be allowed to exist in this world. My journey and identity are a core part of who I am and have shaped my determination, resilience, and creativity as a developer. You can view my full resume <a href="resume.html">here</a>.</p>
+        </section>
+        <section id="projects">
+            <h2>Featured Project: ArttulOS</h2>
+            <div class="project-cards">
+                <div class="card">
+                    <h3>PicNixUm Package Manager</h3>
+                    <p>Combines the best of pacman, yum, and Nix, with integrated AI for smarter package management.</p>
+                </div>
+                <div class="card">
+                    <h3>ScrapeC Programming Language</h3>
+                    <p>A modern language with the power and safety of Rust and C.</p>
+                </div>
+                <div class="card">
+                    <h3>XLibre</h3>
+                    <p>The next evolution of X11, featuring significant Wayland compatibility patches.</p>
+                </div>
+                <div class="card">
+                    <h3>Modernized Cinnamon Desktop</h3>
+                    <p>A 2026-ready fork of Cinnamon, reimagined for today’s users.</p>
+                </div>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Want to collaborate or learn more? Reach out at <a href="mailto:natalie@acreetionos.org">natalie@acreetionos.org</a>.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Natalie Spiva. All rights reserved.</p>
+    </footer>
+    <script>
+                // Toggle between business and casual profile images
+                document.getElementById('arrow-toggle').onclick = function() {
+                    var business = document.getElementById('profile-business');
+                    var average = document.getElementById('profile-average');
+                    if (business.style.display !== 'none') {
+                        business.style.display = 'none';
+                        average.style.display = '';
+                        this.title = 'See the Business me!';
+                        this.querySelector('span').innerHTML = '&#8592;';
+                    } else {
+                        business.style.display = '';
+                        average.style.display = 'none';
+                        this.title = 'See the Average me!';
+                        this.querySelector('span').innerHTML = '&#8594;';
+                    }
+                };
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        const sections = document.querySelectorAll('section');
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, options);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                body.classList.add('dark-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                body.classList.remove('dark-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        };
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'light');
+                applyTheme('light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+    </script>
+</body>
+</html>
