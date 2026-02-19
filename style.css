@@ -149,11 +149,18 @@ nav a {
     font-weight: bold;
     transition: color 0.3s, transform 0.3s;
     display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+nav a.active {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 nav a:hover {
     color: var(--primary-color);
     transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .social-links {
@@ -262,4 +269,82 @@ footer {
         margin: 2rem 1rem;
         padding: 1.5rem;
     }
+}
+
+/* Additional modern styles */
+.transition-note {
+    background: rgba(243, 128, 32, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 1px solid rgba(243, 128, 32, 0.2);
+}
+
+.name-meaning {
+    font-style: italic;
+    border-left: 4px solid #f38020;
+    padding-left: 15px;
+    margin: 20px 0;
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.3s;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+.ecosystem-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ecosystem-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--shadow-color);
+}
+
+.ecosystem-list li:last-child {
+    border-bottom: none;
+}
+
+.ecosystem-list a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.ecosystem-list a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.project-links {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.project-links a {
+    margin: 0 0.5rem;
+}
+
+.project-links a:first-child {
+    margin-left: 0;
 }
