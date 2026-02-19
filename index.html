@@ -38,21 +38,17 @@
         <h1>Natalie Spiva</h1>
         <p>Architect of AcreetionOS | Cloudflare Backend Lead | Linux Dev since age 7</p>
         
-        <div class="ecosystem-nav">
-            <a href="index.html" class="btn-eco active">Main Page</a>
-            <a href="https://acreetionos.org" class="btn-eco">AcreetionOS</a>
-            <a href="https://arttulos.acreetionos.org" class="btn-eco">ArttulOS</a>
-        </div>
-
         <nav>
-            <a href="#biography">The Lore</a>
-            <a href="#acreention">AcreetionOS</a>
-            <a href="#neuroimmune">Neuroimmune Profile</a>
-            <a href="#open-source">OS Future</a>
-            <a href="#projects">The Work</a>
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="resume.html">Resume</a>
+            <a href="contact.html">Contact</a>
         </nav>
         <div class="social-links">
             <a href="https://github.com/spivanatalie64" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://github.com/acreetionos-code/" target="_blank" title="AcreetionOS GitHub"><i class="fab fa-github"></i> AcreetionOS</a>
+            <a href="https://gitlab.acreetionos.org" target="_blank" title="AcreetionOS GitLab"><i class="fab fa-gitlab"></i> GitLab</a>
             <a href="https://x.com/spiva4spiva" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
             <a rel="me" href="https://mastodon.acreetionos.org" target="_blank" title="Mastodon"><i class="fab fa-mastodon"></i></a>
         </div>
@@ -60,6 +56,69 @@
     </header>
 
     <main>
+        <section id="welcome">
+            <h2>Welcome</h2>
+            <p>
+                I am a trans woman, Linux architect, and co-creator of <strong>AcreetionOS</strong>—a high-availability operating system built with my father, Darren Clift. My journey spans from Oklahoma's foster care system to becoming a Cloudflare backend lead and open source advocate.
+            </p>
+            <p>
+                I've been developing on Linux and Android since age 7, and I use AI-assisted workflows to bridge physical limitations with digital creation. My philosophy: <strong>"We want X results."</strong>
+            </p>
+        </section>
+
+        <section id="quick-links">
+            <h2>Quick Links</h2>
+            <div class="project-cards">
+                <a href="about.html" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fas fa-user"></i> About Me</h3>
+                    <p>Learn about my journey, philosophy, and neuroimmune profile.</p>
+                </a>
+                <a href="projects.html" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fas fa-code"></i> Projects</h3>
+                    <p>Explore AcreetionOS, ArttulOS, and the ecosystem.</p>
+                </a>
+                <a href="resume.html" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fas fa-file-alt"></i> Resume</h3>
+                    <p>View my professional experience and credentials.</p>
+                </a>
+                <a href="contact.html" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fas fa-envelope"></i> Contact</h3>
+                    <p>Get in touch through GitHub, GitLab, or social media.</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="ecosystem">
+            <h2>AcreetionOS Ecosystem</h2>
+            <p>The AcreetionOS ecosystem includes multiple interconnected platforms:</p>
+            <div class="project-cards">
+                <a href="https://acreetionos.org" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fab fa-linux"></i> AcreetionOS</h3>
+                    <p>Main website and high-availability Linux distribution.</p>
+                </a>
+                <a href="https://arttulos.acreetionos.org" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fas fa-robot"></i> ArttulOS</h3>
+                    <p>AI-assisted accessible operating system.</p>
+                </a>
+                <a href="https://github.com/acreetionos-code/" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fab fa-github"></i> GitHub</h3>
+                    <p>Open source repositories and development.</p>
+                </a>
+                <a href="https://gitlab.acreetionos.org" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fab fa-gitlab"></i> GitLab</h3>
+                    <p>Self-hosted instance for CI/CD and project management.</p>
+                </a>
+                <a href="https://mastodon.acreetionos.org" class="card" style="text-decoration: none; color: inherit;">
+                    <h3><i class="fab fa-mastodon"></i> Mastodon</h3>
+                    <p>Federated social media instance.</p>
+                </a>
+                <div class="card" id="cf-trigger" style="cursor: pointer; border: 1.5px solid #f38020;">
+                    <h3 class="cf-accent"><i class="fab fa-cloudflare"></i> Cloudflare</h3>
+                    <p>Click to see our infrastructure choice.</p>
+                </div>
+            </div>
+        </section>
+
         <section id="biography">
             <h2>Chiseling the Square</h2>
             <p>
@@ -165,9 +224,20 @@
         const themeToggle = document.getElementById('theme-toggle');
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
             localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
         });
-        if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
+        }
         const modal = document.getElementById("cf-modal");
         const btn = document.getElementById("cf-trigger");
         const span = document.getElementsByClassName("close")[0];
