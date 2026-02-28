@@ -1,78 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume | Natalie Spiva</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta http-equiv="refresh" content="0; url=index.html">
+    <title>Redirecting...</title>
 </head>
 <body>
-    <header>
-        <div class="profile-pic-container">
-            <img src="Business.png" alt="Natalie (Business)" class="profile-pic" id="profile-business">
-            <img src="Average.jpg" alt="Natalie (Casual)" class="profile-pic" id="profile-average" style="display:none;">
-            <div class="arrow-toggle" id="arrow-toggle" title="Switch Perspective">
-                <span>&#8594;</span>
-            </div>
-        </div>
-        <h1>Natalie Spiva</h1>
-        <p>Architect of AcreetionOS | Cloudflare Backend Lead | Linux Dev since age 7</p>
-        
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="resume.html" class="active">Resume</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-        <div class="social-links">
-            <a href="https://github.com/spivanatalie64" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://github.com/acreetionos-code/" target="_blank" title="AcreetionOS GitHub"><i class="fab fa-github"></i> AcreetionOS</a>
-            <a href="https://gitlab.acreetionos.org" target="_blank" title="AcreetionOS GitLab"><i class="fab fa-gitlab"></i> GitLab</a>
-            <a href="https://x.com/spiva4spiva" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
-            <a rel="me" href="https://mastodon.acreetionos.org" target="_blank" title="Mastodon"><i class="fab fa-mastodon"></i></a>
-        </div>
-        <button id="theme-toggle"><i class="fas fa-sun"></i></button>
-    </header>
-    <main>
-        <section id="resume">
-            <h2>Resume</h2>
-            <div class="resume-content">
-                <iframe src="resume.pdf" width="100%" height="800px" style="border: none;"></iframe>
-                <p style="text-align: center; margin-top: 1rem;">
-                    <a href="resume.pdf" download>Download Resume (PDF)</a>
-                </p>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Natalie Spiva | 99.9% Uptime | Chiseled from the Ground Up.</p>
-    </footer>
-
-    <script>
-        document.getElementById('arrow-toggle').onclick = function() {
-            var b = document.getElementById('profile-business'), a = document.getElementById('profile-average');
-            if (b.style.display !== 'none') { b.style.display = 'none'; a.style.display = ''; this.style.transform = "rotate(180deg)"; }
-            else { b.style.display = ''; a.style.display = 'none'; this.style.transform = "rotate(0deg)"; }
-        };
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            } else {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-        });
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
-        }
-    </script>
+    <p>Please wait while we redirect you to the Master Dashboard...</p>
 </body>
 </html>
