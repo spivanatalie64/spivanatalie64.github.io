@@ -171,69 +171,55 @@
             border-radius: 4px;
         }
 
-        /* Terminal Loader Styles */
-        .terminal-loader {
+        /* Text Browser Styles */
+        .text-browser {
             background: #000;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            padding: 20px;
             height: 80vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            position: relative;
-        }
-
-        .terminal-header {
-            color: var(--dim-text);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-        }
-
-        .terminal-body {
-            flex: 1;
-            overflow-y: auto;
-            font-size: 0.9rem;
-        }
-
-        .terminal-footer {
-            border-top: 1px solid var(--border-color);
-            padding-top: 10px;
-            text-align: right;
-        }
-
-        .typing {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: .15em solid var(--text-color);
-            width: 0;
-            animation: typing 2s steps(40, end) forwards, blink-caret .75s step-end infinite;
-        }
-
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--text-color); } }
-
-        .remote-content {
-            margin-top: 20px;
+            font-family: 'Fira Code', monospace;
             color: #ddd;
-            line-height: 1.4;
         }
 
-        .remote-content pre {
-            background: #111;
-            padding: 10px;
-            border: 1px solid #333;
-            margin: 10px 0;
-            white-space: pre-wrap;
+        .browser-header {
+            background: #222;
+            color: #fff;
+            padding: 5px 10px;
             font-size: 0.8rem;
+            border-bottom: 2px solid #555;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .remote-content h1, .remote-content h2, .remote-content h3 {
-            color: var(--text-color);
-            margin: 15px 0 10px;
+        .browser-viewport {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            line-height: 1.2;
         }
+
+        .browser-footer {
+            background: #222;
+            color: #fff;
+            padding: 3px 10px;
+            font-size: 0.7rem;
+            border-top: 1px solid #555;
+        }
+
+        .browser-link {
+            color: #ff0;
+            background: #330;
+            text-decoration: underline;
+            padding: 0 2px;
+        }
+
+        .browser-h1 { color: #fff; font-weight: bold; font-size: 1.2rem; margin: 10px 0; border-bottom: 1px dashed #555; }
+        .browser-h2 { color: #fff; font-weight: bold; margin: 8px 0; }
+        .browser-ul { list-style: "* "; padding-left: 20px; }
+        .browser-li { margin: 2px 0; }
 
         /* Content Area Styles */
         .content-card {
@@ -358,32 +344,32 @@
     <main id="dashboard">
         <!-- AcreetionOS Tab -->
         <div id="acreetion" class="tab-content active">
-            <div id="acreetion-terminal" class="terminal-loader">
-                <div class="terminal-header">CONNECTING_TO: ACREETION_NODE_01...</div>
-                <div class="terminal-body" id="acreetion-view">
-                    <p class="typing">Initializing secure tunnel...</p>
-                    <p class="typing" style="animation-delay: 1s;">Bypassing X-FRAME-OPTIONS...</p>
-                    <p class="typing" style="animation-delay: 2s;">Loading OS Manifest...</p>
-                    <div id="acreetion-content" class="remote-content"></div>
+            <div class="text-browser">
+                <div class="browser-header">
+                    LYNX v2.8.9rel.1 | URL: https://acreetionos.org | [Q]uit [H]elp [N]ext
                 </div>
-                <div class="terminal-footer">
-                    <a href="https://acreetionos.org" target="_blank" class="tab-btn">[OPEN_DIRECT_LINK]</a>
+                <div class="browser-viewport" id="acreetion-viewport">
+                    <p class="typing">Connecting to node...</p>
+                    <p class="typing" style="animation-delay: 1s;">Retrieving HTTP stream...</p>
+                </div>
+                <div class="browser-footer">
+                    Arrow keys: Move, Enter: Select, PageUp/Down: Scroll
                 </div>
             </div>
         </div>
 
         <!-- ArttulOS Tab -->
         <div id="arttul" class="tab-content">
-            <div id="arttul-terminal" class="terminal-loader">
-                <div class="terminal-header">CONNECTING_TO: ARTTUL_NODE_01...</div>
-                <div class="terminal-body" id="arttul-view">
-                    <p class="typing">Establishing AI Handshake...</p>
-                    <p class="typing" style="animation-delay: 1s;">Retrieving Accessibility Layer...</p>
-                    <p class="typing" style="animation-delay: 2s;">Synchronizing UI State...</p>
-                    <div id="arttul-content" class="remote-content"></div>
+            <div class="text-browser">
+                <div class="browser-header">
+                    LYNX v2.8.9rel.1 | URL: https://arttulos.acreetionos.org | [Q]uit [H]elp [N]ext
                 </div>
-                <div class="terminal-footer">
-                    <a href="https://arttulos.acreetionos.org" target="_blank" class="tab-btn">[OPEN_DIRECT_LINK]</a>
+                <div class="browser-viewport" id="arttul-viewport">
+                    <p class="typing">Initializing AI Handshake...</p>
+                    <p class="typing" style="animation-delay: 1s;">Mapping accessibility layer...</p>
+                </div>
+                <div class="browser-footer">
+                    Arrow keys: Move, Enter: Select, PageUp/Down: Scroll
                 </div>
             </div>
         </div>
@@ -543,35 +529,48 @@
             console.log("STATUS: 99.9% UPTIME CONFIRMED");
             console.log("SYSTEM READY.");
             
-            // Fetch Remote Content for OS tabs
-            fetchRemoteContent('https://raw.githubusercontent.com/acreetionos-code/acreetionos-code/main/README.md', 'acreetion-content');
-            fetchRemoteContent('https://raw.githubusercontent.com/acreetionos-code/arttul-os/main/README.md', 'arttul-content');
+            // Text Browser Execution
+            textifySite('https://acreetionos.org', 'acreetion-viewport');
+            textifySite('https://arttulos.acreetionos.org', 'arttul-viewport');
         };
 
-        // Fetch Remote Markdown/Text logic
-        async function fetchRemoteContent(url, targetId) {
-            const targetElement = document.getElementById(targetId);
+        async function textifySite(url, viewportId) {
+            const viewport = document.getElementById(viewportId);
             try {
+                // Using a proxy if direct fetch is blocked by CORS, but since origin has * it should work.
+                // We'll try direct first.
                 const response = await fetch(url);
-                if (!response.ok) throw new Error("HTTP Status: " + response.status);
-                const text = await response.text();
+                if (!response.ok) throw new Error("HTTP_GET_FAILED: " + response.status);
+                const html = await response.text();
                 
-                // Simple Markdown Simulation (for READMEs)
-                let html = text
-                    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-                    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-                    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                    .replace(/^\> (.*$)/gm, '<blockquote>$1</blockquote>')
-                    .replace(/\*\*(.*)\*\*/gm, '<strong>$1</strong>')
-                    .replace(/\[(.*?)\]\((.*?)\)/gm, '<a href="$2" target="_blank" style="color:var(--text-color)">$1</a>')
-                    .replace(/```([\s\S]*?)```/gm, '<pre>$1</pre>')
-                    .replace(/\n/g, '<br>');
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
                 
+                // Textify Logic: Extract and structure main content
+                let output = "";
+                const mainContent = doc.querySelector('main') || doc.body;
+                
+                // Process elements into text-mode structures
+                mainContent.querySelectorAll('h1, h2, h3, p, li, a').forEach(el => {
+                    if (el.tagName === 'H1') output += `<div class="browser-h1">${el.innerText.toUpperCase()}</div>`;
+                    else if (el.tagName === 'H2') output += `<div class="browser-h2">--- ${el.innerText} ---</div>`;
+                    else if (el.tagName === 'H3') output += `<div class="browser-h2">[ ${el.innerText} ]</div>`;
+                    else if (el.tagName === 'P') output += `<p>${el.innerText}</p><br>`;
+                    else if (el.tagName === 'LI') output += `<div class="browser-li"> * ${el.innerText}</div>`;
+                    else if (el.tagName === 'A') {
+                        const href = el.getAttribute('href');
+                        output += `<span class="browser-link">${el.innerText}</span> (${href})`;
+                    }
+                });
+
                 setTimeout(() => {
-                    targetElement.innerHTML = html;
-                }, 3000); // Delay for sequence simulation
+                    viewport.innerHTML = output;
+                }, 2000);
             } catch (error) {
-                targetElement.innerHTML = `<p style="color:red;">ERROR_FETCHING_REMOTE_MANIFEST: ${error.message}</p>`;
+                viewport.innerHTML = `<p style="color:red;">[ERROR: DATA_FETCH_FAILED] - Check Network Layer</p>
+                                     <p>${error.message}</p>
+                                     <br>
+                                     <a href="${url}" target="_blank" class="tab-btn">[OPEN_IN_EXTERNAL_BROWSER]</a>`;
             }
         }
     </script>
