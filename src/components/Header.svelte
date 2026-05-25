@@ -24,7 +24,7 @@
   </div>
   <h1>Natalie Spiva <span class="wave">👋</span></h1>
   <p class="tagline">🏳️‍⚧️ Lead Infrastructure Architect &bull; Master of 99.9% Uptime</p>
-  <p class="tagline-derp"><span>😂</span> full-time sysadmin &bull; part-time derp &bull; cat mom 24/7 <span>🐱</span></p>
+  <p class="tagline-derp"><span>😂</span> full-time sysadmin &bull; part-time derp &bull; cat enjoyer for life <span>🐱</span></p>
   <nav>
     <a href="#about" class="nav-link"><i class="fas fa-microchip"></i> System Logs</a>
     <a href="#infrastructure" class="nav-link"><i class="fas fa-server"></i> Infrastructure</a>
