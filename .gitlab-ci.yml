@@ -1,0 +1,18 @@
+image: node:20
+
+stages:
+  - build
+  - deploy
+
+pages:
+  stage: deploy
+  script:
+    - npm ci
+    - npm run build
+    - mv public/ public-backup 2>/dev/null || true
+    - mv dist/ public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main

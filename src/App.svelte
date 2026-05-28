@@ -5,31 +5,50 @@
   import Ecosystem from './components/Ecosystem.svelte';
   import Contact from './components/Contact.svelte';
   import Footer from './components/Footer.svelte';
+  import YacfsDocs from './components/YacfsDocs.svelte';
+
+  let showDocs = $state(false);
+
+  function checkHash() {
+    showDocs = window.location.hash === '#docs';
+  }
+
+  $effect(() => {
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  });
 </script>
 
-<div class="bg">
-  <div class="floating-derp" style="top:12%;left:5%;animation-delay:0s;">😂</div>
-  <div class="floating-derp" style="top:45%;left:92%;animation-delay:1.5s;font-size:22px;">😜</div>
-  <div class="floating-derp" style="top:78%;left:3%;animation-delay:3s;font-size:20px;">🤪</div>
-  <div class="floating-derp" style="top:20%;right:6%;animation-delay:0.8s;font-size:24px;">😛</div>
-  <div class="floating-kibby" style="top:60%;left:8%;animation-delay:0.4s;">🐱</div>
-  <div class="floating-kibby" style="top:30%;right:10%;animation-delay:2s;font-size:20px;">🐈</div>
-  <div class="floating-kibby" style="top:85%;right:18%;animation-delay:1.2s;font-size:18px;">😸</div>
-  <div class="floating-kibby" style="bottom:10%;left:20%;animation-delay:3.5s;">🐾</div>
-</div>
-
-<Header />
-<main>
-  <Infrastructure />
-  <About />
-  <Ecosystem />
-  <Contact />
-  <div class="photo-section">
-    <img src="/Average.jpg" alt="Natalie Personal" class="personal-photo" />
-    <p class="photo-caption">😸 professional kibby enjoyer 😸</p>
+{#if showDocs}
+  <Header hideNav={true} />
+  <YacfsDocs />
+  <Footer />
+{:else}
+  <div class="bg">
+    <div class="floating-derp" style="top:12%;left:5%;animation-delay:0s;">😂</div>
+    <div class="floating-derp" style="top:45%;left:92%;animation-delay:1.5s;font-size:22px;">😜</div>
+    <div class="floating-derp" style="top:78%;left:3%;animation-delay:3s;font-size:20px;">🤪</div>
+    <div class="floating-derp" style="top:20%;right:6%;animation-delay:0.8s;font-size:24px;">😛</div>
+    <div class="floating-kibby" style="top:60%;left:8%;animation-delay:0.4s;">🐱</div>
+    <div class="floating-kibby" style="top:30%;right:10%;animation-delay:2s;font-size:20px;">🐈</div>
+    <div class="floating-kibby" style="top:85%;right:18%;animation-delay:1.2s;font-size:18px;">😸</div>
+    <div class="floating-kibby" style="bottom:10%;left:20%;animation-delay:3.5s;">🐾</div>
   </div>
-</main>
-<Footer />
+
+  <Header />
+  <main>
+    <Infrastructure />
+    <About />
+    <Ecosystem />
+    <Contact />
+    <div class="photo-section">
+      <img src="/Average.jpg" alt="Natalie Personal" class="personal-photo" />
+      <p class="photo-caption">😸 professional kibby enjoyer 😸</p>
+    </div>
+  </main>
+  <Footer />
+{/if}
 
 <style>
   :global(*) {

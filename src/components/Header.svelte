@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
 
+  let { hideNav = false } = $props();
   let navLinks;
 
   onMount(() => {
@@ -10,7 +11,8 @@
         const href = a.getAttribute('href');
         if (href && href.startsWith('#')) {
           e.preventDefault();
-          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+          const el = document.querySelector(href);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
@@ -23,14 +25,21 @@
     <div class="derp-badge">😜</div>
   </div>
   <h1>Natalie Spiva <span class="wave">👋</span></h1>
-  <p class="tagline">🏳️‍⚧️ Lead Infrastructure Architect &bull; Master of 99.9% Uptime</p>
-  <p class="tagline-derp"><span>😂</span> full-time sysadmin &bull; part-time derp &bull; kibby girl 24/7 <span>🐱</span></p>
+  {#if !hideNav}
+    <p class="tagline">🏳️‍⚧️ Lead Infrastructure Architect &bull; Master of 99.9% Uptime</p>
+    <p class="tagline-derp"><span>😂</span> full-time sysadmin &bull; part-time derp &bull; kibby girl 24/7 <span>🐱</span></p>
+  {/if}
   <nav>
-    <a href="#about" class="nav-link"><i class="fas fa-microchip"></i> System Logs</a>
-    <a href="#infrastructure" class="nav-link"><i class="fas fa-server"></i> Infrastructure</a>
-    <a href="#contact" class="nav-link"><i class="fas fa-link"></i> Connect</a>
-    <a href="https://blog.natalie.acreetionos.org" class="nav-link" target="_blank"><i class="fas fa-pen"></i> Blog</a>
-    <a href="/resume.pdf" class="nav-link" target="_blank"><i class="fas fa-file-pdf"></i> Resume.pdf</a>
+    {#if hideNav}
+      <a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+    {:else}
+      <a href="#about" class="nav-link"><i class="fas fa-microchip"></i> System Logs</a>
+      <a href="#infrastructure" class="nav-link"><i class="fas fa-server"></i> Infrastructure</a>
+      <a href="#contact" class="nav-link"><i class="fas fa-link"></i> Connect</a>
+      <a href="https://blog.natalie.acreetionos.org" class="nav-link" target="_blank"><i class="fas fa-pen"></i> Blog</a>
+      <a href="/resume.pdf" class="nav-link" target="_blank"><i class="fas fa-file-pdf"></i> Resume.pdf</a>
+      <a href="#docs" class="nav-link"><i class="fas fa-file-alt"></i> YAcFS Docs</a>
+    {/if}
   </nav>
 </header>
 
