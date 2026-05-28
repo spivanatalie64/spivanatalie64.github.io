@@ -10,7 +10,7 @@
   ];
 
   const gitlabRepos = [
-    'yacfs-tools', 'yacfs-replicate', 'qt-calculator', 'TrumpOS', 'Trans_Tracker_101',
+    'yacfs-tools', 'yacfs-replicate', 'yacfs-metrics', 'qt-calculator', 'TrumpOS', 'Trans_Tracker_101',
     'spivanatalie64.github.io', 'OVSC', 'oglo', 'Linux-Mint-Ports', 'ISO', 'arttulos',
     'AcreetionOS-Tracker', 'acreetionos-gnome', 'acreetionos-code.github.io', 'acreetionos',
     'cinderfox', 'mdg', 'llehs-emong', 'AcreetionOS-Mate', 'ovsc-core', 'ovsc-sidecar',
