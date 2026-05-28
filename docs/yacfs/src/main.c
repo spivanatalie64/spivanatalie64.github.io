@@ -131,6 +131,7 @@ int main(int argc, char *argv[]) {
                 .block_size = BLOCK_SIZE,
                 .checksum_type = CHECKSUM_XXH64,
                 .compress_type = COMPRESS_ZSTD,
+                .nlink = 1,
             };
             yacfs_meta_save(&state, &root_in, NULL);
         } else {

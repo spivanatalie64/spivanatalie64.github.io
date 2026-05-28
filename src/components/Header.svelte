@@ -4,18 +4,19 @@
   let { hideNav = false } = $props();
   let navLinks;
 
+  function handleNavClick(e) {
+    const a = e.target.closest('.nav-link');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || !href.startsWith('#') || href === '#docs') return;
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+
   onMount(() => {
-    navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(a => {
-      a.addEventListener('click', e => {
-        const href = a.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          e.preventDefault();
-          const el = document.querySelector(href);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
+    document.addEventListener('click', handleNavClick);
+    return () => document.removeEventListener('click', handleNavClick);
   });
 </script>
 

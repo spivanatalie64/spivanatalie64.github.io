@@ -1,42 +1,72 @@
+<script>
+  const githubRepos = [
+    'acreetionos', 'acreetionos32', 'acreetionos-archive-uploader', 'acreetionos-blog',
+    'AcreetionOS-Cinnamon-Wayland', 'AcreetionOS-Cinnamon-X11', 'AcreetionOS-Cinnamon-XLibre',
+    'acreetionos-code.github.io', 'acreetionos-flasher', 'acreetionos-gnome',
+    'acreetionos-hyprland', 'AcreetionOS-Mate', 'acreetionos-newsletter', 'AcreetionOS-Tracker',
+    'aiden-desktop', 'arttulos', 'cinderfox', 'ISO', 'Linux-Mint-Ports', 'llehs-emong', 'mdg',
+    'messengerpwat', 'oglo', 'OVSC', 'qt-calculator', 'ScrapeC', 'spivanatalie64.github.io',
+    'Trans_Tracker_101', 'Ace', 'git'
+  ];
+
+  const gitlabRepos = [
+    'yacfs-tools', 'yacfs-replicate', 'qt-calculator', 'TrumpOS', 'Trans_Tracker_101',
+    'spivanatalie64.github.io', 'OVSC', 'oglo', 'Linux-Mint-Ports', 'ISO', 'arttulos',
+    'AcreetionOS-Tracker', 'acreetionos-gnome', 'acreetionos-code.github.io', 'acreetionos',
+    'cinderfox', 'mdg', 'llehs-emong', 'AcreetionOS-Mate', 'ovsc-core', 'ovsc-sidecar',
+    'ovsc-watcher', 'ovsc-host', 'X11aw', 'scrapec', 'AcreetionOSCloud', 'messengerpwat',
+    'RiseupVPN-OpenVPN', 'acreetionos-terminal', 'aiden-desktop', 'calamares-config',
+    'cinnamon-themes', 'root-distribution', 'thunderos', 'openrouter-tui'
+  ];
+
+  const featured = [
+    { name: 'YAcFS', desc: 'Yet Another common File System', url: '#docs', icon: '💾', color: '#55cdfc' },
+    { name: 'AcreetionOS', desc: 'High-availability Arch Linux distribution', url: 'https://acreetionos.org', icon: '🖥️', color: '#a78bfa' },
+    { name: 'ArttulOS', desc: 'Accessibility layer of the future', url: 'https://arttulos.acreetionos.org', icon: '♿', color: '#f9a8d4' },
+    { name: 'Ion ROM', desc: 'Open-source Android ROM', url: 'https://spivanatalie64.github.io/ion-website/', icon: '📱', color: '#55cdfc' },
+    { name: 'OVSC', desc: 'Orchestrated Virtual Server Cloud', url: 'https://gitlab.acreetionos.org/natalie/OVSC', icon: '☁️', color: '#2dd4bf' },
+    { name: 'Mirror Network', desc: '72+ active nodes worldwide', url: '#', icon: '🌍', color: '#2dd4bf' },
+    { name: 'MessengerPWA', desc: 'Messenger progressive web app', url: 'https://gitlab.acreetionos.org/natalie/messengerpwat', icon: '💬', color: '#fbbf24' },
+    { name: 'Blog', desc: 'AcreetionOS updates & dev logs', url: 'https://blog.natalie.acreetionos.org', icon: '📝', color: '#fbbf24' },
+  ];
+</script>
+
 <section class="glass-card">
   <h2><i class="fas fa-project-diagram"></i> Ecosystem Nodes 🐱🌐</h2>
-  <p>Active development and management across decentralized networks:</p>
+  <p>Active development across GitHub and GitLab:</p>
+
   <div class="eco-grid">
-    <a href="https://acreetionos.org" target="_blank" class="eco-node">
-      <div class="node-icon" style="background:rgba(124,58,237,0.2);color:#a78bfa;">🖥️</div>
-      <div class="node-info">
-        <strong>AcreetionOS</strong>
-        <span>High-availability from kernel up</span>
-      </div>
-    </a>
-    <a href="https://arttulos.acreetionos.org" target="_blank" class="eco-node">
-      <div class="node-icon" style="background:rgba(236,72,153,0.2);color:#f9a8d4;">♿</div>
-      <div class="node-info">
-        <strong>ArttulOS</strong>
-        <span>Accessibility layer of the future</span>
-      </div>
-    </a>
-    <a href="https://spivanatalie64.github.io/ion-website/" target="_blank" class="eco-node">
-      <div class="node-icon" style="background:rgba(85,205,252,0.2);color:#55cdfc;">📱</div>
-      <div class="node-info">
-        <strong>Ion ROM</strong>
-        <span>Open-source Android ROM</span>
-      </div>
-    </a>
-    <div class="eco-node" style="cursor:default;">
-      <div class="node-icon" style="background:rgba(45,212,191,0.2);color:#2dd4bf;">🌍</div>
-      <div class="node-info">
-        <strong>Mirror Network</strong>
-        <span>72+ active nodes worldwide</span>
-      </div>
+    {#each featured as repo}
+      <a href={repo.url} target={repo.url.startsWith('http') ? '_blank' : ''} class="eco-node">
+        <div class="node-icon" style="background:rgba(0,0,0,0.3);color:{repo.color};">{repo.icon}</div>
+        <div class="node-info">
+          <strong>{repo.name}</strong>
+          <span>{repo.desc}</span>
+        </div>
+      </a>
+    {/each}
+  </div>
+
+  <div class="repo-section">
+    <h3><i class="fab fa-github"></i> GitHub — spivanatalie64</h3>
+    <div class="repo-grid">
+      {#each githubRepos as repo}
+        <a href="https://github.com/spivanatalie64/{repo}" target="_blank" class="repo-chip">
+          <i class="fab fa-github"></i> {repo}
+        </a>
+      {/each}
     </div>
-    <a href="https://blog.natalie.acreetionos.org" target="_blank" class="eco-node">
-      <div class="node-icon" style="background:rgba(251,191,36,0.2);color:#fbbf24;">📝</div>
-      <div class="node-info">
-        <strong>Blog</strong>
-        <span>AcreetionOS updates &amp; dev logs</span>
-      </div>
-    </a>
+  </div>
+
+  <div class="repo-section">
+    <h3><i class="fab fa-gitlab"></i> GitLab — natalie@acreetionos.org</h3>
+    <div class="repo-grid">
+      {#each gitlabRepos as repo}
+        <a href="https://gitlab.acreetionos.org/natalie/{repo}" target="_blank" class="repo-chip">
+          <i class="fab fa-gitlab"></i> {repo}
+        </a>
+      {/each}
+    </div>
   </div>
 </section>
 
@@ -58,9 +88,7 @@
   .glass-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: linear-gradient(90deg, #55cdfc, #f7a8b8, #7c3aed, #f7a8b8, #55cdfc);
     background-size: 200% 100%;
@@ -116,8 +144,7 @@
 
   .node-icon {
     font-size: 20px;
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -125,19 +152,54 @@
     flex-shrink: 0;
   }
 
-  .node-info strong {
-    display: block;
-    font-size: 0.9rem;
+  .node-info strong { display: block; font-size: 0.9rem; }
+  .node-info span { display: block; font-size: 0.75rem; opacity: 0.6; }
+
+  .repo-section {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  .node-info span {
-    display: block;
-    font-size: 0.75rem;
-    opacity: 0.6;
+  .repo-section h3 {
+    font-size: 1rem;
+    color: #55cdfc;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .repo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .repo-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+
+  .repo-chip:hover {
+    background: rgba(85, 205, 252, 0.1);
+    border-color: #55cdfc;
+    color: #ffffff;
+    transform: translateY(-2px);
   }
 
   @media (max-width: 768px) {
     h2 { font-size: 1.5rem; }
     .glass-card { padding: 24px; }
+    .eco-grid { grid-template-columns: 1fr; }
   }
 </style>

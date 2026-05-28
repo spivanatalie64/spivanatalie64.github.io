@@ -304,6 +304,7 @@ static int yacfs_create(const char *path, mode_t mode, struct fuse_file_info *fi
         .block_size = BLOCK_SIZE,
         .checksum_type = CHECKSUM_XXH64,
         .compress_type = COMPRESS_ZSTD,
+        .nlink = 1,
     };
     yacfs_meta_save(st, &new_in, NULL);
 
@@ -358,10 +359,15 @@ static int yacfs_unlink(const char *path) {
     uint64_t *blks;
     struct yacfs_inode *in = yacfs_meta_load(st, ino, &blks);
     if (in) {
-        for (uint32_t i = 0; i < in->nblocks; i++)
-            yacfs_pool_delete(st, blks[i]);
+        if (in->nlink > 1) {
+            in->nlink--;
+            yacfs_meta_save(st, in, blks);
+        } else {
+            for (uint32_t i = 0; i < in->nblocks; i++)
+                yacfs_pool_delete(st, blks[i]);
+            yacfs_meta_delete(st, ino);
+        }
         free(blks);
-        yacfs_meta_delete(st, ino);
         free(in);
     }
 
@@ -484,6 +490,134 @@ static int yacfs_chown(const char *path, uid_t uid, gid_t gid,
     return 0;
 }
 
+static int yacfs_symlink(const char *target, const char *linkpath) {
+    struct yacfs_state *st = get_state();
+    pthread_mutex_lock(&st->lock);
+
+    char *parent = strdup(linkpath);
+    char *name = strrchr(parent, '/');
+    if (!name) { free(parent); pthread_mutex_unlock(&st->lock); return -EINVAL; }
+    *name = 0; name++;
+    if (*name == 0) { free(parent); pthread_mutex_unlock(&st->lock); return -EINVAL; }
+
+    size_t namelen = strlen(name);
+    uint64_t pino;
+    int ret = lookup_inode(st, parent[0] ? parent : "/", &pino);
+    if (ret < 0) { free(parent); pthread_mutex_unlock(&st->lock); return ret; }
+
+    uint64_t *pblocks;
+    struct yacfs_inode *pdir = yacfs_meta_load(st, pino, &pblocks);
+    if (!pdir || !S_ISDIR(pdir->mode)) {
+        free(pblocks); free(pdir); free(parent);
+        pthread_mutex_unlock(&st->lock); return -ENOTDIR;
+    }
+
+    uint64_t new_ino = st->next_ino++;
+    size_t tlen = strlen(target);
+    uint64_t thash;
+    yacfs_pool_write(st, target, tlen + 1, &thash);
+
+    struct yacfs_inode new_in = {
+        .ino = new_ino, .size = tlen, .mtime = time(NULL), .ctime = time(NULL),
+        .mode = S_IFLNK | 0777, .uid = fuse_get_context()->uid,
+        .gid = fuse_get_context()->gid, .nblocks = 1, .block_size = BLOCK_SIZE,
+        .checksum_type = CHECKSUM_XXH64, .compress_type = COMPRESS_ZSTD,
+        .nlink = 1,
+    };
+    uint64_t *blklist = malloc(sizeof(uint64_t));
+    blklist[0] = thash;
+    yacfs_meta_save(st, &new_in, blklist);
+    free(blklist);
+
+    size_t entry_size = sizeof(uint16_t) + namelen + sizeof(uint64_t) + sizeof(uint8_t);
+    void *entry = malloc(entry_size);
+    struct yacfs_dirent *de = entry;
+    de->name_len = namelen; de->ino = new_ino; de->type = DT_LNK;
+    memcpy(de->name, name, namelen);
+    uint64_t ehash;
+    yacfs_pool_write(st, entry, entry_size, &ehash);
+    free(entry);
+
+    size_t old_n = pdir->nblocks;
+    pdir->nblocks = old_n + 1;
+    uint64_t *new_pblocks = realloc(pblocks, pdir->nblocks * sizeof(uint64_t));
+    new_pblocks[old_n] = ehash;
+    yacfs_meta_save(st, pdir, new_pblocks);
+    free(new_pblocks); free(pdir); free(parent);
+    pthread_mutex_unlock(&st->lock);
+    return 0;
+}
+
+static int yacfs_readlink(const char *path, char *buf, size_t size) {
+    struct yacfs_state *st = get_state();
+    uint64_t ino;
+    int ret = lookup_inode(st, path, &ino);
+    if (ret < 0) return ret;
+
+    uint64_t *blocks;
+    struct yacfs_inode *in = yacfs_meta_load(st, ino, &blocks);
+    if (!in) return -ENOENT;
+    if (!S_ISLNK(in->mode)) { free(blocks); free(in); return -EINVAL; }
+
+    void *data; size_t dlen;
+    if (yacfs_pool_read(st, blocks[0], &data, &dlen) < 0) { free(blocks); free(in); return -EIO; }
+    size_t copylen = dlen < size ? dlen : size - 1;
+    memcpy(buf, data, copylen);
+    buf[copylen] = 0;
+    free(data); free(blocks); free(in);
+    return 0;
+}
+
+static int yacfs_link(const char *src, const char *dst) {
+    struct yacfs_state *st = get_state();
+    pthread_mutex_lock(&st->lock);
+
+    char *parent = strdup(dst);
+    char *name = strrchr(parent, '/');
+    if (!name) { free(parent); pthread_mutex_unlock(&st->lock); return -EINVAL; }
+    *name = 0; name++;
+    if (*name == 0) { free(parent); pthread_mutex_unlock(&st->lock); return -EINVAL; }
+    size_t namelen = strlen(name);
+
+    uint64_t src_ino;
+    int ret = lookup_inode(st, src, &src_ino);
+    if (ret < 0) { free(parent); pthread_mutex_unlock(&st->lock); return ret; }
+
+    uint64_t pino;
+    ret = lookup_inode(st, parent[0] ? parent : "/", &pino);
+    if (ret < 0) { free(parent); pthread_mutex_unlock(&st->lock); return ret; }
+
+    uint64_t *pblocks;
+    struct yacfs_inode *pdir = yacfs_meta_load(st, pino, &pblocks);
+    if (!pdir || !S_ISDIR(pdir->mode)) { free(pblocks); free(pdir); free(parent); pthread_mutex_unlock(&st->lock); return -ENOTDIR; }
+
+    uint64_t *sblocks;
+    struct yacfs_inode *sin = yacfs_meta_load(st, src_ino, &sblocks);
+    if (!sin) { free(sblocks); free(pblocks); free(pdir); free(parent); pthread_mutex_unlock(&st->lock); return -ENOENT; }
+    sin->nlink++;
+    yacfs_meta_save(st, sin, sblocks);
+    free(sblocks); free(sin);
+
+    size_t entry_size = sizeof(uint16_t) + namelen + sizeof(uint64_t) + sizeof(uint8_t);
+    void *entry = malloc(entry_size);
+    struct yacfs_dirent *de = entry;
+    de->name_len = namelen; de->ino = src_ino;
+    de->type = S_ISDIR(sin->mode) ? DT_DIR : DT_REG;
+    memcpy(de->name, name, namelen);
+    uint64_t ehash;
+    yacfs_pool_write(st, entry, entry_size, &ehash);
+    free(entry);
+
+    size_t old_n = pdir->nblocks;
+    pdir->nblocks = old_n + 1;
+    uint64_t *new_pblocks = realloc(pblocks, pdir->nblocks * sizeof(uint64_t));
+    new_pblocks[old_n] = ehash;
+    yacfs_meta_save(st, pdir, new_pblocks);
+    free(new_pblocks); free(pdir); free(parent);
+    pthread_mutex_unlock(&st->lock);
+    return 0;
+}
+
 static void *yacfs_init(struct fuse_conn_info *conn, struct fuse_config *cfg) {
     conn->want |= FUSE_CAP_WRITEBACK_CACHE;
     conn->want |= FUSE_CAP_SPLICE_READ;
@@ -525,6 +659,9 @@ const struct fuse_operations yacfs_ops = {
     .mkdir    = yacfs_mkdir,
     .unlink   = yacfs_unlink,
     .rmdir    = yacfs_rmdir,
+    .symlink  = yacfs_symlink,
+    .readlink = yacfs_readlink,
+    .link     = yacfs_link,
     .truncate = yacfs_truncate,
     .utimens  = yacfs_utimens,
     .chmod    = yacfs_chmod,

@@ -38,6 +38,9 @@ struct yacfs_inode {
     uint32_t    block_size;
     uint32_t    checksum_type;
     uint32_t    compress_type;
+    uint32_t    nlink;
+    uint32_t    _pad;
+    uint64_t    xattr_block;
 };
 
 struct yacfs_dirent {
