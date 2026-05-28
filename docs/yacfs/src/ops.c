@@ -146,6 +146,20 @@ static int yacfs_open(const char *path, struct fuse_file_info *fi) {
     return 0;
 }
 
+static int yacfs_flush(const char *path, struct fuse_file_info *fi) {
+    (void)path;
+    (void)fi;
+    struct yacfs_state *st = get_state();
+    pthread_mutex_lock(&st->lock);
+    pthread_mutex_unlock(&st->lock);
+    return 0;
+}
+
+static int yacfs_fsync(const char *path, int datasync, struct fuse_file_info *fi) {
+    (void)datasync;
+    return yacfs_flush(path, fi);
+}
+
 static int yacfs_read(const char *path, char *buf, size_t size, off_t offset,
                       struct fuse_file_info *fi) {
     (void)fi;
@@ -503,6 +517,8 @@ const struct fuse_operations yacfs_ops = {
     .getattr  = yacfs_getattr,
     .readdir  = yacfs_readdir,
     .open     = yacfs_open,
+    .flush    = yacfs_flush,
+    .fsync    = yacfs_fsync,
     .read     = yacfs_read,
     .write    = yacfs_write,
     .create   = yacfs_create,
