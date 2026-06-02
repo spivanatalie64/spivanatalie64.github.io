@@ -33,7 +33,7 @@
 </script>
 
 <div class="app">
-  <Header />
+  <Header onselect={handleProjectSelect} />
   <main>
     {#if selectedProject}
       <ProjectDetail project={selectedProject} onback={handleBack} />
