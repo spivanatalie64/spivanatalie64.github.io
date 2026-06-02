@@ -1,6 +1,6 @@
 <footer>
   <p>&copy; 2026 Natalie Cole-Clift Spiva</p>
-  <p class="sub">Codeveloper &bull; AcreetionOS</p>
+  <p class="sub">Co-Creator &bull; AcreetionOS</p>
   <p class="love">Made with love by Natalie.</p>
 </footer>
 

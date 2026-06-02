@@ -10,7 +10,7 @@
       </div>
       <div>
         <h1>Natalie Spiva</h1>
-        <p class="title">Codeveloper • AcreetionOS</p>
+        <p class="title">Co-Creator • AcreetionOS</p>
       </div>
     </div>
     <nav>
