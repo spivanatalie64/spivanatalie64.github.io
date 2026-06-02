@@ -1,19 +1,27 @@
 <script>
   let { repos = [], onselect } = $props();
   let search = $state('');
+  let githubRepos = $state([]);
+  let gitlabRepos = $state([]);
+  let filteredAll = $state([]);
+  let filteredGithub = $state([]);
+  let filteredGitlab = $state([]);
 
-  let githubRepos = $derived(repos.filter(r => r.source === 'GitHub'));
-  let gitlabRepos = $derived(repos.filter(r => r.source === 'GitLab'));
-
-  let filteredGithub = $derived(
-    search ? githubRepos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : githubRepos
-  );
-  let filteredGitlab = $derived(
-    search ? gitlabRepos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : gitlabRepos
-  );
-  let filteredAll = $derived(
-    search ? repos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : repos
-  );
+  $effect(() => {
+    githubRepos = repos.filter(r => r.source === 'GitHub');
+  });
+  $effect(() => {
+    gitlabRepos = repos.filter(r => r.source === 'GitLab');
+  });
+  $effect(() => {
+    filteredAll = search ? repos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : repos;
+  });
+  $effect(() => {
+    filteredGithub = search ? githubRepos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : githubRepos;
+  });
+  $effect(() => {
+    filteredGitlab = search ? gitlabRepos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : gitlabRepos;
+  });
 
   function formatDate(dateStr) {
     if (!dateStr) return '';

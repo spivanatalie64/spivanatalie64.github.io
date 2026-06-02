@@ -3,9 +3,15 @@
 
   let sidebarOpen = $state(false);
   let search = $state('');
+  let githubRepos = $state([]);
+  let gitlabRepos = $state([]);
 
-  let githubRepos = $derived(repos.filter(r => r.source === 'GitHub'));
-  let gitlabRepos = $derived(repos.filter(r => r.source === 'GitLab'));
+  $effect(() => {
+    githubRepos = repos.filter(r => r.source === 'GitHub');
+  });
+  $effect(() => {
+    gitlabRepos = repos.filter(r => r.source === 'GitLab');
+  });
 
   function toggleSidebar() { sidebarOpen = !sidebarOpen; }
   function closeSidebar() { sidebarOpen = false; }
@@ -15,19 +21,26 @@
     if (onselect) onselect(new CustomEvent('select', { detail: repo }));
   }
 
-  let filteredGithub = $derived(
-    search ? githubRepos.filter(r =>
-      r.name.toLowerCase().includes(search.toLowerCase()) ||
-      (r.description && r.description.toLowerCase().includes(search.toLowerCase()))
-    ) : githubRepos
-  );
+  let filteredGithub = $state([]);
+  let filteredGitlab = $state([]);
 
-  let filteredGitlab = $derived(
-    search ? gitlabRepos.filter(r =>
-      r.name.toLowerCase().includes(search.toLowerCase()) ||
-      (r.description && r.description.toLowerCase().includes(search.toLowerCase()))
-    ) : gitlabRepos
-  );
+  $effect(() => {
+    filteredGithub = search
+      ? githubRepos.filter(r =>
+          r.name.toLowerCase().includes(search.toLowerCase()) ||
+          (r.description && r.description.toLowerCase().includes(search.toLowerCase()))
+        )
+      : githubRepos;
+  });
+
+  $effect(() => {
+    filteredGitlab = search
+      ? gitlabRepos.filter(r =>
+          r.name.toLowerCase().includes(search.toLowerCase()) ||
+          (r.description && r.description.toLowerCase().includes(search.toLowerCase()))
+        )
+      : gitlabRepos;
+  });
 
   function handleKeydown(e) { if (e.key === 'Escape') closeSidebar(); }
 </script>
