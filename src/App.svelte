@@ -3,23 +3,46 @@
   import Infrastructure from './components/Infrastructure.svelte';
   import About from './components/About.svelte';
   import Ecosystem from './components/Ecosystem.svelte';
+  import ProjectDetail from './components/ProjectDetail.svelte';
   import Contact from './components/Contact.svelte';
   import Footer from './components/Footer.svelte';
 
-  let darkMode = $state(true);
+  let selectedProject = $state(null);
 
-  function toggleTheme() {
-    darkMode = !darkMode;
+  function handleProjectSelect(event) {
+    selectedProject = event.detail;
+    history.pushState(null, '', '#project');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  function handleBack() {
+    selectedProject = null;
+    history.pushState(null, '', '/');
+  }
+
+  function checkHash() {
+    if (!window.location.hash.startsWith('#project')) {
+      selectedProject = null;
+    }
+  }
+
+  $effect(() => {
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  });
 </script>
 
-<div class="app" class:dark={darkMode}>
-  <Header {toggleTheme} {darkMode} />
+<div class="app">
+  <Header />
   <main>
-    <About />
-    <Infrastructure />
-    <Ecosystem />
-    <Contact />
+    {#if selectedProject}
+      <ProjectDetail project={selectedProject} onback={handleBack} />
+    {:else}
+      <About />
+      <Infrastructure />
+      <Ecosystem onselect={handleProjectSelect} />
+      <Contact />
+    {/if}
   </main>
   <Footer />
 </div>
@@ -47,24 +70,5 @@
 
   main {
     padding: 40px 0 60px;
-  }
-
-  section {
-    margin-bottom: 32px;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #c084fc;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  h2 i {
-    font-size: 1.2rem;
-    color: #7c3aed;
   }
 </style>
