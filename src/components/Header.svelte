@@ -1,203 +1,128 @@
 <script>
-  import { onMount } from 'svelte';
-
-  let { hideNav = false } = $props();
-  let navLinks;
-
-  function handleNavClick(e) {
-    const a = e.target.closest('.nav-link');
-    if (!a) return;
-    const href = a.getAttribute('href');
-    if (!href || !href.startsWith('#') || href === '#docs') return;
-    e.preventDefault();
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  onMount(() => {
-    document.addEventListener('click', handleNavClick);
-    return () => document.removeEventListener('click', handleNavClick);
-  });
+  let { toggleTheme, darkMode } = $props();
 </script>
 
 <header>
-  <div class="profile-container">
-    <img src="/Business.png" alt="Natalie Spiva" class="profile-img" />
-    <div class="derp-badge">😜</div>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="avatar">
+        <img src="/Business.png" alt="Natalie Spiva" />
+      </div>
+      <div>
+        <h1>Natalie Spiva</h1>
+        <p class="title">Lead Infrastructure Architect</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#infrastructure">Infrastructure</a>
+      <a href="#ecosystem">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="https://acreetionos.org" target="_blank" class="external">AcreetionOS <i class="fas fa-external-link-alt"></i></a>
+      <a href="/resume.pdf" target="_blank" class="external">Resume <i class="fas fa-file-pdf"></i></a>
+    </nav>
   </div>
-  <h1>Natalie Spiva <span class="wave">👋</span></h1>
-  {#if !hideNav}
-    <p class="tagline">🏳️‍⚧️ Lead Infrastructure Architect &bull; Master of 99.9% Uptime</p>
-    <p class="tagline-derp"><span>😂</span> full-time sysadmin &bull; part-time derp &bull; kibby girl 24/7 <span>🐱</span></p>
-  {/if}
-  <nav>
-    {#if hideNav}
-      <a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a>
-    {:else}
-      <a href="#about" class="nav-link"><i class="fas fa-microchip"></i> System Logs</a>
-      <a href="#infrastructure" class="nav-link"><i class="fas fa-server"></i> Infrastructure</a>
-      <a href="#contact" class="nav-link"><i class="fas fa-link"></i> Connect</a>
-      <a href="https://blog.natalie.acreetionos.org" class="nav-link" target="_blank"><i class="fas fa-pen"></i> Blog</a>
-      <a href="/resume.pdf" class="nav-link" target="_blank"><i class="fas fa-file-pdf"></i> Resume.pdf</a>
-      <a href="#docs" class="nav-link"><i class="fas fa-file-alt"></i> YAcFS Docs</a>
-    {/if}
-  </nav>
 </header>
 
 <style>
   header {
-    position: relative;
-    z-index: 10;
-    background: linear-gradient(135deg, #55cdfc, #f7a8b8, #7c3aed);
-    background-size: 300% 300%;
-    animation: gradient-shift 12s ease infinite;
-    padding: 60px 20px 80px;
-    text-align: center;
-    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
-    overflow: hidden;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 8px;
   }
 
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  header::after {
-    content: '🐱 🌈 🐱 🌈 🐱';
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 16px;
-    letter-spacing: 12px;
-    opacity: 0.2;
-    pointer-events: none;
-  }
-
-  .profile-container {
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
-  }
-
-  .profile-img {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    border: 4px solid #ffffff;
-    box-shadow:
-      0 0 0 6px rgba(85, 205, 252, 0.2),
-      0 0 0 12px rgba(247, 168, 184, 0.15),
-      0 0 0 18px rgba(124, 58, 237, 0.1),
-      0 0 40px rgba(236, 72, 153, 0.3);
-    object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .profile-img:hover {
-    transform: scale(1.08) rotate(4deg);
-  }
-
-  .derp-badge {
-    position: absolute;
-    bottom: -4px;
-    right: -4px;
-    background: #0f001a;
-    border: 2px solid #f7a8b8;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
+  .header-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    animation: derp-float 3s ease-in-out infinite;
-    box-shadow: 0 0 16px rgba(247, 168, 184, 0.4);
+    justify-content: space-between;
+    gap: 24px;
   }
 
-  @keyframes derp-float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    25% { transform: translateY(-8px) scale(1.05) rotate(-3deg); }
-    75% { transform: translateY(-4px) scale(0.95) rotate(3deg); }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(192, 132, 252, 0.3);
+    flex-shrink: 0;
+  }
+
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   h1 {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 3.8rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .wave {
-    display: inline-block;
-    animation: wave 2.5s ease-in-out infinite;
-    transform-origin: 70% 70%;
-  }
-
-  @keyframes wave {
-    0%, 100% { transform: rotate(0deg); }
-    10% { transform: rotate(14deg); }
-    20% { transform: rotate(-8deg); }
-    30% { transform: rotate(14deg); }
-    40% { transform: rotate(-4deg); }
-    50% { transform: rotate(10deg); }
-    60%, 100% { transform: rotate(0deg); }
-  }
-
-  .tagline {
     font-size: 1.3rem;
-    font-weight: 300;
-    opacity: 0.92;
-    margin-bottom: 8px;
+    font-weight: 700;
+    color: #e1e1e6;
+    line-height: 1.2;
   }
 
-  .tagline-derp {
-    font-size: 1rem;
-    opacity: 0.7;
-    font-weight: 300;
-    margin-bottom: 24px;
-  }
-
-  .tagline-derp span {
-    display: inline-block;
-    animation: derp-float 4s ease-in-out infinite;
+  .title {
+    font-size: 0.8rem;
+    color: #7c3aed;
+    font-weight: 500;
   }
 
   nav {
     display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 28px;
+    align-items: center;
+    gap: 4px;
     flex-wrap: wrap;
   }
 
-  .nav-link {
-    color: #ffffff;
+  nav a {
+    color: #a1a1aa;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 10px 20px;
-    border-radius: 50px;
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    backdrop-filter: blur(8px);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.15s;
   }
 
-  .nav-link:hover {
-    background: #ec4899;
-    border-color: #ffffff;
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 0 8px 24px rgba(236, 72, 153, 0.4);
+  nav a:hover {
+    color: #e1e1e6;
+    background: rgba(255, 255, 255, 0.04);
   }
 
-  @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    header { padding: 40px 16px 70px; }
-    .profile-img { width: 140px; height: 140px; }
-    nav { gap: 8px; }
-    .nav-link { font-size: 0.8rem; padding: 8px 14px; }
+  nav a.external {
+    color: #c084fc;
+  }
+
+  nav a.external:hover {
+    background: rgba(192, 132, 252, 0.1);
+  }
+
+  nav a i {
+    font-size: 0.75rem;
+    margin-left: 4px;
+  }
+
+  @media (max-width: 700px) {
+    .header-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    nav {
+      width: 100%;
+      gap: 2px;
+    }
+
+    nav a {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+    }
   }
 </style>

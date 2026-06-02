@@ -24,151 +24,143 @@
   ];
 
   const featured = [
-    { name: 'YAcFS', desc: 'Yet Another common File System', url: '#docs', icon: '💾', color: '#55cdfc' },
-    { name: 'AcreetionOS', desc: 'High-availability Arch Linux distribution', url: 'https://acreetionos.org', icon: '🖥️', color: '#a78bfa' },
-    { name: 'AcreetionOS Immutable', desc: 'Replacement for ArttulOS — immutable Arch Linux with atomic updates', url: 'https://acreetionos.org/immutable/', icon: '♿', color: '#f9a8d4' },
-    { name: 'FlatFree', desc: 'Community Flatpak repository, free and open for everyone', url: 'https://flatfree.pages.dev', icon: '📦', color: '#2ecc71' },
-    { name: 'Ion ROM', desc: 'Open-source Android ROM', url: 'https://spivanatalie64.github.io/ion-website/', icon: '📱', color: '#55cdfc' },
-    { name: 'OVSC', desc: 'Orchestrated Virtual Server Cloud', url: 'https://gitlab.acreetionos.org/natalie/OVSC', icon: '☁️', color: '#2dd4bf' },
-    { name: 'Mirror Network', desc: '72+ active nodes worldwide', url: '#', icon: '🌍', color: '#2dd4bf' },
-    { name: 'MessengerPWA', desc: 'Messenger progressive web app', url: 'https://gitlab.acreetionos.org/natalie/messengerpwat', icon: '💬', color: '#fbbf24' },
-    { name: 'Blog', desc: 'AcreetionOS updates & dev logs', url: 'https://blog.natalie.acreetionos.org', icon: '📝', color: '#fbbf24' },
+    { name: 'AcreetionOS', desc: 'Arch Linux distribution, Cinnamon desktop', url: 'https://acreetionos.org', icon: 'fa-linux', color: '#c084fc' },
+    { name: 'YAcFS', desc: 'Yet Another common File System', url: '#docs', icon: 'fa-database', color: '#7c3aed' },
+    { name: 'AcreetionOS Immutable', desc: 'Replacement for ArttulOS — immutable Arch with atomic updates', url: 'https://acreetionos.org/immutable/', icon: 'fa-shield', color: '#2ecc71' },
+    { name: 'FlatFree', desc: 'Community Flatpak repository, free and open for everyone', url: 'https://flatfree.pages.dev', icon: 'fa-cube', color: '#2ecc71' },
+    { name: 'Ion ROM', desc: 'Open-source Android ROM', url: 'https://spivanatalie64.github.io/ion-website/', icon: 'fa-mobile-alt', color: '#55cdfc' },
+    { name: 'OVSC', desc: 'Orchestrated Virtual Server Cloud', url: 'https://gitlab.acreetionos.org/natalie/OVSC', icon: 'fa-cloud', color: '#2dd4bf' },
+    { name: 'Mirror Network', desc: '72+ active nodes worldwide', url: '#', icon: 'fa-globe-americas', color: '#2dd4bf' },
+    { name: 'MessengerPWA', desc: 'Messenger progressive web app', url: 'https://gitlab.acreetionos.org/natalie/messengerpwat', icon: 'fa-comment', color: '#fbbf24' },
+    { name: 'Blog', desc: 'AcreetionOS updates and dev logs', url: 'https://blog.natalie.acreetionos.org', icon: 'fa-pen', color: '#fbbf24' },
   ];
 </script>
 
-<section class="glass-card">
-  <h2><i class="fas fa-project-diagram"></i> Ecosystem Nodes 🐱🌐</h2>
-  <p>Active development across GitHub and GitLab:</p>
-
-  <div class="eco-grid">
-    {#each featured as repo}
-      <a href={repo.url} target={repo.url.startsWith('http') ? '_blank' : ''} class="eco-node">
-        <div class="node-icon" style="background:rgba(0,0,0,0.3);color:{repo.color};">{repo.icon}</div>
-        <div class="node-info">
-          <strong>{repo.name}</strong>
-          <span>{repo.desc}</span>
-        </div>
-      </a>
-    {/each}
-  </div>
-
-  <div class="repo-section">
-    <h3><i class="fab fa-github"></i> GitHub — spivanatalie64</h3>
-    <div class="repo-grid">
-      {#each githubRepos as repo}
-        <a href="https://github.com/spivanatalie64/{repo}" target="_blank" class="repo-chip">
-          <i class="fab fa-github"></i> {repo}
+<section id="ecosystem">
+  <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+  <div class="card">
+    <div class="featured-grid">
+      {#each featured as repo}
+        <a href={repo.url} target={repo.url.startsWith('http') ? '_blank' : ''} class="featured-node" style="--accent:{repo.color};">
+          <i class="fas {repo.icon}"></i>
+          <div>
+            <strong>{repo.name}</strong>
+            <span>{repo.desc}</span>
+          </div>
         </a>
       {/each}
     </div>
-  </div>
 
-  <div class="repo-section">
-    <h3><i class="fab fa-gitlab"></i> GitLab — natalie@acreetionos.org</h3>
-    <div class="repo-grid">
-      {#each gitlabRepos as repo}
-        <a href="https://gitlab.acreetionos.org/natalie/{repo}" target="_blank" class="repo-chip">
-          <i class="fab fa-gitlab"></i> {repo}
-        </a>
-      {/each}
+    <div class="repo-section">
+      <h3><i class="fab fa-github"></i> GitHub</h3>
+      <div class="repo-grid">
+        {#each githubRepos as repo}
+          <a href="https://github.com/spivanatalie64/{repo}" target="_blank" class="repo-chip">
+            {repo}
+          </a>
+        {/each}
+      </div>
+    </div>
+
+    <div class="repo-section">
+      <h3><i class="fab fa-gitlab"></i> GitLab</h3>
+      <div class="repo-grid">
+        {#each gitlabRepos as repo}
+          <a href="https://gitlab.acreetionos.org/natalie/{repo}" target="_blank" class="repo-chip">
+            {repo}
+          </a>
+        {/each}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .glass-card {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 24px;
-    padding: 32px;
-    margin-bottom: 28px;
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #55cdfc, #f7a8b8, #7c3aed, #f7a8b8, #55cdfc);
-    background-size: 200% 100%;
-    animation: shimmer 4s linear infinite;
-  }
-
-  @keyframes shimmer {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 200% 0%; }
-  }
-
-  .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 56px rgba(0, 0, 0, 0.4);
+  section {
+    margin-bottom: 32px;
   }
 
   h2 {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1.9rem;
-    color: #f7a8b8;
-    margin-bottom: 18px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #c084fc;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
     gap: 10px;
   }
 
-  .eco-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
-    margin-top: 16px;
+  h2 i {
+    font-size: 1.2rem;
+    color: #7c3aed;
   }
 
-  .eco-node {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 16px 18px;
-    border-radius: 14px;
+  .card {
+    background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    text-decoration: none;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
+    border-radius: 12px;
+    padding: 28px;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 10px;
   }
 
-  .eco-node:hover {
-    background: rgba(124, 58, 237, 0.15);
-    border-color: #f7a8b8;
-    transform: translateY(-3px) scale(1.02);
+  .featured-node {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.15s;
   }
 
-  .node-icon {
-    font-size: 20px;
-    width: 36px; height: 36px;
-    border-radius: 10px;
+  .featured-node:hover {
+    border-color: var(--accent, #7c3aed);
+    background: color-mix(in srgb, var(--accent, #7c3aed) 8%, transparent);
+  }
+
+  .featured-node i {
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 8px;
     flex-shrink: 0;
+    color: var(--accent, #7c3aed);
+    background: color-mix(in srgb, var(--accent, #7c3aed) 12%, transparent);
   }
 
-  .node-info strong { display: block; font-size: 0.9rem; }
-  .node-info span { display: block; font-size: 0.75rem; opacity: 0.6; }
+  .featured-node strong {
+    display: block;
+    font-size: 0.85rem;
+    color: #e1e1e6;
+  }
+
+  .featured-node span {
+    display: block;
+    font-size: 0.75rem;
+    color: #71717a;
+    margin-top: 1px;
+  }
 
   .repo-section {
     margin-top: 28px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .repo-section h3 {
-    font-size: 1rem;
-    color: #55cdfc;
+    font-size: 0.95rem;
+    color: #c084fc;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
@@ -178,33 +170,29 @@
   .repo-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
   }
 
   .repo-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 14px;
+    padding: 4px 12px;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    color: #d1d5db;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+    color: #a1a1aa;
     text-decoration: none;
-    font-size: 0.8rem;
-    transition: all 0.2s;
+    font-size: 0.78rem;
+    transition: all 0.15s;
   }
 
   .repo-chip:hover {
-    background: rgba(85, 205, 252, 0.1);
-    border-color: #55cdfc;
-    color: #ffffff;
-    transform: translateY(-2px);
+    background: rgba(124, 58, 237, 0.1);
+    border-color: rgba(124, 58, 237, 0.2);
+    color: #e1e1e6;
   }
 
-  @media (max-width: 768px) {
-    h2 { font-size: 1.5rem; }
-    .glass-card { padding: 24px; }
-    .eco-grid { grid-template-columns: 1fr; }
+  @media (max-width: 600px) {
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
