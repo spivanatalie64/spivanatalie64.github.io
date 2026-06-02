@@ -1,77 +1,193 @@
 <script>
-  const githubRepos = [
-    'acreetionos', 'acreetionos32', 'acreetionos-archive-uploader', 'acreetionos-blog',
-    'AcreetionOS-Cinnamon-Wayland', 'AcreetionOS-Cinnamon-X11', 'AcreetionOS-Cinnamon-XLibre',
-    'acreetionos-code.github.io', 'acreetionos-flasher', 'acreetionos-gnome',
-    'acreetionos-hyprland', 'AcreetionOS-Mate', 'acreetionos-newsletter', 'AcreetionOS-Tracker',
-    'aiden-desktop', 'arttulos', 'cinderfox', 'ISO', 'Linux-Mint-Ports', 'llehs-emong', 'mdg',
-    'messengerpwat', 'oglo', 'OVSC', 'qt-calculator', 'ScrapeC', 'spivanatalie64.github.io',
-    'Trans_Tracker_101', 'Ace', 'git'
-  ];
+  let githubPersonal = $state([]);
+  let githubOrg = $state([]);
+  let gitlabNatalie = $state([]);
+  let gitlabDarren = $state([]);
+  let loading = $state(true);
+  let error = $state(null);
+  let search = $state('');
 
-  const gitlabRepos = [
-    'yacfs-tools', 'yacfs-replicate', 'yacfs-metrics', 'acreetionos-memory-manager',
-    'acreetion-appstore', 'acreetionos-archive-uploader', 'acreetionos-flasher',
-    'acreetionos-newsletter', 'acreetionos-news-tracker', 'acreetionos-website',
-    'arttulos-site', 'crosspost',
-    'qt-calculator', 'TrumpOS', 'Trans_Tracker_101',
-    'spivanatalie64.github.io', 'OVSC', 'oglo', 'Linux-Mint-Ports', 'ISO', 'arttulos',
-    'AcreetionOS-Tracker', 'acreetionos-gnome', 'acreetionos-code.github.io', 'acreetionos',
-    'cinderfox', 'mdg', 'llehs-emong', 'AcreetionOS-Mate', 'ovsc-core', 'ovsc-sidecar',
-    'ovsc-watcher', 'ovsc-host', 'X11aw', 'scrapec', 'AcreetionOSCloud', 'messengerpwat',
-    'RiseupVPN-OpenVPN', 'acreetionos-terminal', 'aiden-desktop', 'calamares-config',
-    'cinnamon-themes', 'root-distribution', 'thunderos', 'openrouter-tui'
-  ];
+  $effect(() => {
+    const fetchAll = async () => {
+      loading = true;
+      error = null;
+      const results = await Promise.allSettled([
+        fetch('https://api.github.com/users/spivanatalie64/repos?per_page=100&sort=updated').then(r => { if (!r.ok) throw new Error('GitHub personal fetch failed'); return r.json(); }),
+        fetch('https://api.github.com/orgs/AcreetionOS-Code/repos?per_page=100&sort=updated').then(r => { if (!r.ok) throw new Error('GitHub org fetch failed'); return r.json(); }),
+        fetch('https://gitlab.acreetionos.org/api/v4/users/natalie/projects?per_page=100').then(r => { if (!r.ok) throw new Error('GitLab natalie fetch failed'); return r.json(); }),
+        fetch('https://gitlab.acreetionos.org/api/v4/users/darren/projects?per_page=100').then(r => { if (!r.ok) throw new Error('GitLab darren fetch failed'); return r.json(); }),
+      ]);
 
-  const featured = [
-    { name: 'AcreetionOS', desc: 'Arch Linux distribution, Cinnamon desktop', url: 'https://acreetionos.org', icon: 'fa-linux', color: '#c084fc' },
-    { name: 'YAcFS', desc: 'Yet Another common File System', url: '#docs', icon: 'fa-database', color: '#7c3aed' },
-    { name: 'AcreetionOS Immutable', desc: 'Replacement for ArttulOS — immutable Arch with atomic updates', url: 'https://acreetionos.org/immutable/', icon: 'fa-shield', color: '#2ecc71' },
-    { name: 'FlatFree', desc: 'Community Flatpak repository, free and open for everyone', url: 'https://flatfree.pages.dev', icon: 'fa-cube', color: '#2ecc71' },
-    { name: 'Ion ROM', desc: 'Open-source Android ROM', url: 'https://spivanatalie64.github.io/ion-website/', icon: 'fa-mobile-alt', color: '#55cdfc' },
-    { name: 'OVSC', desc: 'Orchestrated Virtual Server Cloud', url: 'https://gitlab.acreetionos.org/natalie/OVSC', icon: 'fa-cloud', color: '#2dd4bf' },
-    { name: 'Mirror Network', desc: '72+ active nodes worldwide', url: '#', icon: 'fa-globe-americas', color: '#2dd4bf' },
-    { name: 'MessengerPWA', desc: 'Messenger progressive web app', url: 'https://gitlab.acreetionos.org/natalie/messengerpwat', icon: 'fa-comment', color: '#fbbf24' },
-    { name: 'Blog', desc: 'AcreetionOS updates and dev logs', url: 'https://blog.natalie.acreetionos.org', icon: 'fa-pen', color: '#fbbf24' },
-  ];
+      if (results[0].status === 'fulfilled') githubPersonal = results[0].value;
+      else console.warn(results[0].reason);
+      if (results[1].status === 'fulfilled') githubOrg = results[1].value;
+      else console.warn(results[1].reason);
+      if (results[2].status === 'fulfilled') gitlabNatalie = results[2].value;
+      else console.warn(results[2].reason);
+      if (results[3].status === 'fulfilled') gitlabDarren = results[3].value;
+      else console.warn(results[3].reason);
+
+      const allFailed = results.every(r => r.status === 'rejected');
+      if (allFailed) error = 'Could not load projects from any source. Please try again later.';
+      loading = false;
+    };
+
+    fetchAll();
+  });
+
+  function normalizeRepo(repo, source) {
+    return {
+      name: repo.name || repo.path || 'unknown',
+      description: repo.description || 'No description',
+      language: repo.language || repo.primaryLanguage || null,
+      stars: repo.stargazers_count ?? repo.star_count ?? 0,
+      updated: repo.updated_at || repo.last_activity_at || repo.updatedAt || null,
+      url: repo.html_url || repo.web_url || repo.url || '#',
+      source,
+    };
+  }
+
+  let githubRepos = $derived(
+    [...githubPersonal.map(r => normalizeRepo(r, 'GitHub')), ...githubOrg.map(r => normalizeRepo(r, 'GitHub'))]
+      .filter((repo, idx, self) => self.findIndex(r => r.name === repo.name) === idx)
+  );
+
+  let gitlabRepos = $derived(
+    [...gitlabNatalie.map(r => normalizeRepo(r, 'GitLab')), ...gitlabDarren.map(r => normalizeRepo(r, 'GitLab'))]
+      .filter((repo, idx, self) => self.findIndex(r => r.name === repo.name) === idx)
+  );
+
+  let allRepos = $derived([...githubRepos, ...gitlabRepos]);
+
+  let filteredGithub = $derived(
+    search ? githubRepos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : githubRepos
+  );
+  let filteredGitlab = $derived(
+    search ? gitlabRepos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : gitlabRepos
+  );
+  let filteredAll = $derived(
+    search ? allRepos.filter(r => r.name.toLowerCase().includes(search.toLowerCase()) || (r.description && r.description.toLowerCase().includes(search.toLowerCase()))) : allRepos
+  );
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    const now = new Date();
+    const diff = now - d;
+    const days = Math.floor(diff / 86400000);
+    if (days < 1) return 'today';
+    if (days < 30) return days + 'd ago';
+    if (days < 365) return Math.floor(days / 30) + 'mo ago';
+    return Math.floor(days / 365) + 'y ago';
+  }
 </script>
 
 <section id="ecosystem">
   <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+
   <div class="card">
-    <div class="featured-grid">
-      {#each featured as repo}
-        <a href={repo.url} target={repo.url.startsWith('http') ? '_blank' : ''} class="featured-node" style="--accent:{repo.color};">
-          <i class="fas {repo.icon}"></i>
-          <div>
-            <strong>{repo.name}</strong>
-            <span>{repo.desc}</span>
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search projects..." bind:value={search} />
+    </div>
+
+    {#if loading}
+      <div class="loading">
+        <i class="fas fa-spinner fa-pulse"></i> Loading projects...
+      </div>
+    {:else if error}
+      <div class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> {error}
+      </div>
+    {:else}
+      <div class="tab-bar">
+        <input type="radio" name="project-tab" id="tab-all" checked />
+        <label for="tab-all">All Projects ({filteredAll.length})</label>
+        <input type="radio" name="project-tab" id="tab-github" />
+        <label for="tab-github"><i class="fab fa-github"></i> GitHub ({filteredGithub.length})</label>
+        <input type="radio" name="project-tab" id="tab-gitlab" />
+        <label for="tab-gitlab"><i class="fab fa-gitlab"></i> GitLab ({filteredGitlab.length})</label>
+      </div>
+
+      <div class="tab-content" id="panel-all">
+        {#if filteredAll.length === 0}
+          <div class="empty">No projects match your search.</div>
+        {:else}
+          <div class="repo-list">
+            {#each filteredAll as repo}
+              <a href={repo.url} target="_blank" class="repo-item">
+                <div class="repo-top">
+                  <strong class="repo-name">{repo.name}</strong>
+                  <span class="repo-source" class:github={repo.source === 'GitHub'} class:gitlab={repo.source === 'GitLab'}>{repo.source}</span>
+                </div>
+                <p class="repo-desc">{repo.description}</p>
+                <div class="repo-meta">
+                  {#if repo.language}
+                    <span class="lang"><i class="fas fa-circle"></i> {repo.language}</span>
+                  {/if}
+                  <span><i class="fas fa-star"></i> {repo.stars}</span>
+                  {#if repo.updated}
+                    <span><i class="fas fa-clock"></i> {formatDate(repo.updated)}</span>
+                  {/if}
+                </div>
+              </a>
+            {/each}
           </div>
-        </a>
-      {/each}
-    </div>
-
-    <div class="repo-section">
-      <h3><i class="fab fa-github"></i> GitHub</h3>
-      <div class="repo-grid">
-        {#each githubRepos as repo}
-          <a href="https://github.com/spivanatalie64/{repo}" target="_blank" class="repo-chip">
-            {repo}
-          </a>
-        {/each}
+        {/if}
       </div>
-    </div>
 
-    <div class="repo-section">
-      <h3><i class="fab fa-gitlab"></i> GitLab</h3>
-      <div class="repo-grid">
-        {#each gitlabRepos as repo}
-          <a href="https://gitlab.acreetionos.org/natalie/{repo}" target="_blank" class="repo-chip">
-            {repo}
-          </a>
-        {/each}
+      <div class="tab-content" id="panel-github">
+        {#if filteredGithub.length === 0}
+          <div class="empty">No GitHub projects match your search.</div>
+        {:else}
+          <div class="repo-list">
+            {#each filteredGithub as repo}
+              <a href={repo.url} target="_blank" class="repo-item">
+                <div class="repo-top">
+                  <strong class="repo-name">{repo.name}</strong>
+                </div>
+                <p class="repo-desc">{repo.description}</p>
+                <div class="repo-meta">
+                  {#if repo.language}
+                    <span class="lang"><i class="fas fa-circle"></i> {repo.language}</span>
+                  {/if}
+                  <span><i class="fas fa-star"></i> {repo.stars}</span>
+                  {#if repo.updated}
+                    <span><i class="fas fa-clock"></i> {formatDate(repo.updated)}</span>
+                  {/if}
+                </div>
+              </a>
+            {/each}
+          </div>
+        {/if}
       </div>
-    </div>
+
+      <div class="tab-content" id="panel-gitlab">
+        {#if filteredGitlab.length === 0}
+          <div class="empty">No GitLab projects match your search.</div>
+        {:else}
+          <div class="repo-list">
+            {#each filteredGitlab as repo}
+              <a href={repo.url} target="_blank" class="repo-item">
+                <div class="repo-top">
+                  <strong class="repo-name">{repo.name}</strong>
+                </div>
+                <p class="repo-desc">{repo.description}</p>
+                <div class="repo-meta">
+                  {#if repo.language}
+                    <span class="lang"><i class="fas fa-circle"></i> {repo.language}</span>
+                  {/if}
+                  <span><i class="fas fa-star"></i> {repo.stars}</span>
+                  {#if repo.updated}
+                    <span><i class="fas fa-clock"></i> {formatDate(repo.updated)}</span>
+                  {/if}
+                </div>
+              </a>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    {/if}
   </div>
 </section>
 
@@ -102,97 +218,211 @@
     padding: 28px;
   }
 
-  .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 10px;
-  }
-
-  .featured-node {
+  .search-bar {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-bottom: 20px;
+  }
+
+  .search-bar i {
+    color: #71717a;
+    font-size: 0.9rem;
+  }
+
+  .search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    color: #e1e1e6;
+    font-size: 0.9rem;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .search-bar input::placeholder {
+    color: #52525b;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px 0;
+    color: #a1a1aa;
+    font-size: 0.9rem;
+  }
+
+  .loading i {
+    margin-right: 8px;
+  }
+
+  .error-message {
+    text-align: center;
+    padding: 40px 0;
+    color: #f87171;
+    font-size: 0.9rem;
+  }
+
+  .error-message i {
+    margin-right: 8px;
+  }
+
+  .empty {
+    text-align: center;
+    padding: 40px 0;
+    color: #71717a;
+    font-size: 0.9rem;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 10px;
+    border-radius: 8px;
+    padding: 4px;
+  }
+
+  .tab-bar input {
+    display: none;
+  }
+
+  .tab-bar label {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: #71717a;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .tab-bar label:hover {
+    color: #a1a1aa;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .tab-bar input:checked + label {
+    background: rgba(124, 58, 237, 0.15);
+    color: #c084fc;
+    font-weight: 600;
+  }
+
+  .tab-bar label i {
+    margin-right: 4px;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  #tab-all:checked ~ #panel-all,
+  #tab-github:checked ~ #panel-github,
+  #tab-gitlab:checked ~ #panel-gitlab {
+    display: block;
+  }
+
+  .repo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .repo-item {
+    display: block;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
     padding: 14px 16px;
     text-decoration: none;
     color: inherit;
     transition: all 0.15s;
   }
 
-  .featured-node:hover {
-    border-color: var(--accent, #7c3aed);
-    background: color-mix(in srgb, var(--accent, #7c3aed) 8%, transparent);
+  .repo-item:hover {
+    border-color: rgba(124, 58, 237, 0.2);
+    background: rgba(124, 58, 237, 0.05);
   }
 
-  .featured-node i {
-    font-size: 1.2rem;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    flex-shrink: 0;
-    color: var(--accent, #7c3aed);
-    background: color-mix(in srgb, var(--accent, #7c3aed) 12%, transparent);
-  }
-
-  .featured-node strong {
-    display: block;
-    font-size: 0.85rem;
-    color: #e1e1e6;
-  }
-
-  .featured-node span {
-    display: block;
-    font-size: 0.75rem;
-    color: #71717a;
-    margin-top: 1px;
-  }
-
-  .repo-section {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .repo-section h3 {
-    font-size: 0.95rem;
-    color: #c084fc;
-    margin-bottom: 12px;
+  .repo-top {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 4px;
   }
 
-  .repo-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .repo-chip {
-    padding: 4px 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 6px;
-    color: #a1a1aa;
-    text-decoration: none;
-    font-size: 0.78rem;
-    transition: all 0.15s;
-  }
-
-  .repo-chip:hover {
-    background: rgba(124, 58, 237, 0.1);
-    border-color: rgba(124, 58, 237, 0.2);
+  .repo-name {
+    font-size: 0.88rem;
     color: #e1e1e6;
+    font-weight: 600;
+  }
+
+  .repo-source {
+    font-size: 0.68rem;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .repo-source.github {
+    background: rgba(110, 84, 148, 0.15);
+    color: #a78bfa;
+  }
+
+  .repo-source.gitlab {
+    background: rgba(226, 116, 51, 0.15);
+    color: #fb923c;
+  }
+
+  .repo-desc {
+    font-size: 0.78rem;
+    color: #71717a;
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .repo-meta {
+    display: flex;
+    gap: 14px;
+    font-size: 0.72rem;
+    color: #52525b;
+  }
+
+  .repo-meta i {
+    margin-right: 3px;
+    font-size: 0.65rem;
+  }
+
+  .repo-meta .lang i {
+    color: #7c3aed;
+  }
+
+  .repo-meta .fa-star {
+    color: #fbbf24;
+  }
+
+  .repo-meta .fa-clock {
+    color: #71717a;
   }
 
   @media (max-width: 600px) {
-    .featured-grid {
-      grid-template-columns: 1fr;
+    .tab-bar label {
+      font-size: 0.75rem;
+      padding: 6px 8px;
+    }
+
+    .repo-meta {
+      flex-wrap: wrap;
+      gap: 8px;
     }
   }
 </style>
