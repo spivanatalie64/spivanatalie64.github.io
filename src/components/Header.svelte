@@ -136,7 +136,7 @@
             <div class="sidebar-empty">No projects</div>
           {:else}
             {#each filteredGithub as repo}
-              <button class="sidebar-item" onclick={() => selectRepo(repo, 'GitLab')}>
+              <button class="sidebar-item" onclick={() => selectRepo(repo, 'GitHub')}>
                 <strong>{repo.name || repo.path}</strong>
                 <span class="sidebar-item-desc">{(repo.description || '').slice(0, 60)}</span>
               </button>
