@@ -10,7 +10,7 @@
       </div>
       <div>
         <h1>Natalie Spiva</h1>
-        <p class="title">Lead Infrastructure Architect</p>
+        <p class="title">Codeveloper • AcreetionOS</p>
       </div>
     </div>
     <nav>

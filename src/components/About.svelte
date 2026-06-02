@@ -2,7 +2,7 @@
   <h2><i class="fas fa-terminal"></i> About</h2>
   <div class="card">
     <p>
-      I'm a Linux infrastructure architect and co-creator of AcreetionOS.
+      I'm a codeveloper of AcreetionOS and infrastructure architect.
       I specialize in Cloudflare backend optimization, distributed systems,
       and building resilient open-source infrastructure.
     </p>
