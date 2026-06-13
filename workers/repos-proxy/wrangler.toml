@@ -1,6 +1,7 @@
 name = "repos-proxy"
 main = "src/index.js"
 compatibility_date = "2025-06-01"
+workers_dev = true
 
 # ── secrets (set via `npx wrangler secret put`) ──
 # GITHUB_TOKEN      — Personal Access Token (public_repo scope) for higher rate limits
