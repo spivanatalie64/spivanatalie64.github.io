@@ -6,25 +6,11 @@
   import ProjectDetail from './components/ProjectDetail.svelte';
   import Contact from './components/Contact.svelte';
   import Footer from './components/Footer.svelte';
+  import { REPOS_API_URL } from './config.js';
 
   let allRepos = $state([]);
   let selectedProject = $state(null);
   let ready = $state(false);
-
-  function normalizeRepo(r, source) {
-    return {
-      name: r.name || r.path || 'unknown',
-      description: r.description || 'No description',
-      language: r.language || r.primaryLanguage || null,
-      stars: r.stargazers_count ?? r.star_count ?? 0,
-      forks: r.forks_count ?? r.forks ?? 0,
-      updated: r.updated_at || r.last_activity_at || null,
-      created: r.created_at || r.createdAt || null,
-      url: r.html_url || r.web_url || '#',
-      issues_url: r.html_url ? r.html_url + '/issues' : null,
-      source,
-    };
-  }
 
   function loadRepoFromHash() {
     const hash = window.location.hash;
@@ -57,22 +43,16 @@
 
   $effect(() => {
     const fetchAll = async () => {
-      const results = await Promise.allSettled([
-        fetch('https://api.github.com/users/spivanatalie64/repos?per_page=100&sort=updated').then(r => r.json()),
-        fetch('https://api.github.com/orgs/AcreetionOS-Code/repos?per_page=100&sort=updated').then(r => r.json()),
-        fetch('https://gitlab.acreetionos.org/api/v4/users/natalie/projects?per_page=100').then(r => r.json()),
-        fetch('https://gitlab.acreetionos.org/api/v4/users/darren/projects?per_page=100').then(r => r.json()),
-      ]);
-
-      const repos = [];
-      if (results[0].status === 'fulfilled') repos.push(...results[0].value.map(r => normalizeRepo(r, 'GitHub')));
-      if (results[1].status === 'fulfilled') repos.push(...results[1].value.map(r => normalizeRepo(r, 'GitHub')));
-      if (results[2].status === 'fulfilled') repos.push(...results[2].value.map(r => normalizeRepo(r, 'GitLab')));
-      if (results[3].status === 'fulfilled') repos.push(...results[3].value.map(r => normalizeRepo(r, 'GitLab')));
-
-      allRepos = repos.filter((r, i, a) => a.findIndex(x => x.name === r.name) === i);
+      try {
+        const res = await fetch(REPOS_API_URL);
+        if (!res.ok) throw new Error(`Worker returned ${res.status}`);
+        const data = await res.json();
+        allRepos = data.repos || [];
+      } catch (err) {
+        console.error('Failed to fetch repos from worker:', err);
+        allRepos = [];
+      }
       ready = true;
-
       loadRepoFromHash();
     };
 

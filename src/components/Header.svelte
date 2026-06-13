@@ -1,4 +1,6 @@
 <script>
+  import { REPOS_API_URL } from '../config.js';
+
   let { repos: externalRepos = null, onselect } = $props();
 
   let sidebarOpen = $state(false);
@@ -19,35 +21,14 @@
       return;
     }
     try {
-      const results = await Promise.allSettled([
-        fetch('https://api.github.com/users/spivanatalie64/repos?per_page=100&sort=updated').then(r => r.ok ? r.json() : []),
-        fetch('https://api.github.com/orgs/AcreetionOS-Code/repos?per_page=100&sort=updated').then(r => r.ok ? r.json() : []),
-        fetch('https://gitlab.acreetionos.org/api/v4/users/natalie/projects?per_page=100').then(r => r.ok ? r.json() : []),
-        fetch('https://gitlab.acreetionos.org/api/v4/users/darren/projects?per_page=100').then(r => r.ok ? r.json() : []),
-      ]);
-      const all = [];
-      if (results[0].status === 'fulfilled' && Array.isArray(results[0].value)) all.push(...results[0].value.map(r => normalize(r, 'GitHub')));
-      if (results[1].status === 'fulfilled' && Array.isArray(results[1].value)) all.push(...results[1].value.map(r => normalize(r, 'GitHub')));
-      if (results[2].status === 'fulfilled' && Array.isArray(results[2].value)) all.push(...results[2].value.map(r => normalize(r, 'GitLab')));
-      if (results[3].status === 'fulfilled' && Array.isArray(results[3].value)) all.push(...results[3].value.map(r => normalize(r, 'GitLab')));
-      const deduped = all.filter((r, i, a) => a.findIndex(x => x.name === r.name) === i);
-      processRepos(deduped);
-    } catch {}
+      const res = await fetch(REPOS_API_URL);
+      if (!res.ok) throw new Error(`Worker returned ${res.status}`);
+      const data = await res.json();
+      processRepos(data.repos || []);
+    } catch (err) {
+      console.error('Failed to fetch repos in sidebar:', err);
+    }
     loaded = true;
-  }
-
-  function normalize(r, source) {
-    return {
-      name: r.name || r.path || 'unknown',
-      description: r.description || 'No description',
-      language: r.language || null,
-      stars: r.stargazers_count ?? r.star_count ?? 0,
-      forks: r.forks_count ?? r.forks ?? 0,
-      updated: r.updated_at || r.last_activity_at || null,
-      url: r.html_url || r.web_url || '#',
-      issues_url: r.html_url ? r.html_url + '/issues' : null,
-      source,
-    };
   }
 
   function processRepos(list) {
@@ -103,7 +84,7 @@
 </header>
 
 {#if sidebarOpen}
-  <div class="sidebar-overlay" onclick={closeSidebar}></div>
+  <div class="sidebar-overlay" onclick={closeSidebar} onkeydown={(e) => e.key === 'Enter' && closeSidebar()} role="presentation"></div>
   <aside class="sidebar">
     <div class="sidebar-header">
       <h2><i class="fas fa-project-diagram"></i> Projects</h2>

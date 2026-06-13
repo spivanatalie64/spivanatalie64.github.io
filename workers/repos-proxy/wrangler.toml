@@ -1,0 +1,22 @@
+name = "repos-proxy"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+# ── secrets (set via `npx wrangler secret put`) ──
+# GITHUB_TOKEN      — Personal Access Token (public_repo scope) for higher rate limits
+# GITLAB_TOKEN      — GitLab personal access token (optional, for internal GitLab)
+
+[vars]
+GITHUB_USER = "spivanatalie64"
+GITHUB_ORG = "AcreetionOS-Code"
+GITLAB_BASE = "https://gitlab.acreetionos.org"
+GITLAB_USERS = "natalie,darren"
+CACHE_TTL_SECONDS = "900"
+
+[[routes]]
+pattern = "repos.acreetionos.org"
+zone_name = "acreetionos.org"
+
+# dev server
+[dev]
+port = 8787
