@@ -44,7 +44,10 @@ function deduplicate(repos) {
 // ─── Fetch helpers ──────────────────────────────────────────────────────────
 
 function gitHubHeaders(token) {
-  const headers = { Accept: 'application/vnd.github.v3+json' };
+  const headers = {
+    Accept: 'application/vnd.github.v3+json',
+    'User-Agent': 'repos-proxy-worker/1.0 (Cloudflare)',
+  };
   if (token) headers.Authorization = `Bearer ${token}`;
   return headers;
 }
@@ -59,7 +62,8 @@ async function fetchGitHubUserRepos(user, token, signal) {
   const url = `https://api.github.com/users/${user}/repos?per_page=100&sort=updated`;
   const res = await fetch(url, { headers: gitHubHeaders(token), signal });
   if (!res.ok) {
-    console.warn(`GitHub user fetch failed (${res.status}): ${res.statusText}`);
+    const body = await res.text();
+    console.warn(`GitHub user fetch failed (${res.status}): ${body.slice(0, 200)}`);
     return [];
   }
   return (await res.json()).map((r) => normalize(r, 'GitHub'));
@@ -69,7 +73,8 @@ async function fetchGitHubOrgRepos(org, token, signal) {
   const url = `https://api.github.com/orgs/${org}/repos?per_page=100&sort=updated`;
   const res = await fetch(url, { headers: gitHubHeaders(token), signal });
   if (!res.ok) {
-    console.warn(`GitHub org fetch failed (${res.status}): ${res.statusText}`);
+    const body = await res.text();
+    console.warn(`GitHub org fetch failed (${res.status}): ${body.slice(0, 200)}`);
     return [];
   }
   return (await res.json()).map((r) => normalize(r, 'GitHub'));
@@ -79,8 +84,9 @@ async function fetchGitLabUserRepos(baseUrl, user, token, signal) {
   const url = `${baseUrl.replace(/\/+$/, '')}/api/v4/users/${user}/projects?per_page=100`;
   const res = await fetch(url, { headers: gitLabHeaders(token), signal });
   if (!res.ok) {
-    console.warn(`GitLab user "${user}" fetch failed (${res.status}): ${res.statusText}`);
-    return [];
+    const body = await res.text();
+    console.warn(`GitLab user "${user}" fetch failed (${res.status}): ${body.slice(0, 200)}`);
+    return []; // Don't throw — user may not exist
   }
   return (await res.json()).map((r) => normalize(r, 'GitLab'));
 }
@@ -132,9 +138,12 @@ export default {
     const cacheKey = new Request(cacheUrl.toString(), { method: 'GET' });
     const cache = caches.default;
 
-    const cached = await cache.match(cacheKey);
-    if (cached) {
-      return cached;
+    // Force fresh fetch if ?fresh=true
+    if (!url.searchParams.has('fresh')) {
+      const cached = await cache.match(cacheKey);
+      if (cached) {
+        return cached;
+      }
     }
 
     // ── Fetch all sources ───────────────────────────────────────────────
