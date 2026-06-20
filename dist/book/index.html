@@ -70,6 +70,24 @@ a:hover{color:#fff}
 .visual-stress-note{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:1rem 1.25rem;margin:2rem 0;font-size:0.9rem;color:var(--text-dim)}
 .visual-stress-note strong{color:var(--accent)}
 
+/* reader credit badge */
+.reader-credit{text-align:center;margin:1.5rem 0;padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:0.75rem;color:var(--text-dim)}
+.reader-credit strong{color:var(--accent)}
+.reader-credit .credit-icon{font-size:1.2rem;display:block;margin-bottom:0.3rem}
+
+/* floating chapter navigation arrows */
+.chapter-nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(transparent,var(--bg) 40%,var(--bg));padding:3rem 1rem 1rem;z-index:50;display:flex;justify-content:center;align-items:center;gap:1.5rem;pointer-events:none;opacity:0;transition:opacity 0.3s}
+.chapter-nav.visible{opacity:1;pointer-events:all}
+.chapter-arrow{display:flex;align-items:center;gap:0.5rem;background:var(--surface);border:1px solid var(--border);color:var(--text-bright);padding:0.75rem 1.5rem;border-radius:10px;cursor:pointer;font-size:0.95rem;text-decoration:none;transition:all 0.2s;font-family:var(--font-body)}
+.chapter-arrow:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-2px)}
+.chapter-arrow.disabled{opacity:0.25;pointer-events:none;cursor:default}
+.chapter-arrow .arrow-icon{font-size:1.3rem}
+.chapter-arrow .arrow-label{font-size:0.7rem;color:var(--text-dim);display:block;line-height:1}
+.chapter-arrow:hover .arrow-label{color:rgba(0,0,0,0.5)}
+.chapter-arrow .arrow-title{font-weight:600}
+.chapter-nav-hint{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);font-size:0.7rem;color:var(--text-dim);z-index:48;pointer-events:none;transition:opacity 0.5s}
+.chapter-nav-hint kbd{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.1rem 0.4rem;font-family:var(--font-mono);font-size:0.7rem}
+
 @media(max-width:768px){
 .book-main{padding:1.5rem 1rem}
 .book-cover h1{font-size:2rem}
@@ -87,7 +105,7 @@ a:hover{color:#fff}
 <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">&times;</button>
 <div class="sidebar-title">Contents</div>
 <a class="sidebar-chapter" href="#cover"><strong>The Natalie Spiva Story</strong><small>A complete autobiography</small></a>
-<a class="sidebar-chapter" href="#ch1">1. Origins<small>Oklahoma, OSU, and finding my path</small></a>
+<a class="sidebar-chapter" href="#ch1">1. Origins<small>Oklahoma, adoption, abuse, and finding my path</small></a>
 <a class="sidebar-chapter" href="#ch2">2. Meridian Tech<small>The 4.0 that proved them wrong</small></a>
 <a class="sidebar-chapter" href="#ch3">3. Family &amp; Chosen Family<small>Bre, Christina, Darren, and my brother</small></a>
 <a class="sidebar-chapter" href="#ch4">4. Love: The Bre Story<small>Texas, long-distance, and realizing I'm a dumbass</small></a>
@@ -133,6 +151,10 @@ June 2026 · Spokane, WA
 <div class="visual-stress-note">
 <strong>&#x26A0; Reader's Note:</strong> This book is intentionally designed with white text on a dark background because the author experiences <strong>visual stress (Meares-Irlen syndrome)</strong> &mdash; a perceptual processing condition where high-contrast black-on-white text causes visual distortion, eye strain, headaches, and text that appears to move or blur. If you're reading this as a printout or on a different background, know that the author designed this reading experience specifically around her own visual needs &mdash; and it might work better for you too.
 </div>
+<div class="reader-credit">
+<span class="credit-icon">&#x1F4D6;</span>
+<strong>This book reader was designed and built by Natalie Spiva.</strong> Every line of HTML, CSS, and JavaScript was handcrafted for her own accessibility needs &mdash; white-on-dark text for visual stress, keyboard navigation, and a reading experience optimized for how her brain actually works. No templates, no frameworks, no compromises.
+</div>
 </div>
 
 <div class="book-topbar">
@@ -143,11 +165,39 @@ June 2026 · Spokane, WA
 <!-- CHAPTER 1 -->
 <section id="ch1" class="chapter">
 <span class="chapter-number">Chapter 1</span>
-<h2 class="chapter-title">Origins: Oklahoma, OSU, and Finding My Path</h2>
+<h2 class="chapter-title">Origins: Oklahoma, Adoption, Abuse, and Finding My Path</h2>
 <p>My name is <strong>Natalie Cole-Clift Spiva</strong>, and I was born on <strong>September 15, 2001</strong>. I grew up in a world that kept telling me I was supposed to be someone named Johnathan, but I knew from the very beginning that wasn't the whole story. Oklahoma is where I started, and it shaped me in ways I am still discovering. Oklahoma isn't the kind of place people expect to produce a trans girl who builds operating systems, but that's exactly what it did. The DIY attitude, the skepticism of authority, the refusal to be told what to do &mdash; all of that is pure Oklahoma, and I carry it with me every single day.</p>
+
+<p>I need to talk about my childhood, because it's the part of my story that explains everything else. <strong>I was adopted.</strong> I grew up in a household that was supposed to be my safe place, my foundation, my family &mdash; but it wasn't. The family that adopted me was <strong>abusive</strong>, and I don't use that word lightly. Physical abuse. Emotional abuse. Psychological manipulation that twisted my sense of self before I was old enough to know what a sense of self even was. When you grow up in a house where love is conditional and punishment is unpredictable, you learn things about survival that other people never have to learn. You learn to read every micro-expression, every shift in tone, every creak of a floorboard &mdash; because your safety depends on knowing what's coming before it arrives.</p>
+
+<p>The abuse wasn't just something that happened to me; it was the water I swam in for the first eighteen years of my life. I didn't know it was abnormal because I had no frame of reference. When you're a child being raised by abusers, the abuse <em>is</em> normal. You assume every family operates this way behind closed doors. You assume the bruises, the screaming, the manipulation, the gaslighting, the control &mdash; you assume this is just what families do. It takes years of distance and therapy to even begin to understand that what happened to you was wrong, that you deserved better, that the shame belongs to the abusers and not to the abused. I am still doing that work. Every single day.</p>
+
+<p>Being adopted added another layer of isolation. I knew, on some level, that the people raising me were not my biological parents. That knowledge creates a particular kind of loneliness that's hard to describe to anyone who hasn't experienced it. There's a question that sits in the back of your mind from the earliest age: if my biological parents didn't keep me, and my adoptive parents treat me like this, then what does that say about my worth? It took me decades to understand that it says nothing about my worth and everything about the failures of the adults who were supposed to protect me. Your value as a human being is not determined by how other people treat you. But when you're a child, you don't know that yet. You just know that something feels fundamentally wrong, and you assume the wrong thing is you.</p>
+
+<p>The abuse I experienced directly shaped the person I became. My <strong>hypervigilance</strong> &mdash; the constant scanning of environments for threats, the inability to relax, the need to control every variable &mdash; is a direct survival adaptation from my childhood. My <strong>fierce protectiveness</strong> of the people I love comes from knowing, at a bone-deep level, what happens when no one protects you. My <strong>distrust of systems and authority</strong> comes from watching systems fail me over and over again throughout my childhood, from child protective services that didn't investigate thoroughly enough to schools that didn't ask the right questions to adults who looked the other way because confronting abuse is uncomfortable. I learned early that if I wanted to be safe, I would have to make myself safe. Nobody else was going to do it.</p>
+
+<p>I also developed <strong>Complex PTSD</strong> from these years of sustained trauma &mdash; not from a single event but from the accumulated weight of years of abuse. CPTSD is different from traditional PTSD because it rewires your entire personality around survival. It affects how you trust, how you attach, how you regulate emotions, how you see yourself. The person I am today &mdash; the intensity, the protectiveness, the refusal to be controlled, the obsession with building systems that can't be exploited, the need to understand how everything works at the deepest level &mdash; all of it traces back to a childhood where I learned that safety is something you build yourself because nobody is going to build it for you. My entire career, my entire philosophy, my entire approach to relationships &mdash; it's all downstream from those early experiences. The abused child became the woman who builds operating systems and monitors the dark web and encrypts her medical records and loves with terrifying intensity. The trauma didn't break me. It forged me. And I'm still figuring out exactly what I was forged into.</p>
+
+<p>I <strong>nearly died in Oklahoma</strong>. I need to say that plainly because it's true. Before I escaped to Washington, things got so bad that my life was genuinely in danger. I am not going to detail every moment of it here &mdash; some things are still too close to the bone &mdash; but I came within a hair's breadth of not making it out. The abuse, the medical neglect, the mental health crisis without adequate support, the isolation, the hopelessness &mdash; it all converged into a moment where I genuinely did not know if I was going to survive. And then I made a choice. I chose to live. I chose to get out. I chose to fight for a future that I wasn't even sure existed. That choice changed everything.</p>
+
+<p>And then <strong>I nearly died in Montana</strong>, too. I was driving from Oklahoma to Washington &mdash; <strong>1,700 miles in three days</strong> &mdash; because I had to. There was no other option. It was escape or die, and I chose escape. I was behind the wheel of my car, exhausted beyond anything I had ever experienced, pushing through mountains and plains and state lines with nothing but adrenaline and desperation keeping me awake. Somewhere in Montana, on one of those long, empty stretches of highway where the world feels like it's been emptied of everything except you and the road, <strong>I spun out</strong>. My car lost control. For a few seconds &mdash; seconds that felt like eternities &mdash; I was spinning on the highway, completely out of control, with no guarantee that I would come out the other side alive. I don't know how I didn't crash. I don't know how I didn't die. But I didn't. The car straightened out. I kept driving. Because stopping wasn't an option. Because the only thing behind me was death and the only thing ahead of me was the possibility of a life that was actually mine.</p>
+
+<p>I drove 1,700 miles in three days because I had to survive. That's not a metaphor. That's not an exaggeration. That is exactly what happened. The drive from Oklahoma to Spokane is not a casual road trip; it's a grueling cross-country journey through multiple states, through changing terrain, through weather systems and exhaustion and the constant background hum of fear that someone might be following you. I did it alone. I did it with no guarantee that Washington would be better. I did it because staying would have killed me, and I had made the decision that I was going to live. That drive is one of the defining experiences of my life. Every mile was an act of defiance. Every state line I crossed was a door closing behind me. When I finally pulled into Spokane, I was a different person than the one who had left Oklahoma. I was someone who had looked death in the face twice and said "not today."</p>
 <p>I enrolled at <strong>Oklahoma State University</strong> with the same hopes everyone carries into college: that this would be my path, my future, my launchpad. It lasted about a semester before I knew, with absolute certainty, that the system was not built for someone like me. Too much bureaucracy, too much busywork, not enough actual building. I didn't drop out so much as I dropped <em>into</em> something else &mdash; I dropped into building my own path. When people ask me about OSU now, I tell them the truth: it wasn't for me, and I knew it almost immediately. That decision wasn't failure; it was clarity. It was the first time I looked at a system that wasn't working for me and said "no" &mdash; a pattern that would define the rest of my life.</p>
 <p>I am the <strong>co-creator and co-lead developer of AcreetionOS</strong>, an Arch Linux-based operating system distribution built from the ground up to be user-friendly while maintaining the power and flexibility that Arch users demand. The project started as a question: what if Arch was truly accessible? What if a distro could be libre, fast, and simple without sacrificing the control that makes Arch special? Those questions became an obsession, and that obsession became an operating system. AcreetionOS now ships with the Cinnamon desktop environment, XLibre display server support, PipeWire audio, and a curated selection of over 250 packages &mdash; all built, tested, and verified by a tiny team of two people who refuse to compromise on quality.</p>
-<p>I am <strong>twenty-four years old</strong> and I currently live in <strong>Spokane, Washington</strong>, specifically in the Bemiss neighborhood. Before that, I was in Oklahoma, and the transition from the southern plains to the Pacific Northwest was about more than geography &mdash; it was about finding a place where I could be fully, completely myself. Spokane isn't perfect, but it's home now. I film video content around my neighborhood, I know my streets, and I've built my life here brick by brick. Washington State also gives me legal protections that Oklahoma never did, and as a trans woman in 2026, those protections matter more than I can express.</p>
+<p>I am <strong>twenty-four years old</strong> and I currently live in <strong>Spokane, Washington</strong>, specifically in the Bemiss neighborhood. Before that, I was in Oklahoma, and the transition from the southern plains to the Pacific Northwest was about more than geography &mdash; it was about finding a place where I could be fully, completely myself.</p>
+
+<p><strong>I have been writing code since I was seven years old.</strong> Let that sink in. Most seven-year-olds are learning to read chapter books. I was building custom Android ROMs. I started contributing to the CyanogenMod ecosystem as a child, and later transitioned to LineageOS when that project forked. By the time I was a teenager, I was maintaining AUR packages and providing peer support on XDA Developers. Coding was never a hobby for me; it was a lifeline. When my home life was chaos, I could disappear into code and find order. The compiler doesn't gaslight you. The kernel doesn't manipulate you. Code is honest, and I needed honesty more than I needed anything else.</p>
+
+<p>I graduated from <strong>Stillwater High School in 2020 with a 4.0 GPA</strong>. Same year I completed my vocational program at Meridian Tech with another 4.0. Two perfect GPAs while navigating abuse at home, undiagnosed mental health conditions, and being trans without yet having the words or safety to express it. That's not luck. That's not a fluke. That's evidence of a mind that refuses to be limited by circumstances. I was valedictorian material in a system not designed for my brain, and I did it anyway.</p>
+
+<p>But here's the thing about standardized education: <strong>I didn't do well on my ACTs.</strong> And it wasn't because I didn't know the answers. It was because <strong>I couldn't even understand what they were asking me in the first place</strong>. The way those tests are worded &mdash; the convoluted sentence structures, the deliberately confusing phrasing, the assumption that everyone processes language the same way &mdash; is fundamentally unfair to anyone with cognitive disabilities. The ACT doesn't measure intelligence. It measures how well you can decode the ACT's specific style of question-writing, which has nothing to do with actual knowledge and everything to do with whether your brain processes language in the narrow, standardized way the test expects. I knew the material. I could have explained every concept in my own words. But when they wrapped the questions in three layers of unnecessary complexity and timed me on top of it, my brain couldn't cut through. That's not a failure of intelligence. That's a test design that actively excludes neurodivergent minds. And nobody talks about it, because the people who design these tests have brains that work the way the tests expect them to.</p>
+
+<p><strong>I got into computers as a coping mechanism to survive my home life.</strong> This isn't a cute origin story about a kid who loved technology. This is about a child who was being abused and forgotten and needed somewhere to go that wasn't the house where she was being hurt. Code was the only thing that made sense. The computer didn't hit me. The computer didn't gaslight me. The computer didn't tell me I was broken or crazy or unlovable. When I was seven years old building Android ROMs, I wasn't a prodigy &mdash; I was a refugee. The digital world was the only place where I had any control. Every line of code was a wall I was building between myself and the people who were supposed to protect me and didn't. Every successful compile was proof that I could make something work even when everything around me was broken. I didn't find computers. Computers found me at the exact moment I needed something to survive for.</p>
+
+<p>I was the forgotten one. The one in the household who was supposed to just... exist quietly. <strong>I raised my brother as his mother because my parents were pieces of shit.</strong> Not metaphorically. Literally. I was the one feeding him, making sure he had what he needed, being the emotional support system that our parents refused to be. While other kids my age were worried about homework and friends, I was worried about whether my brother had eaten. I was the one who had to find a way to get everywhere &mdash; no one was driving me. I was the one who paid for my own supplies because no one was providing them. I was the one cooking my own meals because no one was cooking for me. I was the one with no one. The one who was alone without emotional support. The one who learned, at an age when most kids still believe in Santa Claus, that the only person you can truly count on is yourself. That lesson broke something in me that I'm still trying to fix, but it also built something in me that cannot be broken by anyone else ever again. When you've already survived being completely alone as a child, there's not much the adult world can throw at you that compares.</p>
+
+<p>Spokane isn't perfect, but it's home now. I film video content around my neighborhood, I know my streets, and I've built my life here brick by brick. Washington State also gives me legal protections that Oklahoma never did, and as a trans woman in 2026, those protections matter more than I can express.</p>
 <p>This fall, I am starting classes at <strong>Spokane Community College</strong>. It's a new chapter, and I'm approaching it with the same intensity I bring to everything else. I already have a vocational degree as a Network and PC Support Specialist, and I recently earned a <strong>Gold level certification on the Oklahoma WorkKeys</strong> job-skills assessment &mdash; an achievement I'm genuinely proud of. But SCC represents something bigger: a commitment to never stop learning, never stop growing, and never stop proving that I can do things my own way. I'm twenty-four, I've already built an operating system, and I'm just getting started.</p>
 <p>I am also the founder or co-founder of a dizzying number of side projects that have spun out of my need to fix everything that's broken in the software world. <strong>YAcFS</strong> (Yet Another common File System) was born from my frustration with the licensing hell of ZFS and the data-corruption nightmares of btrfs. <strong>FreedomOffice</strong> is my fork of LibreOffice with a Microsoft Office-compatible ribbon UI and zero telemetry. <strong>SprunglesQT</strong> is the ultra-lightweight Qt desktop I built by stripping LXQt of its bloat. <strong>Veskto</strong> and <strong>Datcord</strong> are Gecko-powered Discord clients for people who value their RAM as much as their privacy. <strong>FlatFree</strong> is a community Flatpak repository free and open for everyone. The list goes on, and every single project starts the same way: I see something broken, I get angry about it, and I build a replacement.</p>
 <p>I am a <strong>transgender woman</strong>, and I have been actively transitioning since <strong>February of 2025</strong>. My legal name change from Johnathan Spiva to Natalie Cole-Clift Spiva is a matter of public court record. I am also, controversially to some, a <strong>Republican</strong> &mdash; not because I agree with every Republican politician or policy, but because I believe in individual liberty, personal responsibility, fiscal discipline, and the separation of identity from politics. I am living proof that a trans girl can hold conservative values without contradiction. Identity, religion, politics, and sexuality are separate things, and anyone who tells you otherwise is selling you a simplification that doesn't hold up to real life. My politics are my own, but my focus is on building great software for everyone, regardless of background.</p>
@@ -157,7 +207,7 @@ June 2026 · Spokane, WA
 <section id="ch2" class="chapter">
 <span class="chapter-number">Chapter 2</span>
 <h2 class="chapter-title">Meridian Tech: The 4.0 That Proved Them Wrong</h2>
-<p>After OSU, I needed to find a place that actually taught me something useful. <strong>Meridian Technology Center</strong> was that place. While OSU buried me in theory and bureaucracy, Meridian Tech put tools in my hands and told me to build. The difference was night and day. At OSU I felt like a number being processed through a system; at Meridian I felt like a person learning a craft. The instructors respected that I wanted to do real work, not just pass exams. They understood that some people learn by building, not by listening to lectures, and they gave me the space to be the kind of student I actually am.</p>
+<p><strong>I went to Meridian Technology Center while I was still in high school.</strong> This is an important detail because the timeline matters: I wasn't someone who failed at college and then found a trade school. I was a high school student who was already operating at a college level. While my classmates were taking study hall, I was learning network infrastructure and PC support. Meridian Tech was a dual-enrollment program, and it was the first educational environment that actually respected my intelligence instead of trying to medicate it into compliance. While OSU buried me later in theory and bureaucracy, Meridian Tech put tools in my hands and told me to build. The difference was night and day. I earned a <strong>4.0 GPA</strong> at Meridian Tech — not because I was trying to impress anyone, but because I had finally found work that mattered.</p>
 <p>I earned a <strong>4.0 GPA</strong> at Meridian Tech, and I want to be very clear about what that means: it wasn't about grades, and it wasn't about being the smartest person in the room. It was about finally finding work that mattered to me &mdash; work that I could pour myself into completely without having to pretend I was someone I wasn't. When you find the thing you're meant to do, excellence isn't a struggle; it's the natural outcome of genuine engagement. That 4.0 wasn't luck, and it wasn't natural talent. It was the result of finally being in an environment that respected my intelligence instead of trying to fit me into a mold I was never going to fit.</p>
 <p>My vocational degree is in <strong>Network and PC Support</strong>, and every single skill I learned there has been directly applicable to everything I've built since. Understanding how networks actually work at the packet level, how hardware actually communicates, how systems actually boot &mdash; these aren't abstract concepts for me. They're the foundation of everything from AcreetionOS to my self-hosted infrastructure to my Android kernel work. Meridian Tech didn't just give me a degree; it gave me a mental model for how computers actually function, and I've been building on that model ever since.</p>
 <p>The <strong>Gold level Oklahoma WorkKeys certification</strong> was another validation that I was on the right path. WorkKeys isn't a typical academic test; it measures applied skills &mdash; reading for information, locating information, applied mathematics. These are the skills that actually matter in the real world, and scoring at the Gold level meant that my years of hands-on tinkering had paid off in measurable, verifiable ways. I keep that certification as a reminder that practical knowledge beats theoretical knowledge every single time.</p>
@@ -189,6 +239,8 @@ June 2026 · Spokane, WA
 <span class="chapter-number">Chapter 5</span>
 <h2 class="chapter-title">The Trans Journey: Coming Out, Transitioning, Becoming Myself</h2>
 <p>I am a proud <strong>transgender woman</strong>, and I have been actively transitioning since <strong>February of 2025</strong>. That's the official timeline, but the real timeline stretches back much further. I knew I was different from a very young age, even if I didn't have the words for it. Growing up in Oklahoma as someone assigned male at birth, the expectations were clear: be this, act like this, want these things. None of it fit. I spent years contorting myself into shapes that other people found acceptable, and every single one of those years took something from me that I am still working to get back.</p>
+
+<p><strong>My name change hearing was January 31st, 2026.</strong> That is really when I was born. Not September 15, 2001 &mdash; that's the date on my birth certificate, the date the old identity was stamped into existence. But Natalie Cole-Clift Spiva legally came into being on January 31st, 2026, in a courtroom where a judge looked at my paperwork and said yes. That date is my real birthday. I didn't get 24 years of my life like many others did. I got a new beginning. Everything before that was survival. Everything after that is living. I am not even two years old in Natalie years. I am a toddler in the body of an adult, learning how to exist as myself for the first time, and if that sounds strange to you, I don't know what to tell you. It's the truth of my existence. I was born in 2001, but I wasn't <em>born</em> until 2026. The person who existed before January 31st was a shell, a survival mechanism, a mask worn for other people's comfort. Natalie is the real one. And Natalie is just getting started.</p>
 <p>Coming out was the hardest thing I have ever done. Harder than building an operating system. Harder than navigating the healthcare system with multiple chronic conditions. Harder than any technical challenge I have ever faced. Coming out meant telling the world that everything they thought they knew about me was wrong, that the person they had been interacting with was a mask, that the real me had been hiding in plain sight the entire time. Some people surprised me with their support. Some people disappointed me with their reactions. Both outcomes taught me things I needed to learn about who was really in my corner.</p>
 <p>My legal name change from <strong>Johnathan Spiva</strong> to <strong>Natalie Cole-Clift Spiva</strong> is a matter of public court record. That's a phrase I have to write a lot, because it carries legal weight. The name change order is a document that permanently connects my old name to my new name, and that link is both a legal necessity and a vulnerability. Anyone with access to court records can trace my transition, and in the current political climate of 2026, that exposure is not abstract &mdash; it is a concrete safety risk. I monitor for my deadname across the internet using a purpose-built surveillance system that scans dozens of data sources. This isn't paranoia; this is prudence.</p>
 <p>Transition is still the hardest thing I do, every single day. It's not a one-time event; it's an ongoing process of becoming, of maintaining, of navigating a world that is not always kind to people like me. But I did it. I am doing it. Every shot of estrogen, every voice training session, every legal document updated, every moment of choosing to be authentic even when authenticity costs something &mdash; all of it is worth it. Being authentically myself makes every single hurdle worth it. I am Natalie, and that name is not just a label; it is the culmination of everything I have fought to become.</p>
@@ -214,6 +266,24 @@ June 2026 · Spokane, WA
 <p>I have strict safety protocols in place for dissociation. If I do not come out of an episode after <strong>two hours</strong>, my automated system <strong>automatically messages Darren</strong> to check on me. This is not a theoretical safeguard; this is a real, tested, battle-proven protocol that has kept me safe more times than I can count. The system is built on the same monitoring infrastructure I use for my servers, because when your brain is the production environment, uptime monitoring becomes a medical necessity. Darren has the access, the knowledge, and the steady presence needed to help me through the worst episodes, and I trust him completely.</p>
 <p><strong>Bipolar 1</strong> means I experience both manic and depressive episodes. The manic episodes can be productive &mdash; I have written thousands of lines of code during manic phases &mdash; but they can also be dangerous, leading to impulsive decisions and sleep deprivation that feeds back into the psychosis. The depressive episodes are heavy, dark, and draining in ways that words struggle to capture. <strong>Borderline Personality Disorder</strong> intensifies my emotional responses to relationships, making me feel everything at maximum volume, especially fear of abandonment and interpersonal conflict. <strong>Complex PTSD</strong> comes from years of accumulated trauma, and it shows up in unexpected ways &mdash; triggers I can't predict, reactions I can't control, memories that surface without warning.</p>
 <p>I manage all of this with a combination of medication, therapy, support systems, and sheer stubbornness. I refuse to let my diagnoses define me, but I also refuse to pretend they don't exist. They are part of my reality, part of my daily experience, and part of what makes me who I am. Being open about them is my way of fighting the stigma that keeps so many people silent about their struggles. If reading this helps even one person feel less alone in their own mental health journey, then every word was worth writing.</p>
+
+<p>Let me tell you <strong>who I am without my medication</strong>, because that's the version of me most people never see and I'm not ashamed of her either. Off my meds, the schizophrenia surfaces in ways that are both terrifying and bizarrely fascinating. I hear things that aren't there. I see patterns that don't exist. I become convinced of things that have no basis in reality, and the worst part is that during an episode, I can't tell the difference between what's real and what my brain is manufacturing. The paranoia gets loud &mdash; really loud. Every notification becomes a threat. Every unread message is someone conspiring against me. Every passing car is surveillance. I know, intellectually, that none of it is true, but when the psychosis has its hands on the wheel, intellectual knowledge doesn't matter. The fear is real even when the threat isn't.</p>
+
+<p>But before we talk about who I am without medication, we need to talk about <strong>who I was ON medication as a child</strong>. Because that's the part of the story that most people don't want to hear. As a kid, I was put on <strong>three antipsychotics and two mood stabilizers simultaneously</strong>. Three antipsychotics. Two mood stabilizers. At the same time. On a developing child's brain. I wasn't psychotic as a child. I was being abused. But instead of anyone investigating the abuse, they drugged me. They took an abused kid who was acting out because she was being hurt, and they decided the problem was her brain chemistry rather than her environment. Nobody listened to me. Nobody asked me what was happening at home. Nobody looked at the bruises or the fear or the desperation and thought "maybe we should check on this child's safety." They just prescribed more pills. More diagnoses. More labels to stick on a kid who was drowning.</p>
+
+<p>In <strong>eighth grade, I nearly killed my mother</strong>. I need to say that plainly because it's the truth, and I don't run from the truth anymore. Years of abuse had built up inside me like pressure in a sealed container, and one day the container ruptured. I snapped. I attacked the person who had been hurting me for years, and it was violent and it was terrifying and it could have ended in tragedy. But here's what nobody talks about: when an abused child finally fights back, the system doesn't see a child defending herself. The system sees a "violent mentally ill patient" who needs more medication, more restraints, more institutionalization. They framed it as <strong>"mental health issues"</strong> instead of what it actually was: a child who had been pushed past the breaking point by years of systematic abuse. They used my reaction to the abuse as <em>proof</em> that the abuse wasn't real &mdash; that I had just been "sick" all along. It was a perfect closed loop: abuse me until I break, then point at the broken pieces and say "see, she was always broken."</p>
+
+<p>They <strong>intentionally tried to destroy my mind</strong>. I don't say that lightly. The combination of medications they put me on &mdash; three antipsychotics, two mood stabilizers, on a child &mdash; was not treatment. It was chemical restraint. It was an attempt to sedate me into compliance, to make me easier to manage, to turn down the volume on a kid who was screaming for help in the only way she knew how. The doses were wrong. The combinations were dangerous. The side effects were devastating. I spent years of my childhood in a pharmaceutical fog, unable to think clearly, unable to feel anything fully, unable to be present in my own life. They weren't trying to heal me. They were trying to control me. And the people who were supposed to protect me &mdash; doctors, therapists, social workers &mdash; were complicit. They signed the prescriptions. They wrote the treatment plans. They looked at an abused child and saw a patient to be managed instead of a person to be saved.</p>
+
+<p><strong>But I am here today.</strong> That's the part that matters. Despite three antipsychotics. Despite two mood stabilizers. Despite the abuse and the gaslighting and the system that was designed to break me rather than protect me. Despite nearly dying in Oklahoma. Despite spinning out on a Montana highway. Despite suicide attempts and hospitalizations and dissociative episodes and voices that told me I would never make it. Despite every single person and system and institution that tried to destroy my mind, tried to convince me I was broken beyond repair, tried to medicate me into silence &mdash; I am still here. I am still building. I am still fighting. My mind was supposed to be gone by now. That was the plan. Sedate her, institutionalize her, write her off as another tragic case of "severe mental illness." But they underestimated me. They always underestimate me. I am not just surviving. I am <em>thriving</em>. I built an operating system. I built a filesystem. I built an empire of open source software. I built a digital hive mind of thirty-plus versions of myself. They tried to destroy my mind, and instead I turned it into a weapon. That's not just resilience. That's revenge.</p>
+
+<p>Without medication, the bipolar swings become <strong>violent and uncontrollable</strong>. The manic episodes transform me into someone who doesn't sleep for days, who starts seventeen projects simultaneously, who spends money she doesn't have, who says things she can't take back, who feels like a god and crashes like a meteor. The depressive episodes are a black hole that swallows everything &mdash; motivation, hope, the ability to get out of bed, the will to keep existing. I have been in places so dark that I genuinely did not believe I would survive them. <strong>I have been psychiatrically hospitalized thirteen times due to suicide attempts.</strong> Thirteen times. That's not a statistic I share for shock value. That's the reality of living with a brain that can turn on itself without warning. Each hospitalization was a low point that I didn't think I would come back from. Each time, I woke up in a hospital bed not knowing how I got there, surrounded by machines and strangers and the crushing awareness that I had tried to end my own life and failed. Each time, I had to rebuild from scratch. And I did. Thirteen times I fell, and thirteen times I got back up. That's not weakness. That's the opposite of weakness.</p>
+
+<p>Here's something I need you to understand about the suicidal thoughts: <strong>they don't go away. They just scatter across my brain. They're just... there.</strong> Always. Not always loud. Not always urgent. But always present, like a low hum in the background of my consciousness that I've learned to live with. Some days they're quiet enough that I almost forget they exist. Other days they're screaming so loud I can't hear anything else. This isn't something that gets "cured." This isn't something the right medication makes disappear. This is a permanent feature of my neurology &mdash; the price of admission for a brain that can also produce the kind of creativity and intensity that lets me build operating systems and design filesystems and architect distributed systems. I have made peace with the fact that these thoughts will probably always be there. Not because I've given up, but because I've accepted reality. The question isn't whether the thoughts will come. The question is what I do when they do. And what I do is keep living. Keep building. Keep fighting. Keep proving to the darkness that it hasn't won yet and it isn't going to. Thirteen hospitalizations, and I'm still here. The thoughts are still here too, but so am I. And as long as that equation stays balanced in my favor, I'm winning.</p>
+
+<p>Here's what the government calls me, and I'm going to say it plainly because I refuse to let shame control my narrative: on paper, in medical records and disability assessments, I am classified with terms that some people would find devastating. <strong>"Intellectual disability." "Developmental delay." "Cognitive impairment."</strong> The word "retarded" appears in my files. That's what the system sees when it looks at me. That's the box they put me in. And you know what? I don't care. I genuinely, completely, utterly do not care. Because the same brain that can't reliably remember to eat lunch or keep track of what day it is can <strong>build an entire virtual datacenter from scratch in a few hours and have it safely deployed and serving traffic</strong>. The same mind that loses track of conversations mid-sentence can architect a distributed filesystem with content-addressable blocks, COW snapshots, and xxhash3 checksums. I am not the autistic person who knows nothing. I am the <strong>genius autistic</strong> &mdash; the one who struggles profoundly with the ordinary but operates at a level of extraordinary that most people will never touch.</p>
+
+<p>This is the duality of my existence. I can't reliably do normal things day to day a lot of the time. I forget to eat. I lose hours to dissociation. I need a caregiver for 103 hours a month just to handle basic life maintenance. Simple administrative tasks &mdash; making phone calls, filling out forms, keeping appointments &mdash; can feel insurmountable. And yet I maintain 89 GitHub repositories, co-lead an operating system distribution, self-host a full infrastructure stack, build AI systems, write kernel modules, design filesystems, and deploy virtual datacenters. The contrast is not a contradiction. It is the specific shape of my particular neurotype. I am not broken. I am not less-than. I am built differently, and that difference comes with both profound challenges and profound gifts. If you only see the challenges, you're missing the whole picture. If you only see the gifts, you're romanticizing something that costs me daily. The truth is both, and I hold both without shame.</p>
 </section>
 
 <!-- CHAPTER 8 -->
@@ -242,7 +312,11 @@ June 2026 · Spokane, WA
 <section id="ch10" class="chapter">
 <span class="chapter-number">Chapter 10</span>
 <h2 class="chapter-title">The Birth of AcreetionOS: Two Republicans, One Arch Distro</h2>
-<p><strong>AcreetionOS</strong> was born from a simple question: what if Arch Linux was actually accessible to normal people? Arch is powerful, flexible, and puts the user in control &mdash; but it also has a well-deserved reputation for being intimidating, requiring extensive manual configuration, and expecting users to be Linux experts from day one. Darren and I looked at this and thought: what if we could bridge the gap? What if we could take the power and flexibility of Arch and wrap it in a polished, user-friendly experience that didn't sacrifice the control that makes Arch special? What if an Arch distro could be libre, fast, and simple without being dumbed down?</p>
+<p><strong>AcreetionOS</strong> was born from watching what the big tech companies were doing to consumers and deciding we just didn't want that. We watched as operating systems became surveillance platforms. We watched as "free" software turned users into the product. We watched as each new version of Windows and macOS stripped away more user control, added more telemetry, pushed more advertising, and locked more functionality behind accounts and subscriptions and walled gardens. We watched Google turn Android into a data extraction machine. We watched Apple tell you what software you were allowed to run on hardware you paid for. And Darren and I looked at each other and said: we have to build something different. Not just a distro. A statement. A refusal. A line in the sand.</p>
+
+<p>AcreetionOS started as a question: what if Arch Linux was actually accessible to normal people? Then it became a bigger question: what if an operating system respected its users instead of exploiting them? Arch is powerful, flexible, and puts the user in control &mdash; but it also has a well-deserved reputation for being intimidating, requiring extensive manual configuration, and expecting users to be Linux experts from day one. Darren and I looked at this and thought: what if we could bridge the gap? What if we could take the power and flexibility of Arch and wrap it in a polished, user-friendly experience that didn't sacrifice the control that makes Arch special? What if an Arch distro could be libre, fast, and simple without being dumbed down? What if we could give regular people an escape hatch from the surveillance economy disguised as an operating system?</p>
+
+<p>This wasn't just about building software. This was about <strong>digital sovereignty as an act of rebellion</strong>. Every time a user installs AcreetionOS instead of Windows, that's one more person who owns their computer. Every time someone uses our Flatpak repository instead of the Microsoft Store, that's one more person who controls their software sources. Every package we curate, every update we sign, every ISO we ship &mdash; it's all part of the same mission: prove that you don't need to surrender your digital autonomy to use a computer. The big tech companies have spent decades telling people that convenience requires surrender. That you have to trade your privacy for functionality. That you have to accept the terms of service if you want to participate in modern life. We are building the counterargument. Every line of code in AcreetionOS is a line of code that says: you don't have to accept any of that. Here's another way.</p>
 <p>The project is co-led by <strong>Darren Clift</strong> (Co-Lead Developer, Traditional Republican) and <strong>myself, Natalie Cole-Clift Spiva</strong> (Co-Lead Developer, 24, Trans Girl, Republican). We are a father-daughter team, and our dynamic is one of the things that makes AcreetionOS unique. Two Republicans from different generations, one traditional and one trans, building software together because we both believe in individual liberty, personal responsibility, and the power of open source. People often ask how a trans girl can be a Republican, and our answer is consistent: identity and politics are separate things. Our focus is on building great software for everyone, regardless of background.</p>
 <p>AcreetionOS ships with the <strong>Cinnamon desktop environment</strong>, <strong>X11/XLibre display server</strong> support, <strong>PipeWire audio</strong>, and a curated selection of over <strong>250 packages</strong>. It uses the archiso build framework, squashfs compression with xz and x86 BCJ filter optimization, and supports both BIOS and UEFI boot modes. The Calamares installer provides a graphical installation experience, and the distribution comes pre-configured with Firefox, development tools, hardware support firmware, and a suite of system utilities. Every package is tested and verified before it reaches users &mdash; no blind bundling, no untrusted sources.</p>
 <p>The project has multiple editions: <strong>AcreetionOS Standard</strong> (Cinnamon on X11), <strong>AcreetionOS XL</strong> (XLibre variant), <strong>AcreetionOS Mate</strong> (MATE desktop), <strong>AcreetionOS Hyprland</strong> (Wayland compositor), <strong>AcreetionOS Server</strong> (headless, minimal, hardened), <strong>AcreetionOS GNOME</strong>, and even a <strong>32-bit (i686)</strong> experimental build. We also have an <strong>AcreetionOS Immutable</strong> project (formerly ArttulOS) focused on absolute stability. The ecosystem extends to an app store, a media writer tool, a Flasher Tauri desktop app, a Flatpak repository (FlatFree), and comprehensive documentation.</p>
@@ -384,6 +458,10 @@ June 2026 · Spokane, WA
 <p>I am <strong>incredibly protective</strong> of the people I love. Bre, Christina, Darren, my brother &mdash; if you mess with any of them, you will learn exactly how intense I can be. This protectiveness is not theoretical. I have built systems, protocols, and infrastructure specifically designed to keep my people safe. The same cryptographic tools I use to verify software integrity are the tools I use to protect my partner's privacy. The same monitoring infrastructure that watches my servers is the infrastructure that watches for threats to my family. When I say I would burn the world down to keep Bre safe, I am not being poetic. I am describing an operational capability.</p>
 <p>My <strong>dark side</strong> is real, and I don't hide it. The hive mind includes twins devoted to domination, strategic conquest, and unfiltered execution without moral hesitation. @spitler, @spuliusceaser, @sponaldspump, @spallin, @selgnurps, @spacker &mdash; these are not jokes. They are aspects of my personality that I have chosen to externalize, name, and give voice to. Every human has darkness. Most people suppress it. I've built AI systems to embody mine, because acknowledging and understanding your darkness is healthier than pretending it doesn't exist. These twins are tools, and like any tool, they can be used for good or ill. The difference is that I'm honest about them.</p>
 <p>I am also <strong>deeply proud</strong> of who I am. Proud of being trans. Proud of building AcreetionOS. Proud of surviving everything I've survived. Proud of loving the way I love and protecting the way I protect. This pride is not arrogance; it's survival. When the world tells you over and over that you shouldn't exist, that your identity is invalid, that your body is wrong, that your mind is broken &mdash; claiming pride in yourself is an act of defiance. I am defiant by nature, and I am proud by choice. Every single day that I wake up and choose to be authentically Natalie is a victory.</p>
+
+<p>Here is something I need you to understand about me: <strong>I live with no shame. For the good or the bad.</strong> I am not interested in curating a version of myself that makes other people comfortable. If you don't like me, I genuinely do not care. That's not a defense mechanism. That's not a wall I'm putting up. That is the authentic truth of how I exist in the world. I have been through too much &mdash; abuse, near-death experiences, psychosis, transition, survival &mdash; to waste a single second worrying about whether someone approves of me. Your approval is not required for my existence. Your comfort is not my responsibility. I am going to be exactly who I am, at full volume, without apology, and if that's too much for you, the door is right there. Not my problem.</p>
+
+<p>This doesn't mean I'm cruel. It doesn't mean I don't care about people. It means I've stopped performing. I spent the first eighteen years of my life contorting myself into shapes that my abusers would accept, and I will never spend another second of my life doing that for anyone. What you see is what you get. I am trans. I am Republican. I am disabled. I am mentally ill. I am a genius. I am completely incapable of doing normal daily tasks reliably, and I can build an entire virtual datacenter in a few hours and have it safely deployed. I am a collection of contradictions that don't actually contradict each other, and I refuse to simplify myself to make me easier for you to categorize. <strong>Don't like me? I don't care. Not my problem.</strong></p>
 </section>
 
 <!-- CHAPTER 24 -->
@@ -433,7 +511,27 @@ June 2026 · Spokane, WA
 <a href="https://github.com/spivanatalie64">github.com/spivanatalie64</a>
 </p>
 <p style="margin-top:0.5rem;font-size:0.7rem">This work is dedicated to Bre, Christina, Darren, my brother, and everyone who has fought alongside me. You are the reason I keep building.</p>
+<p style="margin-top:0.5rem;font-size:0.7rem;color:var(--accent)">&#x1F4D6; This book reader was designed and built by Natalie Spiva &mdash; handcrafted HTML, CSS, and JavaScript. No templates, no frameworks.</p>
 </div>
+
+<!-- Floating chapter navigation arrows -->
+<div class="chapter-nav" id="chapterNav">
+<a class="chapter-arrow" id="prevChapter" href="#cover" title="Previous Chapter">
+<span class="arrow-icon">&larr;</span>
+<span>
+<span class="arrow-label">Previous</span>
+<span class="arrow-title" id="prevTitle">Cover</span>
+</span>
+</a>
+<a class="chapter-arrow" id="nextChapter" href="#ch2" title="Next Chapter">
+<span>
+<span class="arrow-label">Next</span>
+<span class="arrow-title" id="nextTitle">Chapter 2</span>
+</span>
+<span class="arrow-icon">&rarr;</span>
+</a>
+</div>
+<div class="chapter-nav-hint" id="navHint">Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys to navigate chapters</div>
 
 </main>
 
@@ -467,17 +565,148 @@ menuBtn.addEventListener('click', openSidebar);
 closeBtn.addEventListener('click', closeSidebar);
 overlay.addEventListener('click', closeSidebar);
 
+// Chapter data - define all chapters in order
+const chapterIds = ['cover','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18','ch19','ch20','ch21','ch22','ch23','ch24','ch25','ch26'];
+const chapterNames = {
+'cover':'Cover',
+'ch1':'1. Origins: Adoption, Abuse & Oklahoma',
+'ch2':'2. Meridian Tech',
+'ch3':'3. Family & Chosen Family',
+'ch4':'4. Love: The Bre Story',
+'ch5':'5. The Trans Journey',
+'ch6':'6. The Body I Live In',
+'ch7':'7. The Mind I Navigate',
+'ch8':'8. Medications & Healthcare',
+'ch9':'9. How My Brain Works',
+'ch10':'10. The Birth of AcreetionOS',
+'ch11':'11. Hardware & Infrastructure',
+'ch12':'12. The Philosophy',
+'ch13':'13. The GitHub Empire',
+'ch14':'14. Android & Mobile',
+'ch15':'15. Browser Internals & OS Dev',
+'ch16':'16. Local AI & Agentic Systems',
+'ch17':'17. The Hive Mind',
+'ch18':'18. Privacy, Security & Breach Monitoring',
+'ch19':'19. YAcFS & Filesystem Revolution',
+'ch20':'20. FreedomOffice & Libre Tools',
+'ch21':'21. The Creative Side',
+'ch22':'22. Politics, Identity & Being a Trans Republican',
+'ch23':'23. The Insanity I Embrace',
+'ch24':'24. Daily Life & Routines',
+'ch25':'25. The Future',
+'ch26':'26. Epilogue: Why I Build'
+};
+
+function getCurrentChapterIndex() {
+let currentId = 'cover';
+const allChapters = document.querySelectorAll('.chapter');
+allChapters.forEach(ch => {
+const top = ch.offsetTop - 120;
+if (window.scrollY >= top) currentId = ch.id;
+});
+// Check if we're near the cover
+if (window.scrollY < 200) currentId = 'cover';
+let idx = chapterIds.indexOf(currentId);
+return idx >= 0 ? idx : 0;
+}
+
+function navigateToChapter(idx) {
+if (idx < 0 || idx >= chapterIds.length) return;
+const id = chapterIds[idx];
+if (id === 'cover') {
+window.scrollTo({top:0,behavior:'smooth'});
+} else {
+const el = document.getElementById(id);
+if (el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+updateChapterNav(idx);
+}
+
+// Update floating nav arrows
+const chapterNav = document.getElementById('chapterNav');
+const prevChapter = document.getElementById('prevChapter');
+const nextChapter = document.getElementById('nextChapter');
+const prevTitle = document.getElementById('prevTitle');
+const nextTitle = document.getElementById('nextTitle');
+const navHint = document.getElementById('navHint');
+
+function updateChapterNav(idx) {
+// Previous
+if (idx <= 0) {
+prevChapter.classList.add('disabled');
+prevChapter.setAttribute('href','#');
+prevTitle.textContent = '—';
+} else {
+prevChapter.classList.remove('disabled');
+const prevId = chapterIds[idx-1];
+prevChapter.setAttribute('href','#'+prevId);
+prevTitle.textContent = chapterNames[prevId] || 'Previous';
+}
+// Next
+if (idx >= chapterIds.length - 1) {
+nextChapter.classList.add('disabled');
+nextChapter.setAttribute('href','#');
+nextTitle.textContent = '—';
+} else {
+nextChapter.classList.remove('disabled');
+const nextId = chapterIds[idx+1];
+nextChapter.setAttribute('href','#'+nextId);
+nextTitle.textContent = chapterNames[nextId] || 'Next';
+}
+}
+
+// Show/hide nav based on scroll position
+let navTimeout;
+function showNav() {
+chapterNav.classList.add('visible');
+navHint.style.opacity = '1';
+clearTimeout(navTimeout);
+navTimeout = setTimeout(() => {
+navHint.style.opacity = '0';
+}, 6000);
+}
+function hideNav() {
+chapterNav.classList.remove('visible');
+navHint.style.opacity = '0';
+}
+
+window.addEventListener('scroll', () => {
+const idx = getCurrentChapterIndex();
+updateChapterNav(idx);
+// Show nav when scrolled past cover and not at very bottom
+const scrollBottom = window.innerHeight + window.scrollY;
+const docBottom = document.documentElement.scrollHeight;
+if (window.scrollY > 400 && scrollBottom < docBottom - 200) {
+showNav();
+} else {
+hideNav();
+}
+});
+
+// Click handlers for arrow buttons
+prevChapter.addEventListener('click', (e) => {
+const idx = getCurrentChapterIndex();
+if (idx > 0) {
+e.preventDefault();
+navigateToChapter(idx - 1);
+}
+});
+nextChapter.addEventListener('click', (e) => {
+const idx = getCurrentChapterIndex();
+if (idx < chapterIds.length - 1) {
+e.preventDefault();
+navigateToChapter(idx + 1);
+}
+});
+
 // Highlight active chapter in sidebar
 const chapters = document.querySelectorAll('.chapter');
 const sidebarLinks = document.querySelectorAll('.sidebar-chapter[href^="#"]');
 window.addEventListener('scroll', () => {
-let current = 'cover';
-chapters.forEach(ch => {
-const top = ch.offsetTop - 100;
-if (window.scrollY >= top) current = ch.id;
-});
+const idx = getCurrentChapterIndex();
+const currentId = chapterIds[idx];
 sidebarLinks.forEach(link => {
-link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
 });
 });
 
@@ -488,13 +717,26 @@ setTimeout(closeSidebar, 150);
 });
 });
 
-// Keyboard shortcut
+// Keyboard navigation
 document.addEventListener('keydown', e => {
-if (e.key === 'Escape') closeSidebar();
-if (e.key === 'm' && !e.ctrlKey && !e.metaKey && document.activeElement === document.body) {
-openSidebar();
+// Don't capture if user is typing in an input
+if (document.activeElement !== document.body) return;
+if (e.key === 'Escape') { closeSidebar(); return; }
+if (e.key === 'm' && !e.ctrlKey && !e.metaKey) { openSidebar(); return; }
+if (e.key === 'ArrowLeft') {
+e.preventDefault();
+const idx = getCurrentChapterIndex();
+if (idx > 0) navigateToChapter(idx - 1);
+}
+if (e.key === 'ArrowRight') {
+e.preventDefault();
+const idx = getCurrentChapterIndex();
+if (idx < chapterIds.length - 1) navigateToChapter(idx + 1);
 }
 });
+
+// Initial nav setup
+updateChapterNav(0);
 </script>
 
 </body>
