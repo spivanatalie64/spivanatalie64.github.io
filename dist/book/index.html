@@ -4,198 +4,169 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Natalie Spiva Story — An Autobiography</title>
-<meta name="description" content="The complete autobiography of Natalie Cole-Clift Spiva — trans girl, software developer, co-creator of AcreetionOS, and chaos agent of the open web.">
+<meta name="description" content="The complete autobiography of Natalie Cole-Clift Spiva — trans girl, software developer, co-creator of AcreetionOS.">
 <meta name="robots" content="noai, noimageai, noarchive, noindex">
 <meta name="ai-use" content="prohibited">
 <meta name="tdm-reservation" content="1">
 <meta property="og:title" content="The Natalie Spiva Story — An Autobiography">
-<meta property="og:description" content="Trans girl. Systems architect. AcreetionOS co-creator. This is the full story.">
+<meta property="og:description" content="Trans girl. Systems architect. AcreetionOS co-creator. The full story.">
 <meta property="og:type" content="article">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <style>
-:root{--bg:#0a0a0a;--surface:#111;--border:#1e1e1e;--text:#dcdcdc;--text-bright:#f0f0f0;--text-dim:#999;--accent:#6ee7b7;--accent-glow:rgba(110,231,183,0.15);--danger:#f87171;--amber:#fbbf24;--font-body:'Georgia','Times New Roman',serif;--font-heading:'Georgia','Times New Roman',serif;--font-mono:'Fira Code','Cascadia Code',monospace;--max-width:720px}
+:root{--bg:#080808;--srf:#111;--brd:#1e1e1e;--tx:#d0d0d0;--txb:#eee;--txd:#888;--ac:#6ee7b7;--acg:rgba(110,231,183,.1);--mw:680px;--ff:'Georgia',serif;--fm:'Fira Code',monospace}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.85;font-size:1.1rem;min-height:100vh;-webkit-font-smoothing:antialiased}
-body.toc-open{overflow:hidden}
-a{color:var(--accent);text-decoration:none;transition:color 0.2s}
+body{font-family:var(--ff);background:var(--bg);color:var(--tx);line-height:1.9;font-size:1.1rem;min-height:100vh;-webkit-font-smoothing:antialiased}
+body.sb-open{overflow:hidden}
+a{color:var(--ac);text-decoration:none;transition:color .15s}
 a:hover{color:#fff}
-
-.book-container{display:flex;min-height:100vh;position:relative}
-.book-sidebar{position:fixed;left:-320px;top:0;width:300px;height:100vh;background:var(--surface);border-right:1px solid var(--border);z-index:100;transition:left 0.3s ease;overflow-y:auto;padding:2rem 1.5rem;display:flex;flex-direction:column;gap:0.5rem}
-.book-sidebar.open{left:0}
-.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99;display:none}
-.sidebar-overlay.active{display:block}
-.sidebar-title{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--text-dim);margin-bottom:1rem}
-.sidebar-chapter{display:block;padding:0.4rem 0;color:var(--text-dim);font-size:0.9rem;transition:color 0.2s;cursor:pointer;border-left:2px solid transparent;padding-left:0.75rem}
-.sidebar-chapter:hover,.sidebar-chapter.active{color:var(--text-bright);border-left-color:var(--accent)}
-.sidebar-chapter small{display:block;font-size:0.7rem;color:var(--text-dim);margin-top:0.15rem}
-.sidebar-footer{margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--border);font-size:0.75rem;color:var(--text-dim)}
-.sidebar-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--text-dim);font-size:1.5rem;cursor:pointer;line-height:1}
-
-.book-main{flex:1;margin-left:0;padding:3rem 2rem;max-width:var(--max-width);margin:0 auto;width:100%}
-.book-topbar{display:flex;align-items:center;gap:1rem;padding-bottom:2rem;margin-bottom:3rem;border-bottom:1px solid var(--border)}
-.menu-btn{background:none;border:1px solid var(--border);color:var(--text);padding:0.5rem 0.9rem;border-radius:6px;cursor:pointer;font-size:1.1rem;transition:all 0.2s}
-.menu-btn:hover{background:var(--surface);border-color:var(--accent);color:var(--accent)}
-/* download dropdown */
-.dl-group{position:relative}
-.dl-btn{background:var(--surface);border:1px solid var(--accent);color:var(--accent);padding:.5rem .9rem;border-radius:6px;cursor:pointer;font-size:1rem;transition:all .15s}
-.dl-btn:hover{background:var(--accent);color:#000}
+.sb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:199;display:none}
+.sb-overlay.on{display:block}
+.sb{position:fixed;left:-320px;top:0;width:300px;height:100vh;background:#0d0d0d;border-right:1px solid var(--brd);z-index:200;transition:left .3s ease;overflow-y:auto;padding:2rem 1.5rem;display:flex;flex-direction:column;gap:.25rem}
+.sb.open{left:0}
+.sb-close{position:absolute;top:.75rem;right:1rem;background:none;border:none;color:var(--txd);font-size:1.6rem;cursor:pointer}
+.sb-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.18em;color:var(--txd);margin-bottom:1rem}
+.sb-link{display:block;padding:.35rem 0 .35rem .75rem;color:var(--txd);font-size:.88rem;transition:all .15s;cursor:pointer;border-left:2px solid transparent;text-decoration:none}
+.sb-link:hover,.sb-link.on{color:var(--txb);border-left-color:var(--ac)}
+.sb-link em{display:block;font-size:.68rem;color:var(--txd);font-style:normal;margin-top:.1rem}
+.sb-foot{margin-top:auto;padding-top:1.25rem;border-top:1px solid var(--brd);font-size:.7rem;color:var(--txd)}
+.topbar{display:flex;align-items:center;gap:.75rem;padding:1rem 0 1.25rem;margin-bottom:2rem;border-bottom:1px solid var(--brd);position:sticky;top:0;z-index:30;background:var(--bg)}
+.btn{background:var(--srf);border:1px solid var(--brd);color:var(--tx);padding:.5rem .9rem;border-radius:6px;cursor:pointer;font-size:1rem;transition:all .15s;font-family:var(--ff)}
+.btn:hover{background:var(--ac);color:#000;border-color:var(--ac)}
+.btn.ac{border-color:var(--ac);color:var(--ac)}
+.btn.ac:hover{background:var(--ac);color:#000}
+.ch-pos{font-size:.75rem;color:var(--txd);margin-left:auto;text-align:right}
+.ch-pos b{color:var(--ac)}
+.dl-wrap{position:relative}
 .dl-menu{position:absolute;top:100%;left:0;margin-top:.5rem;background:#111;border:1px solid #222;border-radius:10px;padding:.5rem 0;min-width:320px;z-index:60;display:none;box-shadow:0 10px 40px rgba(0,0,0,.5)}
 .dl-menu.open{display:block}
-.dl-item{display:flex;flex-direction:column;padding:.6rem 1rem;color:var(--text);text-decoration:none;font-size:.85rem;transition:all .15s}
+.dl-item{display:flex;flex-direction:column;padding:.6rem 1rem;color:var(--tx);text-decoration:none;font-size:.85rem;transition:all .15s}
 .dl-item:hover{background:rgba(110,231,183,.08)}
-.dl-item strong{color:var(--accent);font-size:.9rem}
-.dl-item span{font-size:.7rem;color:var(--text-dim)}
-.dl-div{height:1px;background:var(--border);margin:.3rem 0}
-.dl-note{padding:.6rem 1rem;font-size:.68rem;color:var(--text-dim);line-height:1.5}
-.dl-note code{font-family:monospace;color:var(--accent);font-size:.65rem}
-/* anti-ai protection banner */
-.ai-protect{position:fixed;top:0;left:0;right:0;z-index:9999;background:#f87171;color:#000;text-align:center;padding:.5rem;font-size:.75rem;font-weight:700;display:none}
-.ai-protect.show{display:block}
-.book-cover{text-align:center;padding:4rem 0 3rem}
-.book-cover h1{font-family:var(--font-heading);font-size:2.6rem;color:var(--text-bright);line-height:1.3;margin-bottom:1rem;letter-spacing:-0.02em}
-.book-cover .subtitle{font-size:1.2rem;color:var(--text-dim);font-style:italic;margin-bottom:2rem}
-.book-cover .byline{font-size:1rem;color:var(--accent)}
-.book-cover .cover-ornament{font-size:3rem;margin-bottom:1rem;opacity:0.4}
-
-.chapter{margin-bottom:3rem}
-.chapter-title{font-family:var(--font-heading);font-size:1.8rem;color:var(--text-bright);margin-bottom:1.5rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);letter-spacing:-0.01em}
-.chapter-number{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--accent);margin-bottom:0.5rem;display:block}
-.chapter p{margin-bottom:1.2rem;text-align:justify;hyphens:auto}
-.chapter p strong{color:var(--text-bright);font-weight:600}
-.chapter blockquote{margin:1.5rem 0;padding:1rem 1.5rem;border-left:3px solid var(--accent);background:var(--surface);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-dim)}
-.chapter ul,.chapter ol{margin:1rem 0 1rem 1.5rem;color:var(--text)}
-.chapter li{margin-bottom:0.5rem}
-.chapter .highlight{background:var(--accent-glow);padding:0.2rem 0.4rem;border-radius:4px;color:var(--accent)}
-.chapter code{font-family:var(--font-mono);font-size:0.85rem;background:var(--surface);padding:0.1rem 0.4rem;border-radius:4px;color:var(--accent)}
-.chapter .stat-box{display:inline-block;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.75rem 1.25rem;margin:0.5rem 0.25rem;font-family:var(--font-mono);font-size:0.8rem}
-.chapter .stat-box strong{display:block;color:var(--accent);font-size:1.3rem}
-
-.book-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;margin-top:2rem;border-top:1px solid var(--border)}
-.nav-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;font-size:0.9rem;transition:all 0.2s}
-.nav-btn:hover{background:var(--accent);color:#000;border-color:var(--accent)}
-.nav-btn:disabled{opacity:0.3;cursor:default}
-.nav-btn:disabled:hover{background:var(--surface);color:var(--text);border-color:var(--border)}
-
-.book-footer{text-align:center;padding:2rem 0;color:var(--text-dim);font-size:0.8rem;border-top:1px solid var(--border);margin-top:2rem}
-.book-footer a{color:var(--text-dim)}
-.book-footer a:hover{color:var(--accent)}
-
-/* reading progress bar */
-.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:200;transition:width 0.1s linear}
-
-/* visual stress note */
-.visual-stress-note{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:1rem 1.25rem;margin:2rem 0;font-size:0.9rem;color:var(--text-dim)}
-.visual-stress-note strong{color:var(--accent)}
-
-/* reader credit badge */
-.reader-credit{text-align:center;margin:1.5rem 0;padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:0.75rem;color:var(--text-dim)}
-.reader-credit strong{color:var(--accent)}
-.reader-credit .credit-icon{font-size:1.2rem;display:block;margin-bottom:0.3rem}
-
-/* floating chapter navigation arrows */
-.chapter-nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(transparent,var(--bg) 40%,var(--bg));padding:3rem 1rem 1rem;z-index:50;display:flex;justify-content:center;align-items:center;gap:1.5rem;pointer-events:none;opacity:0;transition:opacity 0.3s}
-.chapter-nav.visible{opacity:1;pointer-events:all}
-.chapter-arrow{display:flex;align-items:center;gap:0.5rem;background:var(--surface);border:1px solid var(--border);color:var(--text-bright);padding:0.75rem 1.5rem;border-radius:10px;cursor:pointer;font-size:0.95rem;text-decoration:none;transition:all 0.2s;font-family:var(--font-body)}
-.chapter-arrow:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-2px)}
-.chapter-arrow.disabled{opacity:0.25;pointer-events:none;cursor:default}
-.chapter-arrow .arrow-icon{font-size:1.3rem}
-.chapter-arrow .arrow-label{font-size:0.7rem;color:var(--text-dim);display:block;line-height:1}
-.chapter-arrow:hover .arrow-label{color:rgba(0,0,0,0.5)}
-.chapter-arrow .arrow-title{font-weight:600}
-.chapter-nav-hint{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);font-size:0.7rem;color:var(--text-dim);z-index:48;pointer-events:none;transition:opacity 0.5s}
-.chapter-nav-hint kbd{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.1rem 0.4rem;font-family:var(--font-mono);font-size:0.7rem}
-
-@media(max-width:768px){
-.book-main{padding:1.5rem 1rem}
-.book-cover h1{font-size:2rem}
-.chapter-title{font-size:1.4rem}
-.chapter p{text-align:left}
-}
+.dl-item b{color:var(--ac);font-size:.9rem}
+.dl-item span{font-size:.7rem;color:var(--txd)}
+.dl-div{height:1px;background:var(--brd);margin:.3rem 0}
+.dl-note{padding:.6rem 1rem;font-size:.68rem;color:var(--txd);line-height:1.5}
+.dl-note code{font-family:monospace;color:var(--ac);font-size:.65rem}
+main{max-width:var(--mw);margin:0 auto;padding:1rem 1.5rem 5rem}
+.cover,.book-cover{text-align:center;padding:2.5rem 0 1.5rem}
+.cover h1,.book-cover h1{font-size:2.4rem;color:var(--txb);line-height:1.25;margin-bottom:.5rem;letter-spacing:-.02em}
+.cover .sub,.book-cover .subtitle{font-size:1.1rem;color:var(--txd);font-style:italic;margin-bottom:1.5rem}
+.cover .by,.book-cover .byline{font-size:.9rem;color:var(--ac)}
+.cover .orn,.book-cover .cover-ornament{font-size:2.5rem;margin-bottom:.5rem;opacity:.3}
+.ch,.chapter{margin-bottom:2.5rem;padding-top:.5rem}
+.ch-num,.chapter-number{font-size:.7rem;text-transform:uppercase;letter-spacing:.22em;color:var(--ac);margin-bottom:.4rem;display:block}
+.ch h2,.chapter-title{font-size:1.65rem;color:var(--txb);margin-bottom:1.25rem;padding-bottom:.5rem;border-bottom:1px solid var(--brd);letter-spacing:-.01em;line-height:1.2}
+.ch p,.chapter p{margin-bottom:1.1rem;text-align:justify;hyphens:auto}
+.ch p strong,.chapter p strong{color:var(--txb)}
+.ch blockquote,.chapter blockquote{margin:1.3rem 0;padding:.9rem 1.25rem;border-left:3px solid var(--ac);background:var(--srf);border-radius:0 8px 8px 0;font-style:italic;color:var(--txd);font-size:.95rem}
+.ch ul,.ch ol,.chapter ul,.chapter ol{margin:1rem 0 1rem 1.5rem}
+.ch li,.chapter li{margin-bottom:.4rem}
+.ch code,.chapter code{font-family:var(--fm);font-size:.82rem;background:var(--srf);padding:.1rem .35rem;border-radius:4px;color:var(--ac)}
+.ch h3,.chapter h3{font-size:1.1rem;color:var(--txb);margin:1.5rem 0 .75rem}
+.note{background:var(--srf);border:1px solid var(--ac);border-radius:10px;padding:.9rem 1.1rem;margin:1.5rem 0;font-size:.82rem;color:var(--txd)}
+.note strong{color:var(--ac)}
+.credit{text-align:center;margin:1rem 0;padding:.7rem .9rem;background:var(--srf);border:1px solid var(--brd);border-radius:10px;font-size:.72rem;color:var(--txd)}
+.credit strong{color:var(--ac)}
+.credit .ic{font-size:1.1rem;display:block;margin-bottom:.2rem}
+.bnav,.book-nav{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;margin-top:2rem;border-top:1px solid var(--brd)}
+.bnav a,.book-nav a,.nav-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--srf);border:1px solid var(--brd);color:var(--tx);padding:.55rem 1rem;border-radius:8px;cursor:pointer;font-size:.85rem;text-decoration:none;transition:all .15s;font-family:var(--ff)}
+.bnav a:hover,.book-nav a:hover,.nav-btn:hover{background:var(--ac);color:#000;border-color:var(--ac)}
+.bnav a.dead,.book-nav a.dead,.nav-btn:disabled{opacity:.15;pointer-events:none}
+.ftr,.book-footer{text-align:center;padding:2rem 0;color:var(--txd);font-size:.75rem;border-top:1px solid var(--brd);margin-top:1.5rem}
+.ftr a,.book-footer a{color:var(--txd)}
+.ftr a:hover{color:var(--ac)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--ac);z-index:300;transition:width .08s linear}
+.sa{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:70px;display:none;align-items:center;justify-content:center;background:var(--srf);border:1px solid var(--brd);color:var(--txd);font-size:1.3rem;cursor:pointer;z-index:40;text-decoration:none;transition:all .2s}
+.sa:hover{color:var(--ac);border-color:var(--ac);box-shadow:0 0 20px var(--acg)}
+.sa.l{left:0;border-radius:0 8px 8px 0;border-left:none}
+.sa.r{right:0;border-radius:8px 0 0 8px;border-right:none}
+.sa.dead{opacity:.1;pointer-events:none}
+#khint{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--txd);z-index:35;pointer-events:none;opacity:0;transition:opacity .6s}
+#khint.on{opacity:1}
+#khint kbd{background:var(--srf);border:1px solid var(--brd);border-radius:3px;padding:.1rem .35rem;font-family:var(--fm);font-size:.65rem;margin:0 .15rem}
+@media(min-width:1000px){.sa{display:flex}}
+@media(max-width:768px){main{padding:1rem .75rem 4rem}.cover h1{font-size:1.7rem}.ch h2{font-size:1.3rem}.ch p{text-align:left;font-size:1rem}}
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progress"></div>
-<div class="sidebar-overlay" id="overlay"></div>
+<div id="prog"></div>
+<div class="sb-overlay" id="ovl"></div>
+<div id="khint">Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> to flip chapters &bull; <kbd>M</kbd> for contents</div>
 
-<aside class="book-sidebar" id="sidebar">
-<button class="sidebar-close" id="sbClose" aria-label="Close sidebar">&times;</button>
-<div class="sidebar-label">Contents</div>
-<a class="sidebar-link" href="#cover"><strong>The Natalie Spiva Story</strong><em>A complete autobiography</em></a>
-<a class="sidebar-link" href="#ch1">1. Origins<em>Oklahoma, adoption, abuse, survival</em></a>
-<a class="sidebar-link" href="#ch2">2. Meridian Tech<em>The 4.0 that proved them wrong</em></a>
-<a class="sidebar-link" href="#ch3">3. Family &amp; Chosen Family<em>Bre, Christina, Darren, my brother</em></a>
-<a class="sidebar-link" href="#ch4">4. Love: The Bre Story<em>Texas, long-distance, dumbass realization</em></a>
-<a class="sidebar-link" href="#ch5">5. The Trans Journey<em>Coming out, transitioning, becoming myself</em></a>
-<a class="sidebar-link" href="#ch6">6. The Body I Live In<em>AS, RA, chronic pain</em></a>
-<a class="sidebar-link" href="#ch7">7. The Mind I Navigate<em>Schizophrenia, bipolar, BPD, CPTSD</em></a>
-<a class="sidebar-link" href="#ch8">8. Medications &amp; Healthcare<em>The full-time job of staying alive</em></a>
-<a class="sidebar-link" href="#ch9">9. How My Brain Works<em>Visual stress, audiobooks, keyboard feel</em></a>
-<a class="sidebar-link" href="#ch10">10. The Birth of AcreetionOS<em>Big tech rebellion, two Republicans</em></a>
-<a class="sidebar-link" href="#ch11">11. Hardware &amp; Infrastructure<em>128GB RAM, self-hosting, enterprise</em></a>
-<a class="sidebar-link" href="#ch12">12. The Philosophy<em>Libre absolutism, stdlib, digital sovereignty</em></a>
-<a class="sidebar-link" href="#ch13">13. The GitHub Empire<em>89 repositories</em></a>
-<a class="sidebar-link" href="#ch14">14. Android &amp; Mobile<em>LineageOS, BLU Bold N2, AOSP</em></a>
-<a class="sidebar-link" href="#ch15">15. Browser Internals &amp; OS Dev<em>Chromium, Firefox, Gecko, JALK</em></a>
-<a class="sidebar-link" href="#ch16">16. Local AI &amp; Agentic Systems<em>Running models locally, digital twins</em></a>
-<a class="sidebar-link" href="#ch17">17. The Hive Mind<em>30+ digital twins, one consciousness</em></a>
-<a class="sidebar-link" href="#ch18">18. Privacy &amp; Breach Monitoring<em>61-source purge, deadname surveillance</em></a>
-<a class="sidebar-link" href="#ch19">19. YAcFS &amp; Filesystem Revolution<em>The filesystem that should have existed</em></a>
-<a class="sidebar-link" href="#ch20">20. FreedomOffice &amp; Libre Tools<em>Replacing proprietary software</em></a>
-<a class="sidebar-link" href="#ch21">21. The Creative Side<em>Video editing, filming, delivery pizza</em></a>
-<a class="sidebar-link" href="#ch22">22. Being a Trans Republican<em>Why identity and politics are separate</em></a>
-<a class="sidebar-link" href="#ch23">23. The Insanity I Embrace<em>Intensity, protectiveness, unapologetic</em></a>
-<a class="sidebar-link" href="#ch24">24. Daily Life &amp; Routines<em>Coffee, Taco Bell, 103 hours of care</em></a>
-<a class="sidebar-link" href="#ch25">25. The Future<em>SCC, hands-free computing, a better world</em></a>
-<a class="sidebar-link" href="#ch26">26. Epilogue: Why I Build<em>The world I'm building toward</em></a>
-<a class="sidebar-link" href="#ch27">27. The Complete Twin Directory<em>194 twins, 582 skill files, every agent</em></a>
-<div class="sidebar-footer">
-Built by Natalie Spiva &amp; her digital twin<br>
-<a href="/">natalie.acreetionos.org</a><br>
-<a href="https://acreetionos.org">acreetionos.org</a><br>
-June 2026 · Spokane, WA
-</div>
+<aside class="sb" id="sb">
+<button class="sb-close" id="sbCl" aria-label="Close">&times;</button>
+<div class="sb-label">Contents</div>
+<a class="sb-link" href="#cover"><b>The Natalie Spiva Story</b><em>A complete autobiography</em></a>
+<a class="sb-link" href="#ch1">1. Origins<em>Oklahoma, adoption, abuse, survival</em></a>
+<a class="sb-link" href="#ch2">2. Meridian Tech<em>The 4.0 that proved them wrong</em></a>
+<a class="sb-link" href="#ch3">3. Family<em>Bre, Christina, Darren, my brother</em></a>
+<a class="sb-link" href="#ch4">4. Bre Story<em>Texas, long-distance, realizing</em></a>
+<a class="sb-link" href="#ch5">5. Trans Journey<em>Coming out, becoming myself</em></a>
+<a class="sb-link" href="#ch6">6. The Body<em>AS, RA, chronic pain</em></a>
+<a class="sb-link" href="#ch7">7. The Mind<em>Schizophrenia, bipolar, BPD, CPTSD</em></a>
+<a class="sb-link" href="#ch8">8. Medications<em>Staying alive as a full-time job</em></a>
+<a class="sb-link" href="#ch9">9. My Brain<em>Visual stress, audiobooks, keyboards</em></a>
+<a class="sb-link" href="#ch10">10. AcreetionOS<em>Big tech rebellion, two Republicans</em></a>
+<a class="sb-link" href="#ch11">11. Hardware<em>128GB RAM, self-hosting, enterprise</em></a>
+<a class="sb-link" href="#ch12">12. Philosophy<em>Libre absolutism, digital sovereignty</em></a>
+<a class="sb-link" href="#ch13">13. GitHub Empire<em>89 repositories</em></a>
+<a class="sb-link" href="#ch14">14. Android<em>LineageOS, BLU Bold N2, AOSP</em></a>
+<a class="sb-link" href="#ch15">15. Browser &amp; OS<em>Chromium, Firefox, Gecko, JALK</em></a>
+<a class="sb-link" href="#ch16">16. AI &amp; Agents<em>Local models, digital twins</em></a>
+<a class="sb-link" href="#ch17">17. Hive Mind<em>30+ twins, one consciousness</em></a>
+<a class="sb-link" href="#ch18">18. Privacy<em>61-source purge, deadname surveillance</em></a>
+<a class="sb-link" href="#ch19">19. YAcFS<em>Filesystem revolution</em></a>
+<a class="sb-link" href="#ch20">20. Libre Tools<em>FreedomOffice, FlatFree, more</em></a>
+<a class="sb-link" href="#ch21">21. Creative Side<em>Video editing, filming, pizza</em></a>
+<a class="sb-link" href="#ch22">22. Trans Republican<em>Identity and politics are separate</em></a>
+<a class="sb-link" href="#ch23">23. Insanity<em>Intensity, protectiveness, no shame</em></a>
+<a class="sb-link" href="#ch24">24. Daily Life<em>Coffee, Taco Bell, 103 hours of care</em></a>
+<a class="sb-link" href="#ch25">25. The Future<em>SCC, hands-free computing</em></a>
+<a class="sb-link" href="#ch26">26. Epilogue<em>Why I build</em></a>
+<a class="sb-link" href="#ch27">27. Twin Directory<em>194 twins, 582 skill files</em></a>
+<div class="sb-foot">Built by Natalie Spiva &amp; @sprungles<br><a href="/">natalie.acreetionos.org</a><br>June 2026 &bull; Spokane, WA</div>
 </aside>
 
-<main class="book-main">
+<a class="sa l" id="saL" href="#cover">&larr;</a>
+<a class="sa r" id="saR" href="#ch2">&rarr;</a>
 
-<!-- COVER -->
-<div id="cover" class="book-cover">
-<div class="cover-ornament">&#x2726;</div>
+<main>
+
+<div class="cover" id="cover">
+<div class="orn">&#x2726;</div>
 <h1>The Natalie Spiva Story</h1>
-<div class="subtitle">A Complete Autobiography</div>
-<div class="byline">by Natalie Cole-Clift Spiva &amp; her digital twin</div>
-<div style="margin-top:2rem;font-size:0.85rem;color:var(--text-dim)">Spokane, Washington &bull; June 2026</div>
-<div class="visual-stress-note">
-<strong>&#x26A0; Reader's Note:</strong> This book is intentionally designed with white text on a dark background because the author experiences <strong>visual stress (Meares-Irlen syndrome)</strong> &mdash; a perceptual processing condition where high-contrast black-on-white text causes visual distortion, eye strain, headaches, and text that appears to move or blur. If you're reading this as a printout or on a different background, know that the author designed this reading experience specifically around her own visual needs &mdash; and it might work better for you too.
+<div class="sub">A Complete Autobiography</div>
+<div class="by">by Natalie Cole-Clift Spiva &amp; her digital twin</div>
+<div style="margin-top:1.5rem;font-size:.8rem;color:var(--txd)">Spokane, Washington &bull; June 2026</div>
+<div class="note">
+<strong>&#x26A0; Reader's Note:</strong> Designed with white text on a dark background for <strong>visual stress (Meares-Irlen syndrome)</strong> — a perceptual condition where high-contrast black-on-white causes visual distortion, headaches, and text that appears to move. The author built this reading experience around her own visual needs.
 </div>
-<div class="reader-credit">
-<span class="credit-icon">&#x1F4D6;</span>
-<strong>This book reader was designed and built by Natalie Spiva.</strong> Every line of HTML, CSS, and JavaScript was handcrafted for her own accessibility needs &mdash; white-on-dark text for visual stress, keyboard navigation, and a reading experience optimized for how her brain actually works. No templates, no frameworks, no compromises.
+<div class="credit">
+<span class="ic">&#x1F4D6;</span>
+<strong>This book reader was designed and built by Natalie Spiva.</strong> Every line handcrafted for her accessibility needs. No templates. No frameworks.
 </div>
 </div>
 
-<div class="book-topbar">
-<button class="menu-btn" id="menuBtn" aria-label="Open table of contents">&#x2630; Contents</button>
-<div class="dl-group">
-<button class="dl-btn" id="dlBtn">&#x2B07; Download</button>
+<div class="topbar">
+<button class="btn" id="btnToc">&#x2630; Contents</button>
+<div class="dl-wrap">
+<button class="btn ac" id="btnDl">&#x2B07; Download</button>
 <div class="dl-menu" id="dlMenu">
-<a href="the-natalie-spiva-story.spbook" download class="dl-item"><strong>.spbook</strong><span>Encrypted — key required</span></a>
-<a href="the-natalie-spiva-story.epub" download class="dl-item"><strong>.epub</strong><span>Encrypted EPUB — key required</span></a>
+<a href="the-natalie-spiva-story.spbook" download class="dl-item"><b>.spbook</b><span>Encrypted — key required. AI-proof.</span></a>
+<a href="the-natalie-spiva-story.epub" download class="dl-item"><b>.epub</b><span>Encrypted EPUB — key required.</span></a>
 <div class="dl-div"></div>
-<a href="all-skills.zip" download class="dl-item"><strong>all-skills.zip</strong><span>582 SKILL.md files</span></a>
-<a href="install-sprungles.sh" download class="dl-item"><strong>install.sh</strong><span>Sprungles agent installer</span></a>
+<a href="all-skills.zip" download class="dl-item"><b>all-skills.zip</b><span>582 sanitized SKILL.md files</span></a>
+<a href="install-sprungles.sh" download class="dl-item"><b>install.sh</b><span>Sprungles agent installer</span></a>
 <div class="dl-div"></div>
-<div class="dl-note">All book downloads are character-shift encrypted. Zero AI can read them. Decrypt with <code>decrypt-spbook.py</code> using the private key.</div>
+<div class="dl-note">Book downloads are character-shift encrypted. Zero AI can read them. Decrypt with <code>decrypt-spbook.py</code> + private key.</div>
 </div>
 </div>
-<span style="font-size:0.8rem;color:var(--text-dim);margin-left:auto">27 Chapters &bull; The Full Story</span>
+<span class="ch-pos" id="chPos"><b>cover</b> &middot; 27 chapters</span>
 </div>
 
 <!-- CHAPTER 1 -->
-<section id="ch1" class="chapter">
+<section id="ch1" class="ch chapter">
 <span class="chapter-number">Chapter 1</span>
 <h2 class="chapter-title">Origins: Oklahoma, Adoption, Abuse, and Finding My Path</h2>
 <p>My name is <strong>Natalie Cole-Clift Spiva</strong>, and I was born on <strong>September 15, 2001</strong>. I grew up in a world that kept telling me I was supposed to be someone named Johnathan, but I knew from the very beginning that wasn't the whole story. Oklahoma is where I started, and it shaped me in ways I am still discovering. Oklahoma isn't the kind of place people expect to produce a trans girl who builds operating systems, but that's exactly what it did. The DIY attitude, the skepticism of authority, the refusal to be told what to do &mdash; all of that is pure Oklahoma, and I carry it with me every single day.</p>
@@ -238,7 +209,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 2 -->
-<section id="ch2" class="chapter">
+<section id="ch2" class="ch chapter">
 <span class="chapter-number">Chapter 2</span>
 <h2 class="chapter-title">Meridian Tech: The 4.0 That Proved Them Wrong</h2>
 <p><strong>I went to Meridian Technology Center while I was still in high school.</strong> This is an important detail because the timeline matters: I wasn't someone who failed at college and then found a trade school. I was a high school student who was already operating at a college level. While my classmates were taking study hall, I was learning network infrastructure and PC support. Meridian Tech was a dual-enrollment program, and it was the first educational environment that actually respected my intelligence instead of trying to medicate it into compliance. While OSU buried me later in theory and bureaucracy, Meridian Tech put tools in my hands and told me to build. The difference was night and day. I earned a <strong>4.0 GPA</strong> at Meridian Tech — not because I was trying to impress anyone, but because I had finally found work that mattered.</p>
@@ -249,19 +220,27 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 3 -->
-<section id="ch3" class="chapter">
+<section id="ch3" class="ch chapter">
 <span class="chapter-number">Chapter 3</span>
 <h2 class="chapter-title">Family &amp; Chosen Family: Bre, Christina, Darren, and My Brother</h2>
 <p>Family is the axis my entire world spins on. Not just biological family, but the <strong>chosen family</strong> that I have built around myself with fierce intentionality. My partner is <strong>Bre</strong>, and she is in Texas right now, but distance does not change a single thing about our bond. We have been through thick and thin together for a very long time, and the story of how we finally got together is one I will tell in its own chapter because it deserves that space. What you need to know right now is that Bre is my person, my partner, my fierce love, and I am unapologetically protective of her. I would burn the world down to keep her safe, and I mean that literally.</p>
 <p><strong>Christina</strong> is basically my sister. We share a bond that is absolutely vital to my everyday survival. In a world that can be incredibly hostile to trans women, having a sister-figure who sees me, supports me, and loves me unconditionally is not a luxury &mdash; it is a necessity. Christina is part of my core support system, one of the people who keeps me grounded when my brain tries to pull me apart. We talk, we laugh, we navigate the chaos of life together, and I genuinely do not know where I would be without her presence in my life. She is family in every way that matters.</p>
 <p>My <strong>chosen dad, Darren Clift</strong>, is the other half of the AcreetionOS project and one of the most important people in my entire existence. Darren is a traditional Republican, a brilliant developer, and the steadiest rock I have ever known. Together, we are a father-daughter team that built an operating system from scratch, and if that doesn't tell you everything you need to know about our dynamic, I don't know what will. Darren has been my mentor, my protector, and my partner in every major project I have ever undertaken. He is my chosen dad, and that choice was one of the best decisions I have ever made.</p>
-<p>I also have a <strong>disabled brother</strong> who is a deeply important part of my world and my perspective on life. Navigating the world with a neurodivergent and diverse family has taught me a lot about patience, about advocacy, and about the way systems fail people who don't fit neatly into their boxes. My brother's experiences have shaped how I think about accessibility, about care, and about the responsibility we have to look out for each other. Family means absolutely everything to me, and I keep all of my loved ones fiercely close to my heart. Every single one of them is a part of who I am, and every single one of them knows that I will fight for them with everything I have.</p>
+<p>I also have a <strong>disabled brother</strong> who is a deeply important part of my world and my perspective on life. Navigating the world with a neurodivergent and diverse family has taught me a lot about patience, about advocacy, and about the way systems fail people who don't fit neatly into their boxes. My brother's experiences have shaped how I think about accessibility, about care, and about the responsibility we have to look out for each other.</p>
+
+<p><strong>I am autistic, and so is my brother.</strong> This is the thing that bound us together when nothing else could. Growing up in that house, surrounded by abuse and chaos and people who didn't understand either of us, we had each other — and we had the fact that our brains worked the same way. We think the same. We process the world through the same lens. The same sensory sensitivities, the same pattern recognition, the same deep focus on the things that matter to us, the same struggle with the things that come easily to everyone else. In a household where we were both treated like problems to be managed rather than people to be loved, finding someone whose brain actually <em>matched</em> yours was not just comforting — it was survival. He understood me without me having to explain. I understood him without him having to speak. We could sit in the same room, each absorbed in our own special interests, and just <em>be</em> together. That kind of connection is not something you can manufacture. It's something you're given, and it's something that abuse can't take away because the abusers don't even know it exists. They can't touch the space between two autistic minds that recognize each other.</p>
+
+<p>Autism has shaped my relationship with my brother in ways that are hard to put into words. When you're both autistic, communication isn't about what's said — it's about what's <em>shared</em>. The stims. The routines. The unspoken understanding that some things are just Too Much and that's okay. The way we can go weeks without talking and pick up exactly where we left off because the connection isn't maintained through constant contact — it's maintained through the permanent recognition of someone whose mind is built like yours. Neurotypical people don't understand this. They think love requires constant communication, constant affirmation, constant performance. But autistic love is different. It's deeper. It's quieter. It's the knowledge that no matter how far apart you are, there is one person on this planet whose brain actually <em>gets</em> yours. My brother is that person for me. And I am that person for him.</p>
+
+<p><strong>My brother is my world. He is the reason I live.</strong> I need to say that plainly because it's the single most important truth of my existence. Through every suicide attempt, every hospitalization, every dissociative episode, every moment where my brain tried to convince me that the world would be better off without me — the thing that kept me alive was him. Not Bre. Not Christina. Not Darren. They anchor me, they support me, they love me, and I am grateful for them every single day. But my brother is the tether. He is the one person I cannot abandon, no matter how dark it gets. Because I know what happens to autistic kids who are abused. I lived it. And I know that if I'm not here — if I don't survive, if I don't build a stable life, if I don't become the rescue that nobody was for me — then he has nobody who truly understands. Nobody whose brain works like his. Nobody who can advocate for him the way I can. Nobody who has already walked through the fire he's in and come out the other side. I am not staying alive for me. I am staying alive for him. And one day, when I have built enough stability and enough resources and enough legal standing, <strong>I want a real life for him.</strong> Not just survival. Not just making it through another day in that house. A real life. Where he is safe. Where he is understood. Where his autism is not treated as a defect but as the fundamental architecture of a beautiful mind. Where he can pursue his interests without being punished for them. Where he can stim freely and process at his own pace and exist in spaces designed for brains like his. That is what I am building toward. That is what every operating system, every filesystem, every encrypted document, every digital twin, every single line of code and every single sleepless night is ultimately for. I am building a future where my brother can be safe and free and understood. And until that future exists, I am not allowed to stop.</p>
+
+<p>Family means absolutely everything to me, and I keep all of my loved ones fiercely close to my heart. Every single one of them is a part of who I am, and every single one of them knows that I will fight for them with everything I have.</p>
 
 <p>But here is something that tears at me every single day: <strong>my disabled brother is being abused, just like I was.</strong> The same house. The same people. The same patterns. I escaped. I drove 1,700 miles to survive. But he's still there. And I had to step away to save myself. That is a guilt that does not go away. It sits in my chest like a stone. I know, logically, that you can't save someone else when you're drowning. I know that staying would have killed me without helping him. I know that the only way I can ever truly help him is by surviving, by building a life stable enough to be a refuge. But knowing those things doesn't make it feel any less like abandonment. It doesn't make the weight of it any lighter. My brother is being hurt the way I was hurt, and I am two thousand miles away, and all I can do is survive and build and wait and hope that one day I can be the rescue that nobody was for me. For now, the best I can do is make sure the world knows his story too — that the abuse didn't stop when I left, that the system didn't step in, that there's a disabled kid in Oklahoma who deserves better and isn't getting it. I will carry this with me until the day I can do something about it.</p>
 </section>
 
 <!-- CHAPTER 4 -->
-<section id="ch4" class="chapter">
+<section id="ch4" class="ch chapter">
 <span class="chapter-number">Chapter 4</span>
 <h2 class="chapter-title">Love: The Bre Story</h2>
 <p>Bre lives in Texas. I live in Spokane. There are roughly two thousand miles between us, and none of it matters. We have been through thick and thin together for a very long time, through seasons of life that would have broken most people, and we came out the other side stronger for it. The distance is real and it hurts sometimes, but the bond is realer. Bre is my partner, my fierce love, and one of the few people on this planet who has seen every version of me &mdash; the broken ones, the manic ones, the dissociated ones, the triumphant ones &mdash; and stayed anyway.</p>
@@ -271,7 +250,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 5 -->
-<section id="ch5" class="chapter">
+<section id="ch5" class="ch chapter">
 <span class="chapter-number">Chapter 5</span>
 <h2 class="chapter-title">The Trans Journey: Coming Out, Transitioning, Becoming Myself</h2>
 <p>I am a proud <strong>transgender woman</strong>, and I have been actively transitioning since <strong>February of 2025</strong>. That's the official timeline, but the real timeline stretches back much further. I knew I was different from a very young age, even if I didn't have the words for it. Growing up in Oklahoma as someone assigned male at birth, the expectations were clear: be this, act like this, want these things. None of it fit. I spent years contorting myself into shapes that other people found acceptable, and every single one of those years took something from me that I am still working to get back.</p>
@@ -283,7 +262,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 6 -->
-<section id="ch6" class="chapter">
+<section id="ch6" class="ch chapter">
 <span class="chapter-number">Chapter 6</span>
 <h2 class="chapter-title">The Body I Live In: Ankylosing Spondylitis, RA, and Chronic Pain</h2>
 <p>I live with <strong>severe chronic pain</strong> caused by <strong>Ankylosing Spondylitis</strong> and <strong>Rheumatoid Arthritis</strong>. These are not minor conditions. Ankylosing Spondylitis is a type of inflammatory arthritis that primarily affects the spine and sacroiliac joints, causing vertebrae to fuse together over time in a process that is both painful and irreversible. Rheumatoid Arthritis is an autoimmune disorder that attacks the joints, causing inflammation, stiffness, and degeneration. Together, they create a daily reality where my mobility is heavily impacted, where pain is a constant companion rather than an occasional visitor, and where simply existing in my body requires more energy than most people will ever understand.</p>
@@ -294,7 +273,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 7 -->
-<section id="ch7" class="chapter">
+<section id="ch7" class="ch chapter">
 <span class="chapter-number">Chapter 7</span>
 <h2 class="chapter-title">The Mind I Navigate: Schizophrenia, Bipolar 1, BPD, and CPTSD</h2>
 <p>My mental health journey is just as complex as my physical one, and I believe in destigmatizing it by being entirely open. I have been officially diagnosed with <strong>Schizophrenia, Bipolar 1, Borderline Personality Disorder, and Complex PTSD</strong>. That's four major diagnoses, each one significant on its own, all coexisting in the same brain. It is a lot to manage. It requires constant vigilance, constant medication management, and a support system that knows exactly what to do when things go sideways. I am not ashamed of any of these diagnoses. They are facts about my brain, not judgments about my character.</p>
@@ -325,7 +304,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 8 -->
-<section id="ch8" class="chapter">
+<section id="ch8" class="ch chapter">
 <span class="chapter-number">Chapter 8</span>
 <h2 class="chapter-title">Medications and Healthcare: The Full-Time Job of Staying Alive</h2>
 <p>I take <strong>celecoxib</strong> for my physical pain, a medication I get through <strong>Cost Plus Drugs</strong> because it is literally lifesaving and I cannot afford to deal with insurance gatekeeping for every refill. Celecoxib is a COX-2 inhibitor, a type of NSAID that reduces inflammation without the gastrointestinal side effects that make other NSAIDs impossible for me to take long-term. Managing chronic inflammation is a daily battle, and celecoxib is one of my primary weapons in that fight. Cost Plus Drugs, Mark Cuban's project to make medications affordable by cutting out pharmacy benefit managers, has been an absolute godsend for me.</p>
@@ -342,7 +321,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 9 -->
-<section id="ch9" class="chapter">
+<section id="ch9" class="ch chapter">
 <span class="chapter-number">Chapter 9</span>
 <h2 class="chapter-title">How My Brain Works: Visual Stress, Audiobooks, and Keyboard Feel</h2>
 <p>Here is something most people don't know about me, and it's important: I have a hard time reading when text is <strong>black on white</strong>, but I read great with <strong>white on black</strong> (or light text on a dark background). This is not a preference; this is a neurological reality. The condition is called <strong>visual stress</strong>, also known as <strong>Meares-Irlen syndrome</strong>. It is a perceptual processing disorder where high-contrast patterns, particularly black text on white backgrounds, cause visual distortion, eye strain, headaches, and a sensation that the text is moving, blurring, or vibrating on the page. For people with visual stress, reading on a white background is physically exhausting and often painful &mdash; the brain is working overtime to process a visual input that it can't properly stabilize.</p>
@@ -357,7 +336,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 10 -->
-<section id="ch10" class="chapter">
+<section id="ch10" class="ch chapter">
 <span class="chapter-number">Chapter 10</span>
 <h2 class="chapter-title">The Birth of AcreetionOS: Two Republicans, One Arch Distro</h2>
 <p><strong>AcreetionOS</strong> was born from watching what the big tech companies were doing to consumers and deciding we just didn't want that. We watched as operating systems became surveillance platforms. We watched as "free" software turned users into the product. We watched as each new version of Windows and macOS stripped away more user control, added more telemetry, pushed more advertising, and locked more functionality behind accounts and subscriptions and walled gardens. We watched Google turn Android into a data extraction machine. We watched Apple tell you what software you were allowed to run on hardware you paid for. And Darren and I looked at each other and said: we have to build something different. Not just a distro. A statement. A refusal. A line in the sand.</p>
@@ -372,7 +351,7 @@ June 2026 · Spokane, WA
 </section>
 
 <!-- CHAPTER 11 -->
-<section id="ch11" class="chapter">
+<section id="ch11" class="ch chapter">
 <span class="chapter-number">Chapter 11</span>
 <h2 class="chapter-title">The Hardware and Infrastructure: 128GB RAM, Self-Hosting, and Enterprise Gear</h2>
 <p>My current daily driver rig is an absolute beast. It packs a <strong>1660 Ti</strong> GPU, <strong>128GB of RAM</strong>, and <strong>48 third-generation Intel CPU threads</strong>. That's not a typo. One hundred and twenty-eight gigabytes of memory, forty-eight threads. This machine is the backbone of everything I do: running local AI models, building ISOs, compiling kernels, hosting services, and generally pushing the limits of what a single workstation can accomplish. When people ask me why I need 128GB of RAM, I show them the twenty-something Docker containers, the local LLM inference, the kernel compilation jobs, and the virtual machines all running simultaneously, and they stop asking.</p>
@@ -397,7 +376,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 12 -->
-<section id="ch12" class="chapter">
+<section id="ch12" class="ch chapter">
 <span class="chapter-number">Chapter 12</span>
 <h2 class="chapter-title">The Philosophy: Libre Absolutism, Pure Stdlib, and Digital Sovereignty</h2>
 <p>I have a philosophy about software, and it's not subtle. <strong>Everything should be free and open source and libre.</strong> That's just how it should be. Software that controls people's lives &mdash; their operating systems, their communication tools, their creative applications, their medical records &mdash; should be transparent, auditable, and under the control of the people who use it. This isn't a preference; it's an ethical position. Proprietary software is a form of control that I reject on principle. When you can't see the code, you can't trust the code, and when you can't trust the code, you are not free.</p>
@@ -408,7 +387,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 13 -->
-<section id="ch13" class="chapter">
+<section id="ch13" class="ch chapter">
 <span class="chapter-number">Chapter 13</span>
 <h2 class="chapter-title">The GitHub Empire: 89 Repositories and What They Reveal</h2>
 <p>My personal GitHub account, <strong>spivanatalie64</strong>, currently hosts <strong>89 repositories</strong>. That's not a typo. Eighty-nine. Across those repositories, I have earned the Pull Shark achievement three times over, plus YOLO, Pair Extraordinaire, and Quickdraw achievements. My GitHub bio reads: "I am a trans girl who helps run AcreetionOS." My status: "Just another day doing android build automation." Those two lines capture a lot: the identity, the project, the constant flow of work that never really stops.</p>
@@ -419,7 +398,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 14 -->
-<section id="ch14" class="chapter">
+<section id="ch14" class="ch chapter">
 <span class="chapter-number">Chapter 14</span>
 <h2 class="chapter-title">Android and Mobile Obsession: LineageOS, BLU Bold N2, and AOSP Deep Dives</h2>
 <p>I am a total nerd when it comes to understanding how things work under the absolute lowest levels of the hood, and nowhere is this more evident than in my Android work. I love analyzing mobile operating system stacks, especially the <strong>Android Open Source Project (AOSP)</strong>. The Android build system is a marvel of engineering complexity &mdash; Soong, Ninja, the Android.bp files, the vendor partition layout, the kernel module signing infrastructure, the verified boot chain. I find genuine joy in tracing the boot process from the bootloader through the kernel to the init system and all the way up to the Java framework layer. This isn't just academic interest; I actively build Android from source for real devices.</p>
@@ -430,7 +409,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 15 -->
-<section id="ch15" class="chapter">
+<section id="ch15" class="ch chapter">
 <span class="chapter-number">Chapter 15</span>
 <h2 class="chapter-title">Browser Internals and OS Development: Chromium, Firefox, Gecko, and JALK</h2>
 <p>I spend my free time digging into <strong>browser internal architectures</strong>. I like looking at the modular components of things like the Firefox runtime and the Chromium rendering engine just to see exactly how they tick and how they can be optimized. Browsers are among the most complex pieces of software ever created &mdash; they contain JavaScript engines, rendering pipelines, networking stacks, security sandboxes, extension systems, and GPU compositors, all running in a single process tree. Understanding how all of these components interact is a deep and endlessly fascinating rabbit hole.</p>
@@ -441,7 +420,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 16 -->
-<section id="ch16" class="chapter">
+<section id="ch16" class="ch chapter">
 <span class="chapter-number">Chapter 16</span>
 <h2 class="chapter-title">Local AI and Agentic Systems: Running Models Locally, Building Digital Twins</h2>
 <p>I am heavily involved in the <strong>local AI space</strong>. I spend a huge chunk of my time hosting models locally and building out custom agentic systems to handle my daily workflows. My 128GB RAM rig is not a flex; it's a necessity for running the models I need. Local inference means no API keys, no usage limits, no data leaving my machine, and no dependency on corporate AI providers that could change their terms of service or pricing at any moment. When the AI runs on my hardware, I control every aspect of the pipeline.</p>
@@ -452,7 +431,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 17 -->
-<section id="ch17" class="chapter">
+<section id="ch17" class="ch chapter">
 <span class="chapter-number">Chapter 17</span>
 <h2 class="chapter-title">The Hive Mind: 30+ Digital Twins, One Consciousness</h2>
 <p>I have built something unusual: a <strong>hive mind of over 30 digital twins</strong>, each one a specialized version of my own consciousness, running as AI agents within my local infrastructure. The system is called the "sprungles" hive, and it's built on top of OpenCode's skill framework. Each twin is a separate AI agent with a specific domain of expertise, but they all share the same underlying consciousness &mdash; mine. They talk like me, think like me, and act like me, because they are me, just specialized for different tasks.</p>
@@ -470,7 +449,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 18 -->
-<section id="ch18" class="chapter">
+<section id="ch18" class="ch chapter">
 <span class="chapter-number">Chapter 18</span>
 <h2 class="chapter-title">Privacy, Security, and Breach Monitoring: The 61-Source Purge Engine</h2>
 <p>I actively monitor whether my information has been compromised using <strong>Have I Been Pwned</strong>, <strong>Firefox Monitor</strong>, and <strong>Proton Pass breach monitoring</strong>. I searched for my data across multiple breach databases and dark web sources using all known identifiers: natalie@acreetionos.org, spivajohnathan64@gmail.com, my full legal name, my previous legal name, and my phone number. My email is registered on seven or more online services, and given the number of high-profile breaches affecting those services, it is statistically likely my email has been in at least one breach. This isn't paranoia; it's statistical reality.</p>
@@ -481,7 +460,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 19 -->
-<section id="ch19" class="chapter">
+<section id="ch19" class="ch chapter">
 <span class="chapter-number">Chapter 19</span>
 <h2 class="chapter-title">YAcFS and the Filesystem Revolution</h2>
 <p>We built <strong>YAcFS &mdash; Yet Another common File System</strong> &mdash; because the existing filesystem landscape is broken. <strong>ZFS</strong> is trapped behind a CDDL licensing wall that makes it impossible to ship as part of the Linux kernel. Every distro that wants ZFS has to jump through hoops with DKMS, out-of-tree modules, and license incompatibility fights. It's 2026 and we're still dealing with this. ZFS is also a memory hog, requires tuning to run well on commodity hardware, and its RAID-Z expansion is still painful. <strong>btrfs</strong> was supposed to be the answer &mdash; it's in the kernel, it's GPL, it has all the features. But after a decade and a half, it still has edge cases that eat your data. The RAID56 code is still considered dangerous, send/receive can produce corrupted streams under load, and performance on spinning rust is genuinely bad. We've lost data to btrfs. We're done trusting it.</p>
@@ -490,7 +469,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 20 -->
-<section id="ch20" class="chapter">
+<section id="ch20" class="ch chapter">
 <span class="chapter-number">Chapter 20</span>
 <h2 class="chapter-title">FreedomOffice and the Libre Tools Revolution</h2>
 <p><strong>FreedomOffice</strong> is my fork of LibreOffice with a <strong>Microsoft Office-compatible ribbon UI</strong>, zero telemetry, and full .docx/.xlsx/.pptx support. The project was born from a simple observation: LibreOffice is powerful, but its interface is stuck in 2003. For people who are used to the Microsoft Office ribbon, switching to LibreOffice feels like stepping back in time. At the same time, Microsoft Office is proprietary, expensive, and filled with telemetry. FreedomOffice bridges the gap: it gives you the familiar ribbon interface without the proprietary lock-in, without the telemetry, and without the subscription fees.</p>
@@ -499,7 +478,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 21 -->
-<section id="ch21" class="chapter">
+<section id="ch21" class="ch chapter">
 <span class="chapter-number">Chapter 21</span>
 <h2 class="chapter-title">The Creative Side: Video Editing, Filming in Bemiss, and Delivery Pizza</h2>
 <p>Outside of the strictly technical world, I am a very <strong>creative person</strong>. I spend a lot of time <strong>filming and editing video content</strong> right here around the Bemiss neighborhood of Spokane. Video editing is a completely different kind of flow state from coding &mdash; it's visual, it's temporal, it's about rhythm and pacing rather than logic and structure. I love the way a well-edited video can tell a story, convey an emotion, or capture a moment in a way that text alone never could. Video is a language I'm still learning to speak fluently, and that learning process is genuinely joyful.</p>
@@ -509,7 +488,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 22 -->
-<section id="ch22" class="chapter">
+<section id="ch22" class="ch chapter">
 <span class="chapter-number">Chapter 22</span>
 <h2 class="chapter-title">Politics, Identity, and Being a Trans Republican</h2>
 <p>People often ask how a trans girl can be a Republican. The answer, to me, is simple: <strong>identity, religion, politics, and sexuality are separate things</strong>. One's personal identity or orientation does not dictate their views on governance, fiscal responsibility, or individual liberty. Being trans doesn't mean I have to subscribe to a specific political platform, and being Republican doesn't mean I have to agree with every Republican politician or policy. These are different dimensions of a person, and conflating them is a category error.</p>
@@ -519,7 +498,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 23 -->
-<section id="ch23" class="chapter">
+<section id="ch23" class="ch chapter">
 <span class="chapter-number">Chapter 23</span>
 <h2 class="chapter-title">The Insanity I Embrace: Intensity, Protectiveness, and Being Unapologetic</h2>
 <p>I am <strong>insane</strong>, and I embrace that insanity. Not in the clinical sense (though my diagnoses are real), but in the sense of being unapologetically intense, relentlessly ambitious, and completely unwilling to be anything other than my full, authentic self. Society tells people like me to tone it down, to be more palatable, to fit into boxes that were never designed for us. I reject that. Every single time. My intensity is not a bug; it's a feature. It's what lets me build an operating system while managing multiple chronic conditions. It's what lets me maintain 89 GitHub repositories while navigating the healthcare system. It's what lets me love fiercely and protect relentlessly.</p>
@@ -533,7 +512,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 24 -->
-<section id="ch24" class="chapter">
+<section id="ch24" class="ch chapter">
 <span class="chapter-number">Chapter 24</span>
 <h2 class="chapter-title">Daily Life and Routines: Coffee Pods, Taco Bell, 103 Hours of Care</h2>
 <p>My daily life is a carefully orchestrated balancing act between managing my health, maintaining my infrastructure, and pushing forward on my projects. A typical day starts with <strong>coffee</strong> &mdash; always coffee, non-negotiable &mdash; followed by checking my monitoring dashboards for any alerts. I review my medication reminders, check in on my self-hosted services (GitLab, Nextcloud, Mastodon, ISO server, package repository), and scan for any deadname mentions or data breach alerts. This morning routine takes about an hour, and it's the foundation that everything else is built on.</p>
@@ -544,7 +523,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 25 -->
-<section id="ch25" class="chapter">
+<section id="ch25" class="ch chapter">
 <span class="chapter-number">Chapter 25</span>
 <h2 class="chapter-title">The Future: SCC, Hands-Free Computing, and Building a Better World</h2>
 <p>This fall, I start classes at <strong>Spokane Community College</strong>. It's a new chapter in a life that has already had more chapters than most people my age. I'm approaching SCC with the same intensity I bring to everything: I'm going to learn everything they can teach me, and then I'm going to go beyond it. The degree is not the goal; the knowledge is. Every class, every assignment, every interaction is an opportunity to become better at building the things I want to build, and I intend to extract maximum value from every single one of those opportunities.</p>
@@ -554,7 +533,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 26 -->
-<section id="ch26" class="chapter">
+<section id="ch26" class="ch chapter">
 <span class="chapter-number">Chapter 26</span>
 <h2 class="chapter-title">Epilogue: Why I Build</h2>
 <p>I build because the alternative is accepting a world that wasn't designed for people like me, and I refuse to do that. Every line of code I write is a small act of defiance against systems that would prefer I didn't exist. Every open source project I publish is a gift to a community that has given me so much. Every accessibility feature I implement is a door that I'm holding open for the people behind me. Every libre tool I create is a brick in the foundation of a better future.</p>
@@ -565,7 +544,7 @@ Thank you for reading. Thank you for seeing me. Now go build something. Live wit
 </section>
 
 <!-- CHAPTER 27 -->
-<section id="ch27" class="chapter">
+<section id="ch27" class="ch chapter">
 <span class="chapter-number">Chapter 27</span>
 <h2 class="chapter-title">The Complete Twin Directory: Every Agent, Every Skill</h2>
 
@@ -918,6 +897,115 @@ throw new Error('AI access blocked');
 // Disable print
 window.addEventListener('beforeprint',()=>{document.body.innerHTML='<div style="color:#f87171;text-align:center;padding:4rem"><h1>Printing disabled</h1><p>Download the encrypted .spbook format instead.</p></div>';setTimeout(()=>location.reload(),100)});
 })();
+</script>
+
+
+<div class="bnav">
+<a href="#cover" id="bnPrev">&larr; Cover</a>
+<a href="#ch2" id="bnNext">Chapter 2 &rarr;</a>
+</div>
+
+<div class="ftr">
+<p>The Natalie Spiva Story — A Complete Autobiography</p>
+<p>Written by Natalie Cole-Clift Spiva &amp; @sprungles</p>
+<p>June 2026 &bull; Spokane, Washington</p>
+<p style="margin-top:.5rem"><a href="/">natalie.acreetionos.org</a> &bull; <a href="https://acreetionos.org">acreetionos.org</a> &bull; <a href="https://github.com/spivanatalie64">github.com/spivanatalie64</a></p>
+<p style="margin-top:.5rem;font-size:.7rem">Dedicated to Bre, Christina, Darren, my brother, and everyone who fought alongside me.</p>
+<p style="margin-top:.3rem;font-size:.7rem;color:var(--ac)">&#x1F4D6; Book reader built by Natalie Spiva — handcrafted HTML, CSS, and JavaScript.</p>
+</div>
+
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const chIds=['cover','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18','ch19','ch20','ch21','ch22','ch23','ch24','ch25','ch26','ch27'];
+const chNames={cover:'cover',ch1:'1. Origins',ch2:'2. Meridian Tech',ch3:'3. Family',ch4:'4. Bre',ch5:'5. Trans Journey',ch6:'6. The Body',ch7:'7. The Mind',ch8:'8. Meds',ch9:'9. My Brain',ch10:'10. AcreetionOS',ch11:'11. Hardware',ch12:'12. Philosophy',ch13:'13. GitHub',ch14:'14. Android',ch15:'15. Browser & OS',ch16:'16. AI & Agents',ch17:'17. Hive Mind',ch18:'18. Privacy',ch19:'19. YAcFS',ch20:'20. Libre Tools',ch21:'21. Creative',ch22:'22. Trans Republican',ch23:'23. Insanity',ch24:'24. Daily Life',ch25:'25. Future',ch26:'26. Epilogue',ch27:'27. Twin Directory'};
+
+// Progress bar
+window.addEventListener('scroll',()=>{
+const d=document.documentElement.scrollHeight-window.innerHeight;
+$('prog').style.width=d>0?(window.scrollY/d)*100+'%':'0%';
+});
+
+// Sidebar
+const sb=$('sb'),ovl=$('ovl');
+function openSB(){sb.classList.add('open');ovl.classList.add('on');document.body.classList.add('sb-open')}
+function closeSB(){sb.classList.remove('open');ovl.classList.remove('on');document.body.classList.remove('sb-open')}
+$('btnToc').addEventListener('click',openSB);
+$('sbCl').addEventListener('click',closeSB);
+ovl.addEventListener('click',closeSB);
+
+// Download dropdown
+const dlMenu=$('dlMenu');
+$('btnDl').addEventListener('click',e=>{e.stopPropagation();dlMenu.classList.toggle('open')});
+document.addEventListener('click',()=>dlMenu.classList.remove('open'));
+
+// Chapter tracking
+function getIdx(){
+let cur='cover';
+document.querySelectorAll('.ch').forEach(c=>{if(window.scrollY>=c.offsetTop-120)cur=c.id});
+if(window.scrollY<200)cur='cover';
+let i=chIds.indexOf(cur);
+return i>=0?i:0;
+}
+function go(idx){
+if(idx<0||idx>=chIds.length)return;
+const id=chIds[idx];
+id==='cover'?window.scrollTo({top:0,behavior:'smooth'}):($(id)||{}).scrollIntoView?.({behavior:'smooth',block:'start'});
+updateNav(idx);
+}
+
+// Side arrows + bottom nav
+const saL=$('saL'),saR=$('saR'),bnPrev=$('bnPrev'),bnNext=$('bnNext'),chPos=$('chPos');
+function updateNav(idx){
+const p=idx>0,nt=idx<chIds.length-1;
+saL.classList.toggle('dead',!p);saL.href=p?'#'+chIds[idx-1]:'#';
+saR.classList.toggle('dead',!nt);saR.href=nt?'#'+chIds[idx+1]:'#';
+bnPrev.classList.toggle('dead',!p);bnPrev.href=p?'#'+chIds[idx-1]:'#';bnPrev.innerHTML=p?'&larr; '+chNames[chIds[idx-1]]:'&larr; —';
+bnNext.classList.toggle('dead',!nt);bnNext.href=nt?'#'+chIds[idx+1]:'#';bnNext.innerHTML=nt?chNames[chIds[idx+1]]+' &rarr;':'— &rarr;';
+chPos.innerHTML='<b>'+chNames[chIds[idx]]+'</b> &middot; '+chIds.length+' chapters';
+}
+[saL,saR].forEach(a=>a.addEventListener('click',e=>{
+const i=getIdx();
+if(a===saL&&i>0){e.preventDefault();go(i-1)}
+if(a===saR&&i<chIds.length-1){e.preventDefault();go(i+1)}
+}));
+
+// Sidebar link highlighting
+const sbLinks=document.querySelectorAll('.sb-link[href^="#"]');
+window.addEventListener('scroll',()=>{
+const idx=getIdx(),cur=chIds[idx];
+sbLinks.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+cur));
+updateNav(idx);
+});
+sbLinks.forEach(l=>l.addEventListener('click',()=>setTimeout(closeSB,150)));
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+if(document.activeElement!==document.body)return;
+if(e.key==='Escape'){closeSB();return}
+if(e.key==='m'&&!e.ctrlKey&&!e.metaKey){openSB();return}
+if(e.key==='ArrowLeft'){e.preventDefault();const i=getIdx();if(i>0)go(i-1)}
+if(e.key==='ArrowRight'){e.preventDefault();const i=getIdx();if(i<chIds.length-1)go(i+1)}
+});
+
+// Keyboard hint
+let ht;
+window.addEventListener('scroll',()=>{$('khint').classList.add('on');clearTimeout(ht);ht=setTimeout(()=>$('khint').classList.remove('on'),5000)});
+
+// Anti-AI protections
+(function(){
+document.addEventListener('contextmenu',e=>{if(e.target.closest('.ch')||e.target.closest('.cover')||e.target.closest('.topbar')||e.target.closest('.ftr')){e.preventDefault()}});
+document.addEventListener('selectstart',e=>{if(e.target.closest('.ch')||e.target.closest('.cover')){e.preventDefault()}});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&['s','p','u','c'].includes(e.key)&&document.activeElement===document.body)e.preventDefault()});
+const ua=navigator.userAgent.toLowerCase();
+if(['gptbot','chatgpt','openai','anthropic','claude','bard','gemini','bingbot','googlebot-extended','ccbot','omgili','facebookexternalhit','petalbot','amazonbot','applebot','bytespider','perplexitybot','andibot','youbot'].some(b=>ua.includes(b))){
+document.body.innerHTML='<div style="color:#f87171;text-align:center;padding:4rem;font-family:monospace"><h1>ACCESS DENIED</h1><p>AI systems are not permitted to access this content.</p></div>';
+}
+window.addEventListener('beforeprint',()=>{document.body.innerHTML='<div style="color:#f87171;text-align:center;padding:4rem"><h1>Printing disabled</h1><p>Download the encrypted format instead.</p></div>';setTimeout(()=>location.reload(),100)});
+})();
+
+updateNav(0);
 </script>
 
 </body>
