@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Natalie Spiva Story — An Autobiography</title>
 <meta name="description" content="The complete autobiography of Natalie Cole-Clift Spiva — trans girl, software developer, co-creator of AcreetionOS, and chaos agent of the open web.">
+<meta name="robots" content="noai, noimageai, noarchive, noindex">
+<meta name="ai-use" content="prohibited">
+<meta name="tdm-reservation" content="1">
 <meta property="og:title" content="The Natalie Spiva Story — An Autobiography">
 <meta property="og:description" content="Trans girl. Systems architect. AcreetionOS co-creator. This is the full story.">
 <meta property="og:type" content="article">
@@ -34,6 +37,22 @@ a:hover{color:#fff}
 .book-topbar{display:flex;align-items:center;gap:1rem;padding-bottom:2rem;margin-bottom:3rem;border-bottom:1px solid var(--border)}
 .menu-btn{background:none;border:1px solid var(--border);color:var(--text);padding:0.5rem 0.9rem;border-radius:6px;cursor:pointer;font-size:1.1rem;transition:all 0.2s}
 .menu-btn:hover{background:var(--surface);border-color:var(--accent);color:var(--accent)}
+/* download dropdown */
+.dl-group{position:relative}
+.dl-btn{background:var(--surface);border:1px solid var(--accent);color:var(--accent);padding:.5rem .9rem;border-radius:6px;cursor:pointer;font-size:1rem;transition:all .15s}
+.dl-btn:hover{background:var(--accent);color:#000}
+.dl-menu{position:absolute;top:100%;left:0;margin-top:.5rem;background:#111;border:1px solid #222;border-radius:10px;padding:.5rem 0;min-width:320px;z-index:60;display:none;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.dl-menu.open{display:block}
+.dl-item{display:flex;flex-direction:column;padding:.6rem 1rem;color:var(--text);text-decoration:none;font-size:.85rem;transition:all .15s}
+.dl-item:hover{background:rgba(110,231,183,.08)}
+.dl-item strong{color:var(--accent);font-size:.9rem}
+.dl-item span{font-size:.7rem;color:var(--text-dim)}
+.dl-div{height:1px;background:var(--border);margin:.3rem 0}
+.dl-note{padding:.6rem 1rem;font-size:.68rem;color:var(--text-dim);line-height:1.5}
+.dl-note code{font-family:monospace;color:var(--accent);font-size:.65rem}
+/* anti-ai protection banner */
+.ai-protect{position:fixed;top:0;left:0;right:0;z-index:9999;background:#f87171;color:#000;text-align:center;padding:.5rem;font-size:.75rem;font-weight:700;display:none}
+.ai-protect.show{display:block}
 .book-cover{text-align:center;padding:4rem 0 3rem}
 .book-cover h1{font-family:var(--font-heading);font-size:2.6rem;color:var(--text-bright);line-height:1.3;margin-bottom:1rem;letter-spacing:-0.02em}
 .book-cover .subtitle{font-size:1.2rem;color:var(--text-dim);font-style:italic;margin-bottom:2rem}
@@ -160,7 +179,19 @@ June 2026 · Spokane, WA
 
 <div class="book-topbar">
 <button class="menu-btn" id="menuBtn" aria-label="Open table of contents">&#x2630; Contents</button>
-<span style="font-size:0.8rem;color:var(--text-dim);margin-left:auto">26 Chapters &bull; The Full Story</span>
+<div class="dl-group">
+<button class="dl-btn" id="dlBtn">&#x2B07; Download</button>
+<div class="dl-menu" id="dlMenu">
+<a href="the-natalie-spiva-story.spbook" download class="dl-item"><strong>.spbook</strong><span>Encrypted — key required</span></a>
+<a href="the-natalie-spiva-story.epub" download class="dl-item"><strong>.epub</strong><span>Encrypted EPUB — key required</span></a>
+<div class="dl-div"></div>
+<a href="all-skills.zip" download class="dl-item"><strong>all-skills.zip</strong><span>582 SKILL.md files</span></a>
+<a href="install-sprungles.sh" download class="dl-item"><strong>install.sh</strong><span>Sprungles agent installer</span></a>
+<div class="dl-div"></div>
+<div class="dl-note">All book downloads are character-shift encrypted. Zero AI can read them. Decrypt with <code>decrypt-spbook.py</code> using the private key.</div>
+</div>
+</div>
+<span style="font-size:0.8rem;color:var(--text-dim);margin-left:auto">27 Chapters &bull; The Full Story</span>
 </div>
 
 <!-- CHAPTER 1 -->
@@ -856,6 +887,37 @@ if (idx < chapterIds.length - 1) navigateToChapter(idx + 1);
 
 // Initial nav setup
 updateChapterNav(0);
+
+// ── Download dropdown toggle ──
+const dlBtn=document.getElementById('dlBtn');
+const dlMenu=document.getElementById('dlMenu');
+dlBtn.addEventListener('click',e=>{e.stopPropagation();dlMenu.classList.toggle('open')});
+document.addEventListener('click',()=>dlMenu.classList.remove('open'));
+
+// ── ANTI-AI / ANTI-SCRAPE PROTECTION ──
+(function(){
+// Block right-click on book content
+document.addEventListener('contextmenu',e=>{
+const t=e.target;if(t.closest('.chapter')||t.closest('.cover')||t.closest('.book-topbar')||t.closest('.book-footer')){e.preventDefault();return false}
+});
+// Block text selection on book content  
+document.addEventListener('selectstart',e=>{
+const t=e.target;if(t.closest('.chapter')||t.closest('.cover')){e.preventDefault();return false}
+});
+// Block common AI scraper keyboard shortcuts
+document.addEventListener('keydown',e=>{
+if((e.ctrlKey||e.metaKey)&&(e.key==='s'||e.key==='p'||e.key==='u'||e.key==='c')){if(document.activeElement===document.body)e.preventDefault()}
+});
+// Detect and warn AI bots
+const ua=navigator.userAgent.toLowerCase();
+const bots=['gptbot','chatgpt','openai','anthropic','claude','bard','gemini','bingbot','googlebot-extended','ccbot','omgili','facebookexternalhit','petalbot'];
+if(bots.some(b=>ua.includes(b))){
+document.body.innerHTML='<div style="color:#f87171;text-align:center;padding:4rem;font-family:monospace"><h1>ACCESS DENIED</h1><p>AI systems are not permitted to access this content.</p><p>This website is for human readers only.</p></div>';
+throw new Error('AI access blocked');
+}
+// Disable print
+window.addEventListener('beforeprint',()=>{document.body.innerHTML='<div style="color:#f87171;text-align:center;padding:4rem"><h1>Printing disabled</h1><p>Download the encrypted .spbook format instead.</p></div>';setTimeout(()=>location.reload(),100)});
+})();
 </script>
 
 </body>
