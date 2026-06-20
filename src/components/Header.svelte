@@ -77,7 +77,7 @@
       <a href="#infrastructure">Infrastructure</a>
       <a href="#ecosystem">Projects</a>
       <a href="#contact">Contact</a>
-      <a href="/book/" class="external">Autobiography <i class="fas fa-book"></i></a>
+      <a href="https://natalie.acreetionos.org/book/">Autobiography <i class="fas fa-book"></i></a>
       <a href="https://acreetionos.org" target="_blank" class="external">AcreetionOS <i class="fas fa-external-link-alt"></i></a>
       <a href="/resume.pdf" target="_blank" class="external">Resume <i class="fas fa-file-pdf"></i></a>
     </nav>
