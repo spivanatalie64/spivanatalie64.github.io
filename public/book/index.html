@@ -70,6 +70,24 @@ a:hover{color:#fff}
 .visual-stress-note{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:1rem 1.25rem;margin:2rem 0;font-size:0.9rem;color:var(--text-dim)}
 .visual-stress-note strong{color:var(--accent)}
 
+/* reader credit badge */
+.reader-credit{text-align:center;margin:1.5rem 0;padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:0.75rem;color:var(--text-dim)}
+.reader-credit strong{color:var(--accent)}
+.reader-credit .credit-icon{font-size:1.2rem;display:block;margin-bottom:0.3rem}
+
+/* floating chapter navigation arrows */
+.chapter-nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(transparent,var(--bg) 40%,var(--bg));padding:3rem 1rem 1rem;z-index:50;display:flex;justify-content:center;align-items:center;gap:1.5rem;pointer-events:none;opacity:0;transition:opacity 0.3s}
+.chapter-nav.visible{opacity:1;pointer-events:all}
+.chapter-arrow{display:flex;align-items:center;gap:0.5rem;background:var(--surface);border:1px solid var(--border);color:var(--text-bright);padding:0.75rem 1.5rem;border-radius:10px;cursor:pointer;font-size:0.95rem;text-decoration:none;transition:all 0.2s;font-family:var(--font-body)}
+.chapter-arrow:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:translateY(-2px)}
+.chapter-arrow.disabled{opacity:0.25;pointer-events:none;cursor:default}
+.chapter-arrow .arrow-icon{font-size:1.3rem}
+.chapter-arrow .arrow-label{font-size:0.7rem;color:var(--text-dim);display:block;line-height:1}
+.chapter-arrow:hover .arrow-label{color:rgba(0,0,0,0.5)}
+.chapter-arrow .arrow-title{font-weight:600}
+.chapter-nav-hint{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);font-size:0.7rem;color:var(--text-dim);z-index:48;pointer-events:none;transition:opacity 0.5s}
+.chapter-nav-hint kbd{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.1rem 0.4rem;font-family:var(--font-mono);font-size:0.7rem}
+
 @media(max-width:768px){
 .book-main{padding:1.5rem 1rem}
 .book-cover h1{font-size:2rem}
@@ -87,7 +105,7 @@ a:hover{color:#fff}
 <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">&times;</button>
 <div class="sidebar-title">Contents</div>
 <a class="sidebar-chapter" href="#cover"><strong>The Natalie Spiva Story</strong><small>A complete autobiography</small></a>
-<a class="sidebar-chapter" href="#ch1">1. Origins<small>Oklahoma, OSU, and finding my path</small></a>
+<a class="sidebar-chapter" href="#ch1">1. Origins<small>Oklahoma, adoption, abuse, and finding my path</small></a>
 <a class="sidebar-chapter" href="#ch2">2. Meridian Tech<small>The 4.0 that proved them wrong</small></a>
 <a class="sidebar-chapter" href="#ch3">3. Family &amp; Chosen Family<small>Bre, Christina, Darren, and my brother</small></a>
 <a class="sidebar-chapter" href="#ch4">4. Love: The Bre Story<small>Texas, long-distance, and realizing I'm a dumbass</small></a>
@@ -133,6 +151,10 @@ June 2026 · Spokane, WA
 <div class="visual-stress-note">
 <strong>&#x26A0; Reader's Note:</strong> This book is intentionally designed with white text on a dark background because the author experiences <strong>visual stress (Meares-Irlen syndrome)</strong> &mdash; a perceptual processing condition where high-contrast black-on-white text causes visual distortion, eye strain, headaches, and text that appears to move or blur. If you're reading this as a printout or on a different background, know that the author designed this reading experience specifically around her own visual needs &mdash; and it might work better for you too.
 </div>
+<div class="reader-credit">
+<span class="credit-icon">&#x1F4D6;</span>
+<strong>This book reader was designed and built by Natalie Spiva.</strong> Every line of HTML, CSS, and JavaScript was handcrafted for her own accessibility needs &mdash; white-on-dark text for visual stress, keyboard navigation, and a reading experience optimized for how her brain actually works. No templates, no frameworks, no compromises.
+</div>
 </div>
 
 <div class="book-topbar">
@@ -143,8 +165,18 @@ June 2026 · Spokane, WA
 <!-- CHAPTER 1 -->
 <section id="ch1" class="chapter">
 <span class="chapter-number">Chapter 1</span>
-<h2 class="chapter-title">Origins: Oklahoma, OSU, and Finding My Path</h2>
+<h2 class="chapter-title">Origins: Oklahoma, Adoption, Abuse, and Finding My Path</h2>
 <p>My name is <strong>Natalie Cole-Clift Spiva</strong>, and I was born on <strong>September 15, 2001</strong>. I grew up in a world that kept telling me I was supposed to be someone named Johnathan, but I knew from the very beginning that wasn't the whole story. Oklahoma is where I started, and it shaped me in ways I am still discovering. Oklahoma isn't the kind of place people expect to produce a trans girl who builds operating systems, but that's exactly what it did. The DIY attitude, the skepticism of authority, the refusal to be told what to do &mdash; all of that is pure Oklahoma, and I carry it with me every single day.</p>
+
+<p>I need to talk about my childhood, because it's the part of my story that explains everything else. <strong>I was adopted.</strong> I grew up in a household that was supposed to be my safe place, my foundation, my family &mdash; but it wasn't. The family that adopted me was <strong>abusive</strong>, and I don't use that word lightly. Physical abuse. Emotional abuse. Psychological manipulation that twisted my sense of self before I was old enough to know what a sense of self even was. When you grow up in a house where love is conditional and punishment is unpredictable, you learn things about survival that other people never have to learn. You learn to read every micro-expression, every shift in tone, every creak of a floorboard &mdash; because your safety depends on knowing what's coming before it arrives.</p>
+
+<p>The abuse wasn't just something that happened to me; it was the water I swam in for the first eighteen years of my life. I didn't know it was abnormal because I had no frame of reference. When you're a child being raised by abusers, the abuse <em>is</em> normal. You assume every family operates this way behind closed doors. You assume the bruises, the screaming, the manipulation, the gaslighting, the control &mdash; you assume this is just what families do. It takes years of distance and therapy to even begin to understand that what happened to you was wrong, that you deserved better, that the shame belongs to the abusers and not to the abused. I am still doing that work. Every single day.</p>
+
+<p>Being adopted added another layer of isolation. I knew, on some level, that the people raising me were not my biological parents. That knowledge creates a particular kind of loneliness that's hard to describe to anyone who hasn't experienced it. There's a question that sits in the back of your mind from the earliest age: if my biological parents didn't keep me, and my adoptive parents treat me like this, then what does that say about my worth? It took me decades to understand that it says nothing about my worth and everything about the failures of the adults who were supposed to protect me. Your value as a human being is not determined by how other people treat you. But when you're a child, you don't know that yet. You just know that something feels fundamentally wrong, and you assume the wrong thing is you.</p>
+
+<p>The abuse I experienced directly shaped the person I became. My <strong>hypervigilance</strong> &mdash; the constant scanning of environments for threats, the inability to relax, the need to control every variable &mdash; is a direct survival adaptation from my childhood. My <strong>fierce protectiveness</strong> of the people I love comes from knowing, at a bone-deep level, what happens when no one protects you. My <strong>distrust of systems and authority</strong> comes from watching systems fail me over and over again throughout my childhood, from child protective services that didn't investigate thoroughly enough to schools that didn't ask the right questions to adults who looked the other way because confronting abuse is uncomfortable. I learned early that if I wanted to be safe, I would have to make myself safe. Nobody else was going to do it.</p>
+
+<p>I also developed <strong>Complex PTSD</strong> from these years of sustained trauma &mdash; not from a single event but from the accumulated weight of years of abuse. CPTSD is different from traditional PTSD because it rewires your entire personality around survival. It affects how you trust, how you attach, how you regulate emotions, how you see yourself. The person I am today &mdash; the intensity, the protectiveness, the refusal to be controlled, the obsession with building systems that can't be exploited, the need to understand how everything works at the deepest level &mdash; all of it traces back to a childhood where I learned that safety is something you build yourself because nobody is going to build it for you. My entire career, my entire philosophy, my entire approach to relationships &mdash; it's all downstream from those early experiences. The abused child became the woman who builds operating systems and monitors the dark web and encrypts her medical records and loves with terrifying intensity. The trauma didn't break me. It forged me. And I'm still figuring out exactly what I was forged into.</p>
 <p>I enrolled at <strong>Oklahoma State University</strong> with the same hopes everyone carries into college: that this would be my path, my future, my launchpad. It lasted about a semester before I knew, with absolute certainty, that the system was not built for someone like me. Too much bureaucracy, too much busywork, not enough actual building. I didn't drop out so much as I dropped <em>into</em> something else &mdash; I dropped into building my own path. When people ask me about OSU now, I tell them the truth: it wasn't for me, and I knew it almost immediately. That decision wasn't failure; it was clarity. It was the first time I looked at a system that wasn't working for me and said "no" &mdash; a pattern that would define the rest of my life.</p>
 <p>I am the <strong>co-creator and co-lead developer of AcreetionOS</strong>, an Arch Linux-based operating system distribution built from the ground up to be user-friendly while maintaining the power and flexibility that Arch users demand. The project started as a question: what if Arch was truly accessible? What if a distro could be libre, fast, and simple without sacrificing the control that makes Arch special? Those questions became an obsession, and that obsession became an operating system. AcreetionOS now ships with the Cinnamon desktop environment, XLibre display server support, PipeWire audio, and a curated selection of over 250 packages &mdash; all built, tested, and verified by a tiny team of two people who refuse to compromise on quality.</p>
 <p>I am <strong>twenty-four years old</strong> and I currently live in <strong>Spokane, Washington</strong>, specifically in the Bemiss neighborhood. Before that, I was in Oklahoma, and the transition from the southern plains to the Pacific Northwest was about more than geography &mdash; it was about finding a place where I could be fully, completely myself. Spokane isn't perfect, but it's home now. I film video content around my neighborhood, I know my streets, and I've built my life here brick by brick. Washington State also gives me legal protections that Oklahoma never did, and as a trans woman in 2026, those protections matter more than I can express.</p>
@@ -433,7 +465,27 @@ June 2026 · Spokane, WA
 <a href="https://github.com/spivanatalie64">github.com/spivanatalie64</a>
 </p>
 <p style="margin-top:0.5rem;font-size:0.7rem">This work is dedicated to Bre, Christina, Darren, my brother, and everyone who has fought alongside me. You are the reason I keep building.</p>
+<p style="margin-top:0.5rem;font-size:0.7rem;color:var(--accent)">&#x1F4D6; This book reader was designed and built by Natalie Spiva &mdash; handcrafted HTML, CSS, and JavaScript. No templates, no frameworks.</p>
 </div>
+
+<!-- Floating chapter navigation arrows -->
+<div class="chapter-nav" id="chapterNav">
+<a class="chapter-arrow" id="prevChapter" href="#cover" title="Previous Chapter">
+<span class="arrow-icon">&larr;</span>
+<span>
+<span class="arrow-label">Previous</span>
+<span class="arrow-title" id="prevTitle">Cover</span>
+</span>
+</a>
+<a class="chapter-arrow" id="nextChapter" href="#ch2" title="Next Chapter">
+<span>
+<span class="arrow-label">Next</span>
+<span class="arrow-title" id="nextTitle">Chapter 2</span>
+</span>
+<span class="arrow-icon">&rarr;</span>
+</a>
+</div>
+<div class="chapter-nav-hint" id="navHint">Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> arrow keys to navigate chapters</div>
 
 </main>
 
@@ -467,17 +519,148 @@ menuBtn.addEventListener('click', openSidebar);
 closeBtn.addEventListener('click', closeSidebar);
 overlay.addEventListener('click', closeSidebar);
 
+// Chapter data - define all chapters in order
+const chapterIds = ['cover','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18','ch19','ch20','ch21','ch22','ch23','ch24','ch25','ch26'];
+const chapterNames = {
+'cover':'Cover',
+'ch1':'1. Origins: Adoption, Abuse & Oklahoma',
+'ch2':'2. Meridian Tech',
+'ch3':'3. Family & Chosen Family',
+'ch4':'4. Love: The Bre Story',
+'ch5':'5. The Trans Journey',
+'ch6':'6. The Body I Live In',
+'ch7':'7. The Mind I Navigate',
+'ch8':'8. Medications & Healthcare',
+'ch9':'9. How My Brain Works',
+'ch10':'10. The Birth of AcreetionOS',
+'ch11':'11. Hardware & Infrastructure',
+'ch12':'12. The Philosophy',
+'ch13':'13. The GitHub Empire',
+'ch14':'14. Android & Mobile',
+'ch15':'15. Browser Internals & OS Dev',
+'ch16':'16. Local AI & Agentic Systems',
+'ch17':'17. The Hive Mind',
+'ch18':'18. Privacy, Security & Breach Monitoring',
+'ch19':'19. YAcFS & Filesystem Revolution',
+'ch20':'20. FreedomOffice & Libre Tools',
+'ch21':'21. The Creative Side',
+'ch22':'22. Politics, Identity & Being a Trans Republican',
+'ch23':'23. The Insanity I Embrace',
+'ch24':'24. Daily Life & Routines',
+'ch25':'25. The Future',
+'ch26':'26. Epilogue: Why I Build'
+};
+
+function getCurrentChapterIndex() {
+let currentId = 'cover';
+const allChapters = document.querySelectorAll('.chapter');
+allChapters.forEach(ch => {
+const top = ch.offsetTop - 120;
+if (window.scrollY >= top) currentId = ch.id;
+});
+// Check if we're near the cover
+if (window.scrollY < 200) currentId = 'cover';
+let idx = chapterIds.indexOf(currentId);
+return idx >= 0 ? idx : 0;
+}
+
+function navigateToChapter(idx) {
+if (idx < 0 || idx >= chapterIds.length) return;
+const id = chapterIds[idx];
+if (id === 'cover') {
+window.scrollTo({top:0,behavior:'smooth'});
+} else {
+const el = document.getElementById(id);
+if (el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+updateChapterNav(idx);
+}
+
+// Update floating nav arrows
+const chapterNav = document.getElementById('chapterNav');
+const prevChapter = document.getElementById('prevChapter');
+const nextChapter = document.getElementById('nextChapter');
+const prevTitle = document.getElementById('prevTitle');
+const nextTitle = document.getElementById('nextTitle');
+const navHint = document.getElementById('navHint');
+
+function updateChapterNav(idx) {
+// Previous
+if (idx <= 0) {
+prevChapter.classList.add('disabled');
+prevChapter.setAttribute('href','#');
+prevTitle.textContent = '—';
+} else {
+prevChapter.classList.remove('disabled');
+const prevId = chapterIds[idx-1];
+prevChapter.setAttribute('href','#'+prevId);
+prevTitle.textContent = chapterNames[prevId] || 'Previous';
+}
+// Next
+if (idx >= chapterIds.length - 1) {
+nextChapter.classList.add('disabled');
+nextChapter.setAttribute('href','#');
+nextTitle.textContent = '—';
+} else {
+nextChapter.classList.remove('disabled');
+const nextId = chapterIds[idx+1];
+nextChapter.setAttribute('href','#'+nextId);
+nextTitle.textContent = chapterNames[nextId] || 'Next';
+}
+}
+
+// Show/hide nav based on scroll position
+let navTimeout;
+function showNav() {
+chapterNav.classList.add('visible');
+navHint.style.opacity = '1';
+clearTimeout(navTimeout);
+navTimeout = setTimeout(() => {
+navHint.style.opacity = '0';
+}, 6000);
+}
+function hideNav() {
+chapterNav.classList.remove('visible');
+navHint.style.opacity = '0';
+}
+
+window.addEventListener('scroll', () => {
+const idx = getCurrentChapterIndex();
+updateChapterNav(idx);
+// Show nav when scrolled past cover and not at very bottom
+const scrollBottom = window.innerHeight + window.scrollY;
+const docBottom = document.documentElement.scrollHeight;
+if (window.scrollY > 400 && scrollBottom < docBottom - 200) {
+showNav();
+} else {
+hideNav();
+}
+});
+
+// Click handlers for arrow buttons
+prevChapter.addEventListener('click', (e) => {
+const idx = getCurrentChapterIndex();
+if (idx > 0) {
+e.preventDefault();
+navigateToChapter(idx - 1);
+}
+});
+nextChapter.addEventListener('click', (e) => {
+const idx = getCurrentChapterIndex();
+if (idx < chapterIds.length - 1) {
+e.preventDefault();
+navigateToChapter(idx + 1);
+}
+});
+
 // Highlight active chapter in sidebar
 const chapters = document.querySelectorAll('.chapter');
 const sidebarLinks = document.querySelectorAll('.sidebar-chapter[href^="#"]');
 window.addEventListener('scroll', () => {
-let current = 'cover';
-chapters.forEach(ch => {
-const top = ch.offsetTop - 100;
-if (window.scrollY >= top) current = ch.id;
-});
+const idx = getCurrentChapterIndex();
+const currentId = chapterIds[idx];
 sidebarLinks.forEach(link => {
-link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
 });
 });
 
@@ -488,13 +671,26 @@ setTimeout(closeSidebar, 150);
 });
 });
 
-// Keyboard shortcut
+// Keyboard navigation
 document.addEventListener('keydown', e => {
-if (e.key === 'Escape') closeSidebar();
-if (e.key === 'm' && !e.ctrlKey && !e.metaKey && document.activeElement === document.body) {
-openSidebar();
+// Don't capture if user is typing in an input
+if (document.activeElement !== document.body) return;
+if (e.key === 'Escape') { closeSidebar(); return; }
+if (e.key === 'm' && !e.ctrlKey && !e.metaKey) { openSidebar(); return; }
+if (e.key === 'ArrowLeft') {
+e.preventDefault();
+const idx = getCurrentChapterIndex();
+if (idx > 0) navigateToChapter(idx - 1);
+}
+if (e.key === 'ArrowRight') {
+e.preventDefault();
+const idx = getCurrentChapterIndex();
+if (idx < chapterIds.length - 1) navigateToChapter(idx + 1);
 }
 });
+
+// Initial nav setup
+updateChapterNav(0);
 </script>
 
 </body>
