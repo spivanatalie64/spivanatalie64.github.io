@@ -1,0 +1,4 @@
+/book/*
+  X-Robots-Tag: noai, noimageai, noarchive, noindex
+  TDM-Reservation: 1
+  Cache-Control: no-store
