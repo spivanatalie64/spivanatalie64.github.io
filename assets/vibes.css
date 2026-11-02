@@ -1,242 +1,1021 @@
 /* ============================================================================
- * vibes.css — the vibrant layer for natalie.acreetionos.org
- * Loaded after the SPA bundle so it can safely enrich (not break) the build.
- * Brings the landing page up to the energy of the story pages: aurora
- * gradients, glow, motion, and a hero that says the whole truth.
+ * vibes.css — the design system for natalie.acreetionos.org
+ *
+ * One hue. Violet. Everything else is a tint of the same neutral ramp.
+ *
+ * This file is loaded *after* the SPA bundle (assets/index-*.css) so it can
+ * enrich the build without breaking it. Two rules follow from that:
+ *
+ *   1. Every selector is keyed to a *semantic* class name plus `[class]`,
+ *      never to a Svelte scope hash (`.card.svelte-1dux4xh`). Those hashes are
+ *      regenerated on every build, so an override keyed to one evaporates the
+ *      next time the SPA is compiled. `[class]` matches the same elements at
+ *      equal specificity and wins on source order, so the theme survives a
+ *      rebuild.
+ *
+ *   2. Nothing here animates in the background, blurs what is behind it, or
+ *      paints text with a gradient. The page is meant to be read.
+ *
+ * The rules below replace the previous "vibes" layer, which ran violet,
+ * purple, pink, blue and light blue through every gradient, glow and chip at
+ * once — five cool hues doing one job, so nothing read as intentional.
  * ========================================================================== */
 
 :root {
-  --vibes-bg-1: #0a0a0f;
-  --vibes-bg-2: #1a0b2e;
-  --vibes-bg-3: #0b1226;
-  --vibes-accent: #7c3aed;
-  --vibes-accent-2: #c084fc;
-  --vibes-accent-3: #f472b6;
-  --vibes-accent-4: #38bdf8;
-  --vibes-glow: rgba(124, 58, 237, 0.35);
+  /* ---- surfaces: flat, opaque, four levels ------------------------------ */
+  --bg:          #08080c;
+  --bg-2:        #0c0c13;
+  --surface:     #12121a;
+  --surface-2:   #171721;
+  --surface-3:   #1d1d29;
+
+  /* ---- lines ------------------------------------------------------------ */
+  --line:        rgba(255, 255, 255, 0.08);
+  --line-2:      rgba(255, 255, 255, 0.14);
+  --line-accent: rgba(167, 139, 250, 0.32);
+
+  /* ---- text ------------------------------------------------------------- */
+  --text:        #ececf2;
+  --text-2:      #a3a3b6;
+  --text-3:      #82829c;
+
+  /* ---- the one hue ------------------------------------------------------ */
+  --violet:      #a78bfa;  /* accent as text on dark — 6.8:1 on --surface    */
+  --violet-2:    #8b5cf6;  /* accent as a fill                              */
+  --violet-3:    #7c3aed;  /* deep accent, borders, gradients               */
+  --violet-wash: rgba(167, 139, 250, 0.12);
+  --violet-wash-2: rgba(167, 139, 250, 0.06);
+
+  /* ---- the two exceptions, each with exactly one job -------------------- */
+  --pink:        #f472b6;  /* the "still here" tag, and nothing else        */
+  --cyan:        #7dd3fc;  /* code and technical metadata, and nothing else */
+
+  /* ---- type ------------------------------------------------------------- */
+  --fs-display: clamp(1.75rem, 1.15rem + 2.7vw, 3.35rem);
+  --fs-h2:      clamp(1.35rem, 1.18rem + 0.6vw, 1.65rem);
+  --fs-body:    0.975rem;
+  --fs-sm:      0.875rem;
+  --fs-micro:   0.7rem;
+
+  /* ---- space ------------------------------------------------------------ */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+
+  /* ---- radius ----------------------------------------------------------- */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+
+  /* ---- the content column — .app is 960px, everything lines up to it ---- */
+  --column: 960px;
+
+  /* ---- the life rail (assets/life-rail.js) reads these ------------------- */
+  --lr-bg:       #08080c;
+  --lr-bg-soft:  rgba(18, 18, 26, 0.92);
+  --lr-panel:    #12121a;
+  --lr-text:     #ececf2;
+  --lr-muted:    #a3a3b6;
+  --lr-accent:   #a78bfa;
 }
 
-/* ---- aurora backdrop behind everything ---- */
+/* ============================================================================
+ * base
+ * ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  /* keep anchored sections clear of the sticky header */
+  scroll-padding-top: 88px;
+}
+
 body {
-  background:
-    radial-gradient(1200px 600px at 15% -10%, rgba(124, 58, 237, 0.22), transparent 60%),
-    radial-gradient(1000px 500px at 85% 0%, rgba(244, 114, 182, 0.14), transparent 55%),
-    radial-gradient(900px 700px at 50% 110%, rgba(56, 189, 248, 0.12), transparent 60%),
-    linear-gradient(160deg, var(--vibes-bg-2), var(--vibes-bg-1) 40%, var(--vibes-bg-3));
-  background-attachment: fixed;
-  color: #e1e1e6;
-  min-height: 100vh;
-}
-
-/* subtle animated aurora shimmer */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -50%;
-  z-index: -1;
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    rgba(124, 58, 237, 0.10),
-    rgba(56, 189, 248, 0.08),
-    rgba(244, 114, 182, 0.08),
-    rgba(124, 58, 237, 0.10)
+  background-color: var(--bg);
+  /* one wash, one hue, anchored to the top of the document so it scrolls away
+     instead of following the viewport around */
+  background-image: radial-gradient(
+    1100px 520px at 50% -220px,
+    rgba(124, 58, 237, 0.16),
+    transparent 70%
   );
-  animation: vibes-rotate 90s linear infinite;
-  pointer-events: none;
-}
-@keyframes vibes-rotate {
-  to { transform: rotate(360deg); }
-}
-
-/* ---- header: keep structure, add glow + gradient text ---- */
-header .brand h1 {
-  background: linear-gradient(90deg, #fff, var(--vibes-accent-2), var(--vibes-accent-3));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 0 40px rgba(192, 132, 252, 0.25);
-}
-header .brand .title {
-  color: #a1a1aa;
-}
-header .avatar img {
-  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.5), 0 0 30px rgba(124, 58, 237, 0.35);
+  background-repeat: no-repeat;
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---- nav links: gradient underline on hover ---- */
-header nav a {
-  position: relative;
+::selection {
+  background: rgba(167, 139, 250, 0.32);
+  color: #fff;
 }
-header nav a::after {
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #262633; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--violet-3); }
+
+/* ---- focus: the one thing the old theme never had ---------------------- */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* ============================================================================
+ * header
+ * ========================================================================== */
+
+header[class] {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  margin-bottom: 0;
+}
+
+/* the rule has to span the viewport, not just the 960px column */
+header[class]::after {
   content: "";
   position: absolute;
-  left: 0; right: 100%;
-  bottom: -3px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--vibes-accent), var(--vibes-accent-2));
-  transition: right 0.25s ease;
-}
-header nav a:hover::after {
-  right: 0;
+  left: 50%;
+  bottom: 0;
+  width: 100vw;
+  height: 1px;
+  background: var(--line);
+  transform: translateX(-50%);
 }
 
-/* ---- section headers: glowing icon chip + gradient heading ---- */
-section h2 {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(90deg, #fff, var(--vibes-accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+header .brand h1[class] {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-shadow: none;
+  background: none;
+  -webkit-text-fill-color: currentColor;
 }
-section h2 i {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+
+header .brand .title[class] {
+  font-size: 0.75rem;
+  color: var(--violet);
+  letter-spacing: 0.02em;
+}
+
+header .avatar[class] {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(244, 114, 182, 0.15));
-  border: 1px solid rgba(124, 58, 237, 0.4);
-  box-shadow: 0 0 18px rgba(124, 58, 237, 0.25);
-  -webkit-text-fill-color: #c084fc;
+  border: 1px solid var(--line-2);
+  box-shadow: none;
 }
 
-/* ---- cards: glass + glow border ---- */
-.card, .item, .repo-item {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.09) !important;
-  border-radius: 14px !important;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-.card:hover, .item:hover, .repo-item:hover {
-  transform: translateY(-3px);
-  border-color: rgba(192, 132, 252, 0.5) !important;
-  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.25);
+header nav a[class] {
+  color: var(--text-2);
+  font-size: 0.82rem;
+  padding: 7px 12px;
+  border-radius: var(--r-sm);
+  transition: color 0.15s ease, background-color 0.15s ease;
 }
 
-/* ---- stat numbers: glow ---- */
-.stat-value {
-  background: linear-gradient(90deg, var(--vibes-accent-2), var(--vibes-accent-4));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+header nav a[class]:hover {
+  color: var(--text);
+  background: var(--surface-2);
 }
 
-/* ---- the hero strip: story first, portfolio second ---- */
+header nav a.external[class] {
+  color: var(--violet);
+}
+
+header nav a.external[class]:hover {
+  background: var(--violet-wash);
+  color: var(--violet);
+}
+
+/* The nav carries seven links and the column is 960px, so on a wide screen
+   it can wrap. Right-aligning the rows keeps the wrapped nav hugging the
+   right edge where the brand already puts it, instead of leaving a ragged
+   left-aligned second row. */
+@media (min-width: 701px) {
+  header nav[class] {
+    justify-content: flex-end;
+  }
+}
+
+/* the old gradient underline is gone — the pill is the whole affordance */
+header nav a[class]::after {
+  display: none;
+}
+
+.hamburger[class]:hover {
+  background: var(--surface-2);
+}
+
+.hamburger[class] span {
+  background: var(--text-3);
+}
+
+.hamburger[class]:hover span {
+  background: var(--text);
+}
+
+/* ============================================================================
+ * hero — the statement, under the nav, on the same column as everything else
+ * ========================================================================== */
+
 .vibes-hero {
-  max-width: 1080px;
+  /* fallback geometry, in case the hero is ever injected outside the app's
+     own column — index.html puts it straight after the header, where the
+     rule below takes over */
+  max-width: var(--column);
   margin: 0 auto;
-  padding: 56px 24px 8px;
+  padding: var(--s8) var(--s5) var(--s6);
 }
+
+/* the hero lives inside the SPA's column, so it must not add its own gutters */
+.app .vibes-hero {
+  max-width: none;
+  margin: 0;
+  padding: var(--s8) 0 var(--s6);
+}
+
 .vibes-hero-inner {
   position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  padding: 40px 36px;
-  background:
-    radial-gradient(600px 300px at 80% -20%, rgba(244, 114, 182, 0.18), transparent 60%),
-    radial-gradient(500px 300px at 10% 110%, rgba(56, 189, 248, 0.14), transparent 60%),
-    linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(10, 10, 15, 0.6) 55%);
-  border: 1px solid rgba(124, 58, 237, 0.35);
-  box-shadow: 0 0 60px rgba(124, 58, 237, 0.18);
 }
+
+/* the accent rule: one violet mark where the eye should land first */
+.vibes-hero-inner::before {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--violet-2);
+  margin-bottom: var(--s5);
+}
+
 .vibes-hero h1 {
-  margin: 0 0 10px;
-  font-size: 34px;
-  line-height: 1.2;
-  background: linear-gradient(90deg, #fff, var(--vibes-accent-2), var(--vibes-accent-3));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+  margin: 0 0 var(--s4);
+  max-width: 22ch;
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  color: var(--text);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+  /* "Natalie Cole-Clift Spiva [ by paperwork only ]" breaks mid-bracket at
+     any width; balance it instead so it splits on the name */
+  text-wrap: balance;
 }
+
 .vibes-hero p {
-  margin: 0 0 18px;
-  max-width: 640px;
-  color: #d4d4d8;
-  font-size: 15px;
-  line-height: 1.7;
+  margin: 0 0 var(--s5);
+  max-width: 76ch;
+  color: var(--text-2);
+  font-size: 1.02rem;
+  line-height: 1.75;
 }
-.vibes-hero p strong { color: #f4f4f5; }
+
+.vibes-hero p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
 .vibes-hero p a {
-  color: var(--vibes-accent-2);
-  text-decoration: none;
-  border-bottom: 1px dotted rgba(192, 132, 252, 0.4);
+  color: var(--violet);
+  text-decoration: underline;
+  text-decoration-color: var(--line-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
 }
-.vibes-hero p a:hover { border-bottom-color: var(--vibes-accent-2); }
+
+.vibes-hero p a:hover {
+  text-decoration-color: var(--violet);
+}
+
 .vibes-hero-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--s2);
 }
+
 .vibes-hero-tag {
-  font-size: 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
   padding: 4px 12px;
-  border-radius: 99px;
-  background: rgba(124, 58, 237, 0.16);
-  border: 1px solid rgba(124, 58, 237, 0.4);
-  color: #c084fc;
-}
-.vibes-hero-tag.heart { color: #f472b6; border-color: rgba(244, 114, 182, 0.4); background: rgba(244, 114, 182, 0.12); }
-
-/* ---- heartbeat on the rail's flag ---- */
-.lr-rail-btn.active { animation: lrPulse 2.4s ease-in-out infinite; }
-
-/* ---- file:// naked mode: full vibes ---- */
-body.lr-naked {
-  background:
-    radial-gradient(1000px 500px at 20% -10%, rgba(124, 58, 237, 0.25), transparent 60%),
-    radial-gradient(800px 400px at 85% 0%, rgba(244, 114, 182, 0.15), transparent 55%),
-    linear-gradient(160deg, var(--vibes-bg-2), var(--vibes-bg-1) 45%, var(--vibes-bg-3));
-  color: #e1e1e6;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--text-2);
 }
 
-/* ---- reduced motion: calm it down ---- */
-@media (prefers-reduced-motion: reduce) {
-  body::before { animation: none; }
-  .card:hover, .item:hover, .repo-item:hover { transform: none; }
+/* the one place pink is allowed to appear */
+.vibes-hero-tag.heart {
+  color: var(--pink);
+  border-color: rgba(244, 114, 182, 0.34);
+  background: rgba(244, 114, 182, 0.10);
 }
 
-/* ── network hub ─────────────────────────────────────────────── */
-.network-hub {
-  max-width: 1080px;
-  margin: 3rem auto;
-  padding: 0 1.5rem;
+/* ============================================================================
+ * sections
+ * ========================================================================== */
+
+main > section[class] {
+  margin-bottom: var(--s8);
 }
-.network-hub h2 {
-  display: flex; align-items: center; gap: .5rem;
-  font-size: 1.6rem; margin-bottom: .35rem;
+
+section h2[class] {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin: 0 0 var(--s4);
+  font-size: var(--fs-h2);
+  font-weight: 650;
+  letter-spacing: -0.018em;
+  line-height: 1.25;
+  color: var(--text);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+  text-wrap: balance;
 }
+
+/* the icon chip: a solid square of violet wash, not a glowing blob */
+section h2 i[class] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  background: var(--violet-wash);
+  border: 1px solid var(--line-accent);
+  box-shadow: none;
+  color: var(--violet);
+  font-size: 0.95rem;
+  -webkit-text-fill-color: var(--violet);
+}
+
+.section-sub[class],
 .network-hub .section-sub {
-  opacity: .7; margin: 0 0 1.25rem;
+  font-size: var(--fs-sm);
+  color: var(--text-3);
+  margin: -8px 0 var(--s4);
 }
+
+/* ============================================================================
+ * cards and items — solid surfaces, one hairline, no glass
+ * ========================================================================== */
+
+.card[class],
+.item[class],
+.repo-item[class] {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.card[class] {
+  padding: var(--s6);
+}
+
+.card[class] > p[class],
+.card[class] p[class] {
+  color: var(--text-2);
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+.item[class] {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  padding: var(--s4);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.item[class]:hover {
+  background: var(--surface-3);
+  border-color: var(--line-accent);
+}
+
+.item[class] i[class] {
+  font-size: 1.05rem;
+  color: var(--violet);
+  margin-top: 2px;
+}
+
+.item[class] strong[class] {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.item[class] span[class] {
+  color: var(--text-3);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* ============================================================================
+ * stats
+ * ========================================================================== */
+
+.stats[class] {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s3);
+  margin-top: var(--s5);
+}
+
+.stat[class] {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s4);
+  text-align: center;
+}
+
+.stat-value[class] {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--violet);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}
+
+.stat-label[class] {
+  display: block;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  color: var(--text-3);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ============================================================================
+ * projects: search, tabs, repo list
+ * ========================================================================== */
+
+.search-bar[class] {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 8px var(--s3);
+  margin-bottom: var(--s4);
+}
+
+.search-bar[class]:focus-within {
+  border-color: var(--line-accent);
+}
+
+.search-bar[class] i[class] {
+  color: var(--text-3);
+  font-size: 0.85rem;
+}
+
+.search-bar[class] input[class] {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.search-bar[class] input[class]::placeholder {
+  color: var(--text-3);
+}
+
+.tab-bar[class] {
+  display: flex;
+  gap: var(--s1);
+  margin-bottom: var(--s4);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 4px;
+}
+
+.tab-bar[class] label[class] {
+  flex: 1;
+  text-align: center;
+  padding: 7px var(--s3);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.tab-bar[class] label[class]:hover {
+  color: var(--text-2);
+  background: var(--surface-3);
+}
+
+.tab-bar[class] input:checked + label[class] {
+  background: var(--violet-wash);
+  color: var(--violet);
+  font-weight: 600;
+}
+
+.repo-list[class] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.repo-item[class] {
+  width: 100%;
+  text-align: left;
+  padding: var(--s4);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.repo-item[class]:hover {
+  background: var(--surface-3);
+  border-color: var(--line-accent);
+}
+
+.repo-name[class] {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* both source badges are neutral — the icon and the tab already say which
+   forge a repo came from, and neither needs a colour of its own.
+   The .github / .gitlab variants are listed explicitly because the bundle
+   scopes them one class deeper, and would otherwise win on specificity. */
+.repo-source[class],
+.repo-source.github[class],
+.repo-source.gitlab[class],
+.detail-source[class],
+.detail-source.github[class],
+.detail-source.gitlab[class] {
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+  color: var(--text-3);
+}
+
+.repo-desc[class] {
+  font-size: 0.8rem;
+  color: var(--text-3);
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+.repo-meta[class] {
+  display: flex;
+  gap: var(--s4);
+  font-size: var(--fs-micro);
+  color: var(--text-3);
+}
+
+.repo-meta[class] i[class] {
+  margin-right: 3px;
+  font-size: 0.65rem;
+}
+
+.repo-meta[class] .lang[class] i[class] {
+  color: var(--violet);
+}
+
+.repo-meta[class] .fa-star[class] {
+  color: var(--text-3);
+}
+
+.empty[class] {
+  text-align: center;
+  padding: var(--s8) 0;
+  color: var(--text-3);
+  font-size: var(--fs-sm);
+}
+
+/* ============================================================================
+ * contact / social
+ * ========================================================================== */
+
+.social-grid[class] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--s2);
+}
+
+.btn-social[class] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--text-2);
+  text-decoration: none;
+  padding: 11px var(--s3);
+  border-radius: var(--r-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-social[class]:hover {
+  background: var(--violet-wash);
+  border-color: var(--line-accent);
+  color: var(--violet);
+}
+
+/* ============================================================================
+ * project detail view
+ * ========================================================================== */
+
+.detail-view[class] {
+  animation: none;
+}
+
+.back-btn[class] {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--text-2);
+  padding: 7px var(--s4);
+  border-radius: var(--r-sm);
+  font-size: 0.85rem;
+}
+
+.back-btn[class]:hover {
+  border-color: var(--line-accent);
+  color: var(--violet);
+  background: var(--violet-wash-2);
+}
+
+.detail-header[class] {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--s6);
+}
+
+.detail-header[class] h2[class] {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+
+.detail-desc[class] {
+  color: var(--text-2);
+  font-size: var(--fs-body);
+  margin-bottom: var(--s4);
+  line-height: 1.7;
+}
+
+.detail-tag[class] {
+  font-size: 0.78rem;
+  color: var(--text-3);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.action-btn[class] {
+  padding: 9px var(--s4);
+  border-radius: var(--r-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--text-2);
+}
+
+.action-btn[class]:hover {
+  border-color: var(--line-2);
+  color: var(--text);
+}
+
+.action-btn.primary[class] {
+  background: var(--violet-wash);
+  border-color: var(--line-accent);
+  color: var(--violet);
+}
+
+.action-btn.primary[class]:hover {
+  background: rgba(167, 139, 250, 0.2);
+}
+
+.detail-readme[class] {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: var(--s6);
+}
+
+.detail-readme[class] h3[class] {
+  font-size: 1.05rem;
+  font-weight: 650;
+  color: var(--text);
+  margin-bottom: var(--s4);
+}
+
+.readme-content[class] {
+  color: var(--text-2);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.readme-content[class] h1,
+.readme-content[class] h2,
+.readme-content[class] h3 {
+  color: var(--text);
+}
+
+.readme-content[class] a {
+  color: var(--violet);
+}
+
+.readme-content[class] code {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--cyan);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+}
+
+.readme-content[class] pre {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s4);
+}
+
+.readme-content[class] pre code {
+  background: none;
+  border: none;
+  color: var(--text-2);
+  padding: 0;
+}
+
+.readme-content[class] blockquote {
+  border-left: 2px solid var(--violet-3);
+  padding-left: var(--s4);
+  margin: var(--s3) 0;
+  color: var(--text-3);
+}
+
+.readme-status[class] {
+  color: var(--text-3);
+}
+
+/* ============================================================================
+ * network hub
+ * ========================================================================== */
+
+.network-hub {
+  max-width: var(--column);
+  margin: var(--s7) auto 0;
+  padding: 0 var(--s5);
+}
+
+.network-hub h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  font-size: var(--fs-h2);
+  font-weight: 650;
+  letter-spacing: -0.018em;
+  color: var(--text);
+  margin: 0 0 var(--s1);
+}
+
+.network-hub h2 i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  background: var(--violet-wash);
+  border: 1px solid var(--line-accent);
+  color: var(--violet);
+  font-size: 0.95rem;
+}
+
 .network-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+  gap: var(--s3);
 }
+
 .net-card {
-  display: flex; flex-direction: column; gap: .4rem;
-  padding: 1.1rem 1.2rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.05);
-  color: inherit; text-decoration: none;
-  transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--s4);
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
-.net-card:hover, .net-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: rgba(255,255,255,.4);
-  background: rgba(255,255,255,.09);
+
+.net-card:hover,
+.net-card:focus-visible {
+  background: var(--surface-2);
+  border-color: var(--line-accent);
 }
-.net-card strong { font-size: 1.02rem; }
-.net-card span { font-size: .86rem; opacity: .75; line-height: 1.45; }
+
+.net-card strong {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.net-card span {
+  font-size: 0.84rem;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+/* ============================================================================
+ * footer
+ * ========================================================================== */
+
+footer[class] {
+  text-align: center;
+  padding: var(--s6) var(--s5) var(--s7);
+  border-top: 1px solid var(--line);
+  color: var(--text-3);
+  font-size: 0.85rem;
+}
+
+footer .sub[class] {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  opacity: 0.75;
+}
+
+footer .love[class] {
+  font-size: 0.75rem;
+  margin-top: var(--s2);
+  color: var(--violet);
+  opacity: 0.85;
+}
+
+/* ============================================================================
+ * sidebar (the SPA's mobile drawer) — same chrome as the rest of the page
+ * ========================================================================== */
+
+.sidebar[class] {
+  background: var(--bg-2);
+  border-right: 1px solid var(--line);
+}
+
+.sidebar-header[class] {
+  border-bottom: 1px solid var(--line);
+}
+
+.sidebar-header[class] h2[class] {
+  font-size: 1rem;
+  color: var(--violet);
+}
+
+.sidebar-search[class] {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.sidebar-search[class] input[class] {
+  color: var(--text);
+}
+
+.sidebar-group[class] + .sidebar-group[class] {
+  border-top: 1px solid var(--line);
+}
+
+.sidebar-group-title[class] {
+  color: var(--text-3);
+}
+
+.sidebar-item[class]:hover {
+  background: var(--violet-wash-2);
+  border-left-color: var(--violet-2);
+}
+
+.sidebar-item strong[class] {
+  color: var(--text);
+}
+
+.sidebar-item-desc[class] {
+  color: var(--text-3);
+}
+
+/* ============================================================================
+ * file:// naked mode — the SPA can't boot from disk, the rail still can
+ * ========================================================================== */
+
+body.lr-naked {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* ============================================================================
+ * responsive
+ * ========================================================================== */
+
+@media (max-width: 700px) {
+  header[class]::after {
+    /* nothing to bleed against on narrow screens */
+  }
+
+  .vibes-hero {
+    padding: var(--s7) 0 var(--s5);
+  }
+
+  .vibes-hero h1 {
+    max-width: none;
+  }
+
+  .stats[class] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .social-grid[class] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid[class] {
+    grid-template-columns: 1fr;
+  }
+
+  .card[class] {
+    padding: var(--s5);
+  }
+
+  .network-hub {
+    padding: 0 var(--s4);
+  }
+}
+
+/* ============================================================================
+ * motion and contrast
+ * ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --line: rgba(255, 255, 255, 0.22);
+    --line-2: rgba(255, 255, 255, 0.34);
+    --text-2: #c9c9d6;
+    --text-3: #a3a3b6;
+    --surface: #171721;
+    --surface-2: #1d1d29;
+  }
+}

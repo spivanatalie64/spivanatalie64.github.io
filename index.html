@@ -122,8 +122,17 @@
             '<span class="vibes-hero-tag">trans</span>' +
             '<span class="vibes-hero-tag heart">still here ❤️</span>' +
             '</div></div>';
-          var content = app.querySelector('header, section') ? app : app.firstElementChild;
-          app.insertBefore(hero, app.firstChild);
+          // The hero is a statement, not a masthead: it belongs *under* the
+          // nav so the site chrome stays at the top, and inside the SPA's own
+          // column so it lines up with the sections under it. Inserting it
+          // ahead of the app root did neither — it floated above the header
+          // on a wider measure than everything else on the page.
+          var header = app.querySelector('header');
+          if (header && header.parentNode) {
+            header.parentNode.insertBefore(hero, header.nextSibling);
+          } else {
+            app.insertBefore(hero, app.firstChild);
+          }
         }
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
         else inject();
